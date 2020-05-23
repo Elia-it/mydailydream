@@ -32,7 +32,7 @@ class Dream extends Model
     }
 
     public function techniques(){
-      return $this->belongsTo('App\Techniques');
+      return $this->belongsTo('App\Technique');
     }
 
     public function mood(){

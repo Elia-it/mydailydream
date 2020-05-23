@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Techniques extends Model
+class Technique extends Model
 {
     //
     public function dream(){

@@ -15,7 +15,7 @@ class AddRoleIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->tinyInteger('role_id')->default(1)->unsigned();
+            $table->tinyInteger('role_id')->default(1)->unsigned()->after('id');
 
         });
     }
