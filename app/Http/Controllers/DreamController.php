@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Dream;
 
-class DreamsController extends Controller
+class DreamController extends Controller
 {
     /**
      * Display a listing of the resource.
