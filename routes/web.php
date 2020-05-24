@@ -40,9 +40,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function(){
 
-  Route::resource('/dream', 'DreamsController');
+  Route::resource('/dream', 'DreamController');
 
-  Route::get('/profile', 'ProfilesControllers@userUpdate');
+  Route::get('/profile', 'ProfileController@userUpdate');
 
 });
 
