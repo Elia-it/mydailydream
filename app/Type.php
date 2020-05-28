@@ -9,6 +9,6 @@ class Type extends Model
     //
 
     public function dream(){
-      return $this->hasMany('App\Dream');
+      return $this->belongsTo('App\Dream', 'type_id');
     }
 }

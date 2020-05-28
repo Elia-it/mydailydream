@@ -12,9 +12,10 @@ class AdminController extends Controller
       $this->middleware('isAdmin');
     }
 
-    Public function allUsers(){
+    public function allUsers(){
       $user = User::with('role')->first();
       return view('/test', compact('user'));
     }
 
+    
 }

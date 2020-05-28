@@ -8,6 +8,6 @@ class Color extends Model
 {
     //
     public function dream(){
-      return $this->hasMany('App\Dream');
+      return $this->belongsTo('App\Dream', 'color_id', 'id');
     }
 }

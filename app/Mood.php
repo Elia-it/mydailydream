@@ -8,6 +8,6 @@ class Mood extends Model
 {
     //
     public function dream(){
-      return $this->hasMany('App\Dream');
+      return $this->belongsTo('App\Dream', 'mood_id');
     }
 }

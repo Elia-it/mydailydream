@@ -12,15 +12,25 @@
 
 
 <div class="container">
-  <h2 class="content-heading">Your Time-dreams! </h2>
+  <h2 class="content-heading text-center">Welcome to your Home!</h2>
+
 
   <div class="block">
                         <div class="block-header block-header-default">
-                            <h3 class="block-title">All your dreams</h3>
+                            <h3 class="block-title">
+
+                            @if ($dreams->isEmpty())
+                              Write your first dream!
+                            @else
+                              All your dreams!
+                            @endif
+
+                            </h3>
                             <div class="block-options">
                               <a type="button" class="btn btn-alt-success mr-5 mb-5" href="/dream/create">
-                                    <i class="fa fa-plus mr-5"></i>Write your dream!
-                                </a>
+                                    <i class="fa fa-plus mr-5"></i>
+                                    Write your dream!
+                                  </a>
                                 <button type="button" class="btn-block-option" data-toggle="block-option" data-action="fullscreen_toggle"><i class="si si-size-fullscreen"></i></button>
                                 <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
                                     <i class="si si-refresh"></i>
@@ -32,39 +42,53 @@
                             <ul class="list list-timeline list-timeline-modern pull-t">
                                 <!-- Twitter Notification -->
 
-                                @foreach ($dreams as $dream)
+                                  @foreach ($dreams as $dream)
 
 
-                                <li>
-                                    <div class="list-timeline-time">{{$dream->date}}</div>
-                                    @if($dream->status == 'publish')
-                                      <i class="list-timeline-icon fa fa-check bg-success"></i>
+                                  <li>
+                                      <div class="list-timeline-time">{{$dream->date}}</div>
+                                      @if($dream->status == 'publish')
+                                        <i class="list-timeline-icon fa fa-check bg-success"></i>
 
-                                  @else
+                                    @else
 
-                                      <i class="list-timeline-icon fa fa-close bg-danger"></i>
+                                        <i class="list-timeline-icon fa fa-close bg-danger"></i>
 
-                                  @endif
-                                    <div class="list-timeline-content">
-                                        <p class="font-w600">{{$dream->title}}</p>
-                                        <p>Inizia a scrivere per poi continuare dopo...</p>
+                                    @endif
+                                      <div class="list-timeline-content">
+                                          <p class="font-w600">{{$dream->title}}</p>
+                                          <p>Inizia a scrivere per poi continuare dopo...</p>
+                                          @if(!empty($dream->attatchment[0]))
+                                          <div class="row items-push js-gallery img-fluid-100 js-gallery-enabled">
 
-                                        @if($dream->status == 'draft')
+                                              <div class="col-sm-6 col-xl-3">
 
-                                          <a class="btn btn-info" href="/dream/{{$dream->id}}/edit">Want to finish him?  <i class="fa fa-exclamation">  </i></a>
+                                                  <a class="img-link img-link-zoom-in img-lightbox" href="{{asset("dream_images/". $dream->attatchment[0]->location ."")}}">
+                                                      <img class="img-fluid" src="{{asset("dream_images/". $dream->attatchment[0]->location ."")}}" alt="">
+                                                  </a>
+                                              </div>
 
+                                        </div>
                                         @endif
 
-                                        <a type="button" class="btn btn-outline-success" href="/dream/{{$dream->id}}" >Do you want read it?</a>
-                                    </div>
-                                </li>
+                                          @if($dream->status == 'draft')
 
-                                @endforeach
+                                            <a class="btn btn-info" href="/dream/{{$dream->id}}/edit">Want to finish him?  <i class="fa fa-exclamation">  </i></a>
 
-                                
+                                          @endif
+
+                                          <a type="button" class="btn btn-outline-success" href="/dream/{{$dream->id}}" >Do you want read it?</a>
+                                      </div>
+                                  </li>
+
+
+                                  @endforeach
+
+
                             </ul>
                         </div>
                     </div>
                   </div>
+
 
 @endsection

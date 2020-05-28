@@ -14,7 +14,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth::check()){
+      if(Auth::user()->role->role == 'admin'){
+        return redirect('/adminpanel');
+      }else{
+        return redirect('/home');
+      }
+
+    }else{
+      return view('landing');
+    }
 });
 
 Auth::routes();
@@ -44,8 +53,15 @@ Route::middleware(['auth'])->group(function(){
 
   Route::get('/profile', 'ProfileController@userUpdate');
 
+
 });
 
 Route::middleware(['auth', 'isAdmin'])->group(function(){
+  Route::view('/adminpanel', 'admin_pages.panel');
 
+  Route::resource('/adminpanel/emotions', 'EmotionController');
+
+  Route::resource('/adminpanel/techniques', 'TechniqueController');
+
+  Route::resource('/adminpanel/colors', 'ColorController');
 });

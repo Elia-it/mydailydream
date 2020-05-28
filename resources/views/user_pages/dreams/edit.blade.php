@@ -30,8 +30,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                  <div class="col-6">
-                                      <div class="custom-control custom-checkbox">
+                                  <div class="col-3">
 
                                           <p> It @if($dream->is_in_first_person == 0)
                                             <b>wasn't</b>
@@ -41,12 +40,17 @@
                                             <input type="hidden" class="custom-control-input" id="is_in_first_person_yes" name="is_in_first_person" value="1">
                                           @endif
                                           in first person</p><br>
+
+                                          </div>
+                                          <div class="col-2">
+
                                           Did you remember better? change it!
-                                          <br>
 
+
+                                        </div>
+                                        <div class="col-6">
                                           <label>It was in first person?</label>
-
-                                          <div class="col-12">
+                                            <div class="custom-control custom-checkbox">
 
                                                 <div class="custom-control custom-radio mb-5">
                                                     <input class="custom-control-input" type="radio" name="is_in_first_person" id="is_in_first_person_1" value="{{($dream->is_in_first_person)}}" checked="">
@@ -73,13 +77,95 @@
                                                 </div>
                                                 @endif
                                             </div>
+                                          </div>
 
-                                      </div>
-                                    </div>
+
 
 
 
                               </div>
+                              <div class="form-group row">
+                                <div class="col-3">
+                                      <select class="form-control" id="emotion" name="emotion_id">
+
+                                        @if ($dream->emotion_id > 0)
+                                          <option value="{{$dream->emotion_id}}">{{$dream->emotion->name}}</option>
+                                        @else
+                                          <option value="">How did you feel?</option>
+                                        @endif
+
+
+                                          @foreach ($emotions as $emotion)
+                                            @if($emotion->id != $dream->emotion_id)
+                                              <option value="{{$emotion->id}}">{{$emotion->name}}</option>
+                                            @endif
+                                          @endforeach
+
+                                      </select>
+                                  </div>
+                                  <div class="col-3">
+                                        <select class="form-control" id="type" name="type_id">
+
+                                          @if ($dream->type_id > 0)
+                                            <option value="{{$dream->type_id}}">{{$dream->type->name}}</option>
+                                          @else
+                                            <option value="">What kind of Dream it was?</option>
+                                          @endif
+
+
+                                            @foreach ($types as $type)
+                                              @if($type->id != $dream->type_id)
+                                                <option value="{{$type->id}}">{{$type->name}}</option>
+                                              @endif
+                                            @endforeach
+
+                                        </select>
+                                    </div>
+
+                                    <div class="col-3">
+                                          <select class="form-control" id="technique" name="technique_id">
+
+
+                                            @if($dream->technique_id > 0)
+                                              <option value="{{$dream->technique_id}}">{{$dream->technique->name}}</option>
+
+                                            @else
+                                              <option value="">Did you use a technique?</option>
+                                            @endif
+
+                                              @foreach ($techniques as $technique)
+                                                @if ($technique->id != $dream->technique->name)
+                                                  <option value="{{$technique->id}}">{{$technique->name}}</option>
+                                                @endif
+                                              @endforeach
+
+                                          </select>
+                                      </div>
+
+                                      <div class="col-3">
+                                            <select class="form-control" id="mood" name="mood_id">
+
+                                              @if ($dream->mood_id > 0)
+                                                <option value="{{$dream->mood_id}}">{{$dream->mood->name}}</option>
+                                              @else
+                                                <option value="">What mood did you feel?</option>
+                                              @endif
+
+                                                @foreach ($moods as $mood)
+                                                  @if($mood->id != $dream->mood_id)
+                                                    <option value="{{$mood->id}}">{{$mood->name}}</option>
+                                                  @endif
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                        {{-- <div class="col-3">
+                                          <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
+                                        </div> --}}
+
+
+
+                                </div>
 
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                 <input type="submit" class="btn btn-rounded btn-outline-info min-width-125 mx:right" name="status" style="margin-bottom: 10px" value="draft">

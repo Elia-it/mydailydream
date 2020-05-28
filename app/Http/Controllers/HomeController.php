@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dream;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -15,6 +16,7 @@ class HomeController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
     }
 
     /**
@@ -24,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $dreams = Dream::all();
+        $id = Auth::user()->id;
+        $dreams = Dream::all()->where('user_id', '=', $id);
         return view('home', compact('dreams'));
     }
 }

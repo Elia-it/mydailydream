@@ -179,9 +179,15 @@ DESKTOP
                                   <i class="si si-puzzle"></i>{{Auth::user()->first_name}}
                               </a>
                               <ul>
+                                <li>
+                                    @if(Auth::user()->role->role == "admin")
+                                      <a href="/adminpanel">Admin Panel</a>
+                                    @endif
+                                </li>
                                   <li>
                                       <a href="/profile">Profile</a>
                                   </li>
+                                  
                                   <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();

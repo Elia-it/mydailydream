@@ -12,39 +12,35 @@
                     <div class="block" style="border-style: solid" id="box">
                         <div class="block-header block-header-default">
                             <div class="form-material">
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" size="50" style="font-size: 20px" placeholder="Title">
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" size="50" style="font-size: 30px" placeholder="Title">
 
                             </div>
                             <div class="btn-group" role="group">
-                              <label>Select a color for your Dream! </label>
                             <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-wrench"></i>
                             </button>
                             <div class="dropdown-menu min-width-300" aria-labelledby="page-header-options-dropdown" style="">
                                 <h5 class="h6 text-center py-10 mb-10 border-b text-uppercase">Settings</h5>
                                 <h6 class="dropdown-header">Color Themes</h6>
-                                <div class="row no-gutters text-center">
+                                <div class="row no-gutters text-center mb-5">
                                     <div class="col-2">
-                                      {{-- <label class="css-control css-control-primary css-radio">
+                                            <label class="css-control css-control-primary css-radio">
 
-                                          <input type="radio" class="css-control-input" name="radio-group2" checked="" onClick="changeColour('none')"  >
-                                          <span class="css-control-indicator"></span> default
-                                      </label> --}}
-                                      <label class="css-control css-control-primary css-radio">
-                                            <input type="radio" class="css-control-input" name="color_id" onClick="changeColour('none')" value="" >
-                                            <span class="css-control-indicator"></span> none
-                                        </label>
-                                      @foreach ($colors as $color)
-
-
-
-                                          <label class="css-control css-control-primary css-radio">
-                                                <input type="radio" class="css-control-input" name="color_id" onClick="changeColour('{{$color->hex}}')" value="{{$color->id}}" >
-                                                <span class="css-control-indicator"></span> {{$color->name}}
+                                                <input type="radio" class="css-control-input" name="radio-group2" checked="" onClick="changeColour('blue')"  >
+                                                <span class="css-control-indicator"></span> blue
                                             </label>
-                                            @endforeach
-
-
+                                            <label class="css-control css-control-primary css-radio">
+                                                <input type="radio" class="css-control-input" name="radio-group2" value="black" onClick="changeColour('black')">
+                                                <span class="css-control-indicator"></span> black
+                                            </label>
+                                            <label class="css-control css-control-primary css-radio">
+                                                <input type="radio" class="css-control-input" name="radio-group2" value="purple" onClick="changeColour('white')">
+                                                <span class="css-control-indicator"></span> purple
+                                            </label>
+                                            <label class="css-control css-control-primary css-radio">
+                                                <input type="radio" class="css-control-input" name="radio-group2" value="Orange">
+                                                <span class="css-control-indicator"></span> Orange
+                                            </label>
                                         </div>
                                     {{-- <div class="col-2 mb-5">
                                         <a class="text-default" data-toggle="theme" data-theme="default" href="javascript:void(0)">
@@ -95,49 +91,6 @@
                                 </div>
                                 <div class="form-group row">
                                   <div class="col-3">
-
-                                        <select class="form-control" id="emotion" name="emotion_id">
-                                            <option value="">How did you feel?</option>
-                                            @foreach ($emotions as $emotion)
-                                              <option value="{{$emotion->id}}">{{$emotion->name}}</option>
-                                            @endforeach
-
-                                        </select>
-                                    </div>
-                                    <div class="col-3">
-                                          <select class="form-control" id="type" name="type_id">
-                                              <option value="">What kind of Dream it was?</option>
-
-                                              @foreach ($types as $type)
-                                                <option value="{{$type->id}}">{{$type->name}}</option>
-                                              @endforeach
-
-                                          </select>
-                                      </div>
-
-                                      <div class="col-3">
-                                            <select class="form-control" id="technique" name="technique_id">
-                                                <option value="">Did you use a technique?</option>
-
-                                                @foreach ($techniques as $technique)
-                                                  <option value="{{$technique->id}}">{{$technique->name}}</option>
-                                                @endforeach
-
-                                            </select>
-                                        </div>
-
-                                        <div class="col-3">
-                                              <select class="form-control" id="mood" name="mood_id">
-                                                  <option value="">What mood did you feel?</option>
-
-                                                  @foreach ($moods as $mood)
-                                                    <option value="{{$mood->id}}">{{$mood->name}}</option>
-                                                  @endforeach
-
-                                              </select>
-                                          </div>
-
-                                  <div class="col-3">
                                       <div class="custom-control custom-checkbox">
                                           <input type="hidden" class="custom-control-input" id="is_in_first_person_hidden" name="is_in_first_person" value="0">
                                           <input type="checkbox" class="custom-control-input" id="is_in_first_person" name="is_in_first_person" value="1">
@@ -153,7 +106,7 @@
                                         </div>
                                     </div>
                                     <div class="col-3">
-                                      <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
+                                      <input type="file" class="form-control-file" name="file">
                                     </div>
                               </div>
 
@@ -166,9 +119,7 @@
                     </div>
                     <!-- END SimpleMDE Editor -->
                   </div>
-@foreach ($emotions as $emotion)
 
-@endforeach
 
 @endsection
 
@@ -177,7 +128,7 @@
         <script src="{{asset('js/plugins/simplemde/simplemde.min.js')}}"></script>
 
         <!-- Page JS Helpers (Summernote + CKEditor + SimpleMDE plugins) -->
-        <script>jQuery(function(){ Codebase.helpers(['simplemde']); });</script>
+        <script>jQuery(function(){ Codebase.helpers(['summernote','simplemde']); });</script>
 
         <script>
 
@@ -186,7 +137,6 @@
           {
 
               document.getElementById('box').style.borderColor = value;
-
           }
           </script>
 

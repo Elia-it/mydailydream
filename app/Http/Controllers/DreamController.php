@@ -3,7 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Dream;
+use App\Attatchment;
+use App\Color;
+use App\Emotion;
+use App\Mood;
+use App\Tag;
+use App\Technique;
+use App\Type;
 
 class DreamController extends Controller
 {
@@ -35,7 +43,13 @@ class DreamController extends Controller
     public function create()
     {
         //
-        return view('user_pages.dreams.create');
+        $colors = Color::all();
+        $emotions = Emotion::all();
+        $moods = Mood::all();
+        $techniques = Technique::all();
+        $types = Type::all();
+
+        return view('user_pages.dreams.create', compact('colors', 'emotions', 'moods', 'techniques', 'types'));
     }
 
     /**
@@ -47,7 +61,15 @@ class DreamController extends Controller
     public function store(Request $request)
     {
         //
-        Dream::create($request->all());
+        $dream = Dream::create($request->all());
+
+        if(!empty($request->file('file'))){
+          $name = $request->file('file')->getClientOriginalName();
+          $request->file('file')->move('dream_images', $name);
+          Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+
+        }
+
         return redirect('/home');
     }
 
@@ -75,10 +97,15 @@ class DreamController extends Controller
     public function edit($id)
     {
         //
+        $colors = Color::all();
+        $emotions = Emotion::all();
+        $moods = Mood::all();
+        $techniques = Technique::all();
+        $types = Type::all();
 
         $dream = Dream::findOrFail($id);
 
-        return view('user_pages.dreams.edit', compact('dream'));
+        return view('user_pages.dreams.edit', compact('dream', 'colors', 'emotions', 'moods', 'techniques', 'types'));
 
     }
 

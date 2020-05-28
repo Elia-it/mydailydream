@@ -7,7 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Technique extends Model
 {
     //
+    protected $fillable = [
+      'name',
+    ];
+
+
     public function dream(){
-      return $this->hasMany('App\Dream');
+      return $this->belongsTo('App\Dream', 'technique_id');
     }
 }

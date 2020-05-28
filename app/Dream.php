@@ -8,7 +8,7 @@ class Dream extends Model
 {
     //
     protected $fillable = [
-      'status', 'user_id', 'Type_id', 'emotion_id', 'techniques_id', 'mood_id', 'color_id', 'title', 'content', 'date', 'is_in_first_person',
+      'status', 'user_id', 'type_id', 'emotion_id', 'technique_id', 'mood_id', 'color_id', 'title', 'content', 'date', 'is_in_first_person',
     ];
 
 
@@ -28,27 +28,27 @@ class Dream extends Model
 
 
     public function type(){
-      return $this->belongsTo('App\Type');
+      return $this->hasOne('App\Type', 'id', 'type_id');
     }
 
-    public function techniques(){
-      return $this->belongsTo('App\Technique');
+    public function technique(){
+      return $this->hasOne('App\Technique', 'id', 'technique_id');
     }
 
     public function mood(){
-      return $this->belongsTo('App\Mood');
+      return $this->hasOne('App\Mood', 'id', 'mood_id');
     }
 
     public function emotion(){
-      return $this->belongsTo('App\Emotion');
+      return $this->hasOne('App\Emotion', 'id', 'emotion_id');
     }
 
     public function color(){
-      return $this->belongsTo('App\Color');
+      return $this->hasOne('App\Color', 'id', 'color_id');
     }
 
-    public function attachment(){
-      return $this->belongsTo('App\Attachment');
+    public function attatchment(){
+      return $this->hasMany('App\Attatchment', 'dream_id', 'id');
     }
 
 }

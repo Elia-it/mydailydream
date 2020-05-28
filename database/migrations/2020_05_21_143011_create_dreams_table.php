@@ -19,7 +19,7 @@ class CreateDreamsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('type_id')->nullable();
             $table->integer('emotion_id')->nullable();
-            $table->integer('techniques_id')->nullable();
+            $table->integer('technique_id')->nullable();
             $table->integer('mood_id')->nullable();
             $table->integer('color_id')->nullable();
             $table->string('title', 255);
