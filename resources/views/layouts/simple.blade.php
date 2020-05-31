@@ -78,7 +78,7 @@
         <div id="page-container" class="main-content-boxed">
             <!-- Main Container -->
             @yield('before_content')
-            
+
             <main id="main-container">
                 @yield('content')
             </main>

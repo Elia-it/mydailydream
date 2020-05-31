@@ -51,4 +51,8 @@ class Dream extends Model
       return $this->hasMany('App\Attatchment', 'dream_id', 'id');
     }
 
+    public function tags(){
+      return $this->belongsToMany('App\Tag', 'dreams_tags');
+    }
+
 }

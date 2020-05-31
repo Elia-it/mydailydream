@@ -53,8 +53,12 @@ Route::middleware(['auth'])->group(function(){
 
   Route::get('/profile', 'ProfileController@userUpdate');
 
+  Route::resource('/dream/file', 'AttatchmentController')->only(['update', 'destroy']);
+
 
 });
+
+Route::view('/prova', 'prova');
 
 Route::middleware(['auth', 'isAdmin'])->group(function(){
   Route::view('/adminpanel', 'admin_pages.panel');
@@ -64,4 +68,5 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
   Route::resource('/adminpanel/techniques', 'TechniqueController');
 
   Route::resource('/adminpanel/colors', 'ColorController');
+
 });

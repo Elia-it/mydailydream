@@ -7,19 +7,97 @@
 @section('content')
               <div class="container">
                 <h2 class="content-heading" style="text-align: center;">Edit page</h2>
-                <form method="POST" action="{{url("/dream/$dream->id")}}">
+                <form method="POST" action="{{url("/dream/$dream->id")}}" enctype="multipart/form-data">
                   @method('PUT')
                   @csrf
-                    <div class="block">
+                    <div class="block" style="border-style: solid;  @if (!empty($dream->color_id)) border-color: {{$dream->color->hex}} @endif" id="box">
+
                         <div class="block-header block-header-default">
                             <div class="form-material">
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" size="50" style="font-size: 30px" placeholder="Title" value="{{$dream->title}}">
 
                             </div>
-                            <div class="block-options">
-                                <button type="button" class="btn-block-option">
-                                    <i class="si si-wrench"></i>
-                                </button>
+
+                            <div class="btn-group" role="group">
+                              @if (!empty($dream->color_id))
+                              <label>Do you want change your color's dream? </label>
+                            @else
+                              <label>Choose a color for you dream! </label>
+                            @endif
+                            <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-wrench"></i>
+                            </button>
+                            <div class="dropdown-menu min-width-300" aria-labelledby="page-header-options-dropdown" style="">
+                                <h5 class="h6 text-center py-10 mb-10 border-b text-uppercase">Settings</h5>
+                                <h6 class="dropdown-header">Color Themes</h6>
+                                <div class="row no-gutters text-center">
+                                    <div class="col-2">
+                                      {{-- <label class="css-control css-control-primary css-radio">
+
+                                          <input type="radio" class="css-control-input" name="radio-group2" checked="" onClick="changeColour('none')"  >
+                                          <span class="css-control-indicator"></span> default
+                                      </label> --}}
+                                      <label class="css-control css-control-primary css-radio">
+                                            <input type="radio" class="css-control-input" name="color_id" onClick="changeColour('none')" value="" >
+                                            <span class="css-control-indicator"></span> none
+                                        </label>
+                                      @foreach ($colors as $color)
+
+
+
+                                          <label class="css-control css-control-primary css-radio">
+                                                <input type="radio" class="css-control-input" name="color_id" onClick="changeColour('{{$color->hex}}')" value="{{$color->id}}" >
+                                                <span class="css-control-indicator"></span> {{$color->name}}
+                                            </label>
+                                            @endforeach
+
+
+                                        </div>
+                                    {{-- <div class="col-2 mb-5">
+                                        <a class="text-default" data-toggle="theme" data-theme="default" href="javascript:void(0)">
+
+                                            <i class="fa fa-2x fa-circle"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-2 mb-5">
+                                        <a class="text-elegance colorChange" data-toggle="theme" data-theme="{{mix('/css/themes/elegance.css')}}" href="javascript:void(0)" value="black" onlick="myBlack()">
+
+                                            <i class="fa fa-2x fa-circle"></i>
+                                        </a>
+                                    </div> --}}
+                                    {{-- <div class="col-2 mb-5">
+                                        <a class="text-pulse colorChange" data-toggle="theme" data-theme="{{mix('/css/themes/pulse.css')}}" href="javascript:void(0)">
+                                            <i class="fa fa-2x fa-circle"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-2 mb-5">
+                                        <a class="text-flat colorChange" data-toggle="theme" data-theme="{{mix('/css/themes/flat.css')}}" href="javascript:void(0)">
+                                            <i class="fa fa-2x fa-circle"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-2 mb-5">
+                                        <a class="text-corporate colorChange" data-toggle="theme" data-theme="{{mix('/css/themes/corporate.css')}}" href="javascript:void(0)">
+                                            <i class="fa fa-2x fa-circle"></i>
+                                        </a>
+                                    </div>
+                                    <div class="col-2 mb-5">
+                                        <a class="text-earth colorChange" data-toggle="theme" data-theme="{{mix('/css/themes/earth.css')}}" href="javascript:void(0)">
+                                            <i class="fa fa-2x fa-circle"></i>
+                                        </a>
+                                    </div> --}}
+                                </div>
+
+                            </div>
+
+
+
+
+
+
+
+
+
+
                             </div>
                         </div>
                         <div class="block-content">
@@ -134,7 +212,7 @@
                                             @endif
 
                                               @foreach ($techniques as $technique)
-                                                @if ($technique->id != $dream->technique->name)
+                                                @if ($technique->id != $dream->technique_id)
                                                   <option value="{{$technique->id}}">{{$technique->name}}</option>
                                                 @endif
                                               @endforeach
@@ -162,6 +240,11 @@
                                         {{-- <div class="col-3">
                                           <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
                                         </div> --}}
+                                        @if(empty($dream->attatchment[0]))
+                                        <div class="col-3" style="margin-top: 10px">
+                                          <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
+                                        </div>
+                                      @endif
 
 
 
@@ -174,17 +257,76 @@
 
                             </form>
 
+                            @if(!empty($dream->attatchment[0]))
+                            <div class="row text-center">
+                              <div class="col-lg-4 ml-auto">
+                                <label> Update your file </label>
+                                <hr>
+                              </div>
+                              <div class="col-lg-4 mr-auto">
+                                <label> Delete your file </label>
+                                <hr>
+                              </div>
+                            </div>
+                            <div class="row text-center">
+                              <div class="col-lg-4 ml-auto">
+
+                                  <form method="POST" action="{{url("/dream/file/".$dream->attatchment[0]->id."")}}" enctype="multipart/form-data">
+                                      @method('PUT')
+                                      @csrf
+
+                                      <input type="file" name="file" >
+
+
+                                      <input type="submit" class="btn btn-info min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" name="update_file" value="update file">
+
+                                  </form>
+                                </div>
+                                <div class="col-lg-4 mr-auto">
+                                  <form method="POST" action="{{url("/dream/file/".$dream->attatchment[0]->id."")}}">
+                                      @method('DELETE')
+                                      @csrf
+                                      <label>{{$dream->attatchment[0]->location}}</label>
+                                      <br>
+                                      <input type="submit" class="btn btn-danger min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" value="Delete file">
+
+                                  </form>
+                                </div>
+
+                            </div>
+                            @endif
+
                         </div>
 
-                        <div class="block" style="text-align: right">
+                        <div class="block" style="text-align: right" >
                           <form method="POST" action="{{url("/dream/$dream->id")}}">
                             @method('DELETE')
                             @csrf
                             <input type="submit" class="btn btn-rounded btn-outline-danger min-width-125 mx:right" name="status" style="margin-bottom: 10px; margin-right: 10px" value="delete">
                           </form>
+
+
+
                         </div>
                     </div>
                     <!-- END SimpleMDE Editor -->
+                    <hr>
+                    <div class="box ">
+                      <div class="text-center">
+                        <h3>Your file</h3>
+                        <hr>
+                      </div>
+                      <div class="row">
+                        <div class="col-3">
+                          @if(!empty($dream->attatchment[0]))
+                          <a href="{{asset("/dream_images/". $dream->attatchment[0]->location."")}}">
+                            <img style="width: 100%" src="{{asset("/dream_images/". $dream->attatchment[0]->location."")}}">
+                          </a>
+                        @endif
+                        </div>
+
+                      </div>
+                    </div>
                   </div>
 
 @endsection
@@ -195,4 +337,14 @@
 
         <!-- Page JS Helpers (Summernote + CKEditor + SimpleMDE plugins) -->
         <script>jQuery(function(){ Codebase.helpers(['simplemde']); });</script>
+
+        <script>
+
+
+          window.changeColour = function(value)
+          {
+              document.getElementById('box').style.borderColor = value;
+
+          }
+          </script>
 @endsection

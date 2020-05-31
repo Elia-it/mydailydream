@@ -48,8 +48,9 @@ class DreamController extends Controller
         $moods = Mood::all();
         $techniques = Technique::all();
         $types = Type::all();
+        $tags = Tag::all();
 
-        return view('user_pages.dreams.create', compact('colors', 'emotions', 'moods', 'techniques', 'types'));
+        return view('user_pages.dreams.create', compact('colors', 'emotions', 'moods', 'techniques', 'types', 'tags'));
     }
 
     /**
@@ -62,6 +63,10 @@ class DreamController extends Controller
     {
         //
         $dream = Dream::create($request->all());
+
+        if(!empty($request->input('tag'))){
+          $dream->tags()->attach($request->input('tag'));
+        }
 
         if(!empty($request->file('file'))){
           $name = $request->file('file')->getClientOriginalName();
@@ -102,10 +107,11 @@ class DreamController extends Controller
         $moods = Mood::all();
         $techniques = Technique::all();
         $types = Type::all();
+        $tags = Tag::all();
 
         $dream = Dream::findOrFail($id);
 
-        return view('user_pages.dreams.edit', compact('dream', 'colors', 'emotions', 'moods', 'techniques', 'types'));
+        return view('user_pages.dreams.edit', compact('dream', 'colors', 'emotions', 'moods', 'techniques', 'types', 'tags'));
 
     }
 
@@ -122,6 +128,13 @@ class DreamController extends Controller
         $dream = Dream::findOrFail($id);
 
         $dream->update($request->all());
+
+        if(!empty($request->file('file'))){
+          $name = $request->file('file')->getClientOriginalName();
+          $request->file('file')->move('dream_images', $name);
+          Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+
+        }
 
         return redirect('/home');
     }

@@ -9,7 +9,8 @@
                 <h2 class="content-heading" style="text-align: center;">Write your daily dream!</h2>
                 <form method="POST" action="{{route('dream.store')}}" enctype="multipart/form-data">
                   @csrf
-                    <div class="block" style="border-style: solid" id="box">
+                  <div class="row">
+                    <div class="block" style="border-left: solid" id="box">
                         <div class="block-header block-header-default">
                             <div class="form-material">
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" size="50" style="font-size: 20px" placeholder="Title">
@@ -87,11 +88,28 @@
 
                         <div class="block-content">
                                 <div class="form-group row">
-                                    <div class="col-12">
+                                    <div class="col-10">
 
                                         <!-- SimpleMDE Container -->
                                         <textarea class="js-simplemde" id="textarea" name="content" placeholder="Do you haven't enough time for write it? Just write 3 words and we will remember you later!"></textarea>
+
+
+
+
                                     </div>
+                                    <div class="col-2">
+                                            <label class="col-12">Tags</label>
+                                            <div class="col-12">
+                                              @foreach ($tags as $tag)
+                                                <div class="custom-control custom-radio mb-5">
+                                                    <input class="custom-control-input" type="radio" name="tag" id="tag_{{$tag->id}}" value="{{$tag->id}}" >
+                                                    <label class="custom-control-label" for="tag_{{$tag->id}}" >{{$tag->name}}</label>
+                                                </div>
+                                              @endforeach
+
+
+                                            </div>
+                                        </div>
                                 </div>
                                 <div class="form-group row">
                                   <div class="col-3">
@@ -135,7 +153,9 @@
                                                   @endforeach
 
                                               </select>
+                                              <br>
                                           </div>
+
 
                                   <div class="col-3">
                                       <div class="custom-control custom-checkbox">
@@ -152,19 +172,30 @@
                                             <label class="custom-control-label" for="status">Is it a publish? </label>
                                         </div>
                                     </div>
-                                    <div class="col-3">
-                                      <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
-                                    </div>
+
+
                               </div>
+
+                              <div class="row">
+                                <label for="example-file-multiple-input">Add your file</label>
+                                <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
+                              </div>
+                              <br>
 
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                 <input type="submit" class="btn btn-rounded btn-outline-info min-width-125 mx:right" name="submit" style="margin-bottom: 10px" value="Save">
 
 
-                            </form>
                         </div>
                     </div>
                     <!-- END SimpleMDE Editor -->
+
+
+
+
+
+                    </form>
+                  </div>
                   </div>
 @foreach ($emotions as $emotion)
 
@@ -184,8 +215,7 @@
 
           window.changeColour = function(value)
           {
-
-              document.getElementById('box').style.borderColor = value;
+              document.getElementById('box').style.borderLeftColor = value;
 
           }
           </script>
