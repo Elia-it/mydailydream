@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use App\Dream;
 use App\Attatchment;
 use App\Color;
@@ -63,17 +64,38 @@ class DreamController extends Controller
     {
         //
         $dream = Dream::create($request->all());
-
+        $tags = $request->input('tag');
         if(!empty($request->input('tag'))){
-          $dream->tags()->attach($request->input('tag'));
-        }
-
-        if(!empty($request->file('file'))){
-          $name = $request->file('file')->getClientOriginalName();
-          $request->file('file')->move('dream_images', $name);
-          Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+          foreach($tags as $tag){
+            $dream->tags()->attach($tag);
+          }
 
         }
+
+
+        // if(!empty($request->file('file'))){
+
+          $files = $request->file('file');
+
+          if($request->hasFile('file')){
+            foreach($files as $file){
+              $uniqueId = Str::random(9);
+              $name = "id=".$uniqueId."_".$file->getClientOriginalName();
+              $file->move('dream_images', $name);
+              Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+            }
+          }
+          // foreach ($request->file('file') as $file){
+          //   $name = $file->getClientOriginalName();
+          //   $file->move('dream_images', $name);
+          //   Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+          //   echo 1;
+          // }
+          // $name = $request->file('file')->getClientOriginalName();
+          // $request->file('file')->move('dream_images', $name);
+          // Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+
+         // }
 
         return redirect('/home');
     }
@@ -129,14 +151,39 @@ class DreamController extends Controller
 
         $dream->update($request->all());
 
-        if(!empty($request->file('file'))){
-          $name = $request->file('file')->getClientOriginalName();
-          $request->file('file')->move('dream_images', $name);
-          Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+        $tags = $request->input('tag');
+        if(!empty($tags)){}
+          foreach($tags as $tag){
+            if(!empty($tag)){
 
+              $dream->tags()->attach($tag);
+            }else{
+              $dream->tags()->detach($tag);
+            }
+          }
         }
 
-        return redirect('/home');
+
+        $files = $request->file('add_file');
+
+        if($request->hasFile('add_file')){
+          foreach($files as $file){
+            $uniqueId = Str::random(9);
+            $name = "id=".$uniqueId."_".$file->getClientOriginalName();
+            $file->move('dream_images', $name);
+            Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+          }
+        }
+
+        // if(!empty($request->file('file'))){
+        //   $name = $request->file('file')->getClientOriginalName();
+        //   $request->file('file')->move('dream_images', $name);
+        //   Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+        //
+        // }
+
+         return redirect("dream/$dream->id");
+
     }
 
     /**

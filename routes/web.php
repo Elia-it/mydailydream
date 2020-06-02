@@ -58,9 +58,10 @@ Route::middleware(['auth'])->group(function(){
 
 });
 
-Route::view('/prova', 'prova');
+// Route::view('/prova', 'prova');
 
 Route::middleware(['auth', 'isAdmin'])->group(function(){
+
   Route::view('/adminpanel', 'admin_pages.panel');
 
   Route::resource('/adminpanel/emotions', 'EmotionController');

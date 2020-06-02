@@ -58,15 +58,23 @@
                                       <div class="list-timeline-content">
                                           <p class="font-w600">{{$dream->title}}</p>
                                           <p>Inizia a scrivere per poi continuare dopo...</p>
-                                          @if(!empty($dream->attatchment[0]))
+                                          @if(!empty($dream->attatchment))
                                           <div class="row items-push js-gallery img-fluid-100 js-gallery-enabled">
-
+                                            
+                                            @foreach ($dream->attatchment as $file)
                                               <div class="col-sm-6 col-xl-3">
+
+                                                  <a class="img-link img-link-zoom-in img-lightbox" href="{{asset("dream_images/". $file->location ."")}}">
+                                                      <img class="img-fluid" src="{{asset("dream_images/". $file->location ."")}}" alt="">
+                                                  </a>
+                                              </div>
+                                            @endforeach
+                                              {{-- <div class="col-sm-6 col-xl-3">
 
                                                   <a class="img-link img-link-zoom-in img-lightbox" href="{{asset("dream_images/". $dream->attatchment[0]->location ."")}}">
                                                       <img class="img-fluid" src="{{asset("dream_images/". $dream->attatchment[0]->location ."")}}" alt="">
                                                   </a>
-                                              </div>
+                                              </div> --}}
 
                                         </div>
                                         @endif

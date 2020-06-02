@@ -123,9 +123,9 @@ DESKTOP
                         <div class="content-header-section">
                             <!-- Logo -->
                             <div class="content-header-item">
-                                <a class="link-effect font-w700 mr-5" href="">
-                                    <i class="si si-fire text-primary"></i>
-                                    <span class="font-size-xl text-dual-primary-dark">code</span><span class="font-size-xl text-primary">base</span>
+                                <a class="link-effect font-w700 mr-5" href="/home">
+                                    {{-- <i class="si si-fire text-primary"></i> --}}
+                                    <span class="font-size-xl text-dual-primary-dark">MyDaily</span><span class="font-size-xl text-primary">Dream</span>
                                 </a>
                             </div>
                             <!-- END Logo -->
@@ -187,7 +187,7 @@ DESKTOP
                                   <li>
                                       <a href="/profile">Profile</a>
                                   </li>
-                                  
+
                                   <li>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
@@ -223,27 +223,27 @@ DESKTOP
                                       </a>
                                   </div>
                                   <div class="col-4 mb-5">
-                                      <a class="text-elegance" data-toggle="theme" data-theme="assets/css/themes/elegance.css" href="javascript:void(0)">
+                                      <a class="text-elegance" data-toggle="theme" data-theme="{{asset('/css/themes/elegance.css')}}" href="javascript:void(0)">
                                           <i class="fa fa-2x fa-circle"></i>
                                       </a>
                                   </div>
                                   <div class="col-4 mb-5">
-                                      <a class="text-pulse" data-toggle="theme" data-theme="assets/css/themes/pulse.css" href="javascript:void(0)">
+                                      <a class="text-pulse" data-toggle="theme" data-theme="{{asset('/css/themes/pulse.css')}}" href="javascript:void(0)">
                                           <i class="fa fa-2x fa-circle"></i>
                                       </a>
                                   </div>
                                   <div class="col-4 mb-5">
-                                      <a class="text-flat" data-toggle="theme" data-theme="assets/css/themes/flat.css" href="javascript:void(0)">
+                                      <a class="text-flat" data-toggle="theme" data-theme="{{asset('/css/themes/flat.css')}}" href="javascript:void(0)">
                                           <i class="fa fa-2x fa-circle"></i>
                                       </a>
                                   </div>
                                   <div class="col-4 mb-5">
-                                      <a class="text-corporate" data-toggle="theme" data-theme="assets/css/themes/corporate.css" href="javascript:void(0)">
+                                      <a class="text-corporate" data-toggle="theme" data-theme="{{asset('/css/themes/corporate.css')}}" href="javascript:void(0)">
                                           <i class="fa fa-2x fa-circle"></i>
                                       </a>
                                   </div>
                                   <div class="col-4 mb-5">
-                                      <a class="text-earth" data-toggle="theme" data-theme="assets/css/themes/earth.css" href="javascript:void(0)">
+                                      <a class="text-earth" data-toggle="theme" data-theme="{{asset('/css/themes/earth.css')}}" href="javascript:void(0)">
                                           <i class="fa fa-2x fa-circle"></i>
                                       </a>
                                   </div>

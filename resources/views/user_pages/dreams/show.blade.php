@@ -65,7 +65,7 @@
                                 </div>
                               @endif
 
-                              @if(!empty($dream->tags()))
+                              @if(!empty($dream->tags[0]))
                                 <div class="col-4">
                                   <label>Tag of dream:
                                   @foreach ($dream->tags as $tag)
@@ -79,26 +79,29 @@
                       </div>
 
                       @if(!empty($dream->attatchment))
-                      <div class="box">
-                        <div class="text-center">
+                      <div class="row">
+                        <div class="col-12 text-center">
                           <label>File</label>
                           <hr style="width:40%">
                         </div>
-                        <div class="col-3" >
+                      </div>
+                        <div class="row">
                           @foreach ($dream->attatchment as $attatchment)
+                          <div class="col-4">
+                            <a href="{{asset("dream_images/".$attatchment->location."")}}">
+                              <img src="{{asset("dream_images/".$attatchment->location."")}}" style="width: 100%; margin-bottom: 25px">
+                            </a>
+                            </div>
 
-                          <a href="{{asset("dream_images/".$attatchment->location."")}}">
-                            <img src="{{asset("dream_images/".$attatchment->location."")}}" style="width: 100%">
-                          </a>
 
                           @endforeach
-                          <br>
                         </div>
+
                         <br>
                       </div>
                     @endif
 
-                      </div>
+                      
         <a type="button" class="btn btn-outline-info" href="/dream/{{$dream->id}}/edit" style="margin-top: 10px; margin-bottom: 10px">Any changes?</a>
     </div>
 

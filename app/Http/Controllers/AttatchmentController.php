@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Attatchment;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class AttatchmentController extends Controller
 {
@@ -74,10 +75,20 @@ class AttatchmentController extends Controller
         $file = Attatchment::FindOrFail($id);
         $oldPath = $file->value('location');
         File::delete("dream_images/$oldPath");
-        $name = $request->file('file')->getClientOriginalName();
-        $request->file('file')->move('dream_images', $name);
 
-        $file->update(["location" => $name]);
+        if(!empty($request->file('update_file'))){
+          $file = Attatchment::FindOrFail($id);
+          $oldPath = $file->value('location');
+          File::delete("dream_images/$oldPath");
+
+          $uniqueId = Str::random(9);
+          $name = "id=".$uniqueId."_".$request->file('update_file')->getClientOriginalName();
+          $request->file('update_file')->move('dream_images', $name);
+
+          $file->update(["location" => $name]);
+        }
+
+
 
         return redirect("/dream/$file->dream_id/edit");
 
@@ -92,10 +103,10 @@ class AttatchmentController extends Controller
     public function destroy($id)
     {
         //
-        $path = Attatchment::findOrFail($id)->value('location');
+        $path = Attatchment::whereId($id)->value('location');
         File::delete("dream_images/$path");
         Attatchment::find($id)->delete();
 
-        return redirect("/dream/$file->dream_id/edit");
+         return redirect()->back()->with('success', "il file: ".$path." è stato eliminato correttamente");
     }
 }

@@ -10,7 +10,7 @@
                 <form method="POST" action="{{route('dream.store')}}" enctype="multipart/form-data">
                   @csrf
                   <div class="row">
-                    <div class="block" style="border-left: solid" id="box">
+                    <div class="block"  id="box">
                         <div class="block-header block-header-default">
                             <div class="form-material">
                                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" size="50" style="font-size: 20px" placeholder="Title">
@@ -19,34 +19,36 @@
                             <div class="btn-group" role="group">
                               <label>Select a color for your Dream! </label>
                             <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-wrench"></i>
+                                <i class="fa fa-paint-brush"></i>
                             </button>
                             <div class="dropdown-menu min-width-300" aria-labelledby="page-header-options-dropdown" style="">
                                 <h5 class="h6 text-center py-10 mb-10 border-b text-uppercase">Settings</h5>
                                 <h6 class="dropdown-header">Color Themes</h6>
-                                <div class="row no-gutters text-center">
-                                    <div class="col-2">
+                                <div class="row no-gutters">
+                                    <div class="col-12">
                                       {{-- <label class="css-control css-control-primary css-radio">
 
                                           <input type="radio" class="css-control-input" name="radio-group2" checked="" onClick="changeColour('none')"  >
                                           <span class="css-control-indicator"></span> default
                                       </label> --}}
                                       <label class="css-control css-control-primary css-radio">
-                                            <input type="radio" class="css-control-input" name="color_id" onClick="changeColour('none')" value="" >
+                                            <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('none')" value="" >
                                             <span class="css-control-indicator"></span> none
                                         </label>
+                                      </div>
                                       @foreach ($colors as $color)
-
+                                        <div class="col-12">
 
 
                                           <label class="css-control css-control-primary css-radio">
-                                                <input type="radio" class="css-control-input" name="color_id" onClick="changeColour('{{$color->hex}}')" value="{{$color->id}}" >
+                                                <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('{{$color->hex}}')" value="{{$color->id}}" >
                                                 <span class="css-control-indicator"></span> {{$color->name}}
                                             </label>
+                                            </div>
                                             @endforeach
 
 
-                                        </div>
+
                                     {{-- <div class="col-2 mb-5">
                                         <a class="text-default" data-toggle="theme" data-theme="default" href="javascript:void(0)">
 
@@ -97,7 +99,23 @@
 
 
                                     </div>
-                                    <div class="col-2">
+
+                                      <div class="col-2">
+                                            <label class="col-12">Tags</label>
+                                            @foreach ($tags as $tag)
+
+                                            <div class="col-12">
+                                                <div class="custom-control custom-checkbox mb-5">
+                                                    <input class="custom-control-input" type="checkbox" name="tag[]" id="tag_{{$tag->id}}" value="{{$tag->id}}">
+                                                    <label class="custom-control-label" for="tag_{{$tag->id}}">{{$tag->name}}</label>
+                                                </div>
+
+                                            </div>
+                                            @endforeach
+                                          </div>
+
+
+                                    {{-- <div class="col-2">
                                             <label class="col-12">Tags</label>
                                             <div class="col-12">
                                               @foreach ($tags as $tag)
@@ -109,7 +127,7 @@
 
 
                                             </div>
-                                        </div>
+                                        </div> --}}
                                 </div>
                                 <div class="form-group row">
                                   <div class="col-3">
@@ -178,7 +196,7 @@
 
                               <div class="row">
                                 <label for="example-file-multiple-input">Add your file</label>
-                                <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
+                                <input type="file" class="form-control-file" style="margin-top: 10px" name="file[]" multiple="">
                               </div>
                               <br>
 
@@ -213,10 +231,19 @@
         <script>
 
 
-          window.changeColour = function(value)
-          {
-              document.getElementById('box').style.borderLeftColor = value;
+          // window.changeColour = function(value)
+          // {
+          //     document.getElementById('box').style.borderLeft = solid value;
+          //
+          // }
 
+          function borderStyle(value) {
+            if(value != 'none'){
+              document.getElementById("box").style.borderLeft = "solid";
+              document.getElementById("box").style.borderLeftColor = value;
+            }else{
+              document.getElementById("box").style.borderLeft = "none";
+            }
           }
           </script>
 
