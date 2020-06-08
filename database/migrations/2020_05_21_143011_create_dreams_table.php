@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateDreamsTable extends Migration
 {
@@ -22,9 +23,9 @@ class CreateDreamsTable extends Migration
             $table->integer('technique_id')->nullable();
             $table->integer('mood_id')->nullable();
             $table->integer('color_id')->nullable();
-            $table->string('title', 255);
-            $table->text('content');
-            $table->timestamp('date');
+            $table->string('title', 255)->nullable();
+            $table->text('content')->nullable();
+            $table->date('date')->default(Carbon::today())->nullable();
             $table->integer('is_in_first_person');
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 use App\Dream;
 use App\Attatchment;
 use App\Color;
@@ -13,6 +14,7 @@ use App\Mood;
 use App\Tag;
 use App\Technique;
 use App\Type;
+use App\Dream_tag;
 
 class DreamController extends Controller
 {
@@ -62,9 +64,19 @@ class DreamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // almeno una request!!!
         $dream = Dream::create($request->all());
+
+        // if(empty($request->input('date'))){
+        //   Dream::insert(['date' => Carbon::today()]);
+        // }
+        $prova = $request->input('date');
+
+
         $tags = $request->input('tag');
+
+
+
         if(!empty($request->input('tag'))){
           foreach($tags as $tag){
             $dream->tags()->attach($tag);
@@ -98,6 +110,7 @@ class DreamController extends Controller
          // }
 
         return redirect('/home');
+
     }
 
     /**
@@ -151,17 +164,19 @@ class DreamController extends Controller
 
         $dream->update($request->all());
 
-        $tags = $request->input('tag');
-        if(!empty($tags)){}
-          foreach($tags as $tag){
-            if(!empty($tag)){
+        // $tags = $request->input('tag');
+        // if(!empty($tags)){
+        //   foreach($tags as $tag){
+        //     if(!empty($tag)){
+        //
+        //       $dream->tags()->attach($tag);
+        //     }else{
+        //       $dream->tags()->detach($tag);
+        //     }
+        //   }
+        // }
 
-              $dream->tags()->attach($tag);
-            }else{
-              $dream->tags()->detach($tag);
-            }
-          }
-        }
+
 
 
         $files = $request->file('add_file');
@@ -175,6 +190,15 @@ class DreamController extends Controller
           }
         }
 
+        $tags = $request->input('tag');
+
+        if(!empty($tags)){
+
+          $dream->tags()->sync($tags);
+
+
+        }
+
         // if(!empty($request->file('file'))){
         //   $name = $request->file('file')->getClientOriginalName();
         //   $request->file('file')->move('dream_images', $name);
@@ -183,6 +207,7 @@ class DreamController extends Controller
         // }
 
          return redirect("dream/$dream->id");
+         // return $allTags;
 
     }
 

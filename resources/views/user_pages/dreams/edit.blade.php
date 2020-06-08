@@ -2,10 +2,15 @@
 
 @section('css_before')
   <link rel="stylesheet" href="{{asset('js/plugins/simplemde/simplemde.min.css')}}">
+  <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">
 @endsection
 
 @section('content')
 
+
+@php
+
+@endphp
 
               <div class="container">
 
@@ -25,7 +30,7 @@
 
                         <div class="block-header block-header-default">
                             <div class="form-material">
-                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" size="50" style="font-size: 30px" placeholder="Title" value="{{$dream->title}}">
+                                <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" size="50" style="font-size: 20px" placeholder="Title" value="{{$dream->title}}">
 
                             </div>
 
@@ -40,7 +45,7 @@
                             </button>
                             <div class="dropdown-menu min-width-300" aria-labelledby="page-header-options-dropdown" style="">
                                 <h5 class="h6 text-center py-10 mb-10 border-b text-uppercase">Settings</h5>
-                                <h6 class="dropdown-header">Color Themes</h6>
+                                <h6 class="dropdown-header">Dream Themes</h6>
                                 <div class="row no-gutters ">
                                     <div class="col-12">
                                       {{-- <label class="css-control css-control-primary css-radio">
@@ -48,20 +53,20 @@
                                           <input type="radio" class="css-control-input" name="radio-group2" checked="" onClick="changeColour('none')"  >
                                           <span class="css-control-indicator"></span> default
                                       </label> --}}
-                                      <label class="css-control css-control-primary css-radio">
+                                      <label class="css-control css-switch">
                                             <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('none')" value="" >
                                             <span class="css-control-indicator"></span> none
                                         </label>
                                       </div>
+
                                       @foreach ($colors as $color)
+                                        <div class="col-12">
 
-                                        <div class="col-6">
 
-                                          <label class="css-control css-control-primary css-radio">
+                                          <label class="css-control css-switch">
                                                 <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('{{$color->hex}}')" value="{{$color->id}}" >
                                                 <span class="css-control-indicator"></span> {{$color->name}}
                                             </label>
-
                                             </div>
                                             @endforeach
 
@@ -115,37 +120,101 @@
                             </div>
                         </div>
                         <div class="block-content">
-                                <div class="form-group row">
+                                <div class="form-group row text-center">
                                     <div class="col-10">
                                         <!-- SimpleMDE Container -->
                                         <textarea class="js-simplemde" id="textarea" name="content" placeholder="Do you haven't enough time for write it? Just write 3 words and we will remember you later!">{{$dream->content}}</textarea>
                                     </div>
 
-                                    <div class="col-2">
-                                          <label class="col-12">Tags</label>
 
 
+                                    <div class="col-md-2">
 
-                                            @foreach ($tags as $tag)
+                                          <label for="flatpickr">When did you dream it?</label>
+                                          <div class="col-md-12 mx:auto text-center">
+                                            <input type="text" class="js-flatpickr form-control bg-white" id="flatpickr" name="date" placeholder="{{$dream->date}}" value="{{$dream->date}}">
+                                          </div>
+                                          <br>
 
-                                            <div class="col-12">
-                                                <div class="custom-control custom-checkbox mb-5">
-                                                    <input class="custom-control-input" type="checkbox" name="tag[]" id="tag_{{$tag->id}}" value="{{$tag->id}}"  @foreach ($dream->tags as $tag_check) @if($tag_check->pivot->dream_id == $dream->id) checked="" @endif @endforeach>
-                                                    <label class="custom-control-label" for="tag_{{$tag->id}}">{{$tag->name}}</label>
-                                                </div>
+                                          <label>Tags</label>
+                                          <div class="col-md-12 text-left mx:auto" style="height:220px;width:120px;border-top:1px grey solid; border-bottom:1px grey solid; overflow:auto;">
+                                          @foreach ($tags as $tag)
 
-                                            </div>
+
+                                              <div class="custom-control custom-checkbox mb-5">
+                                                  <input class="custom-control-input" type="checkbox" name="tag[]" id="tag_{{$tag->id}}" @foreach ($dream->tags as $tag_check) @if($tag_check->pivot->tag_id == $tag->id) checked="" @endif @endforeach value="{{$tag->id}}">
+                                                  <label class="custom-control-label" for="tag_{{$tag->id}}">#{{$tag->name}}</label>
+                                              </div>
+
 
                                           @endforeach
+                                          </div>
+                                    </div>
 
-
-
-                                        </div>
 
 
 
                                 </div>
+                                <div class="col 12 text-center">
+                                  <label>Extra content</label>
+                                  <hr>
+                                </div>
+
+
                                 <div class="form-group row">
+                                  <div class="col-md-4 text-center">
+                                    <p> It @if($dream->is_in_first_person == 0)
+                                      <b>wasn't</b> in first person</p>
+
+
+
+                                          @elseif ($dream->is_in_first_person == 1)
+                                      <b>was</b>  in first person</p>
+
+
+
+
+                                    @endif
+
+                                  </div>
+                                  @if ($dream->emotion_id > 0)
+                                    <div class="col-md-4 text-center">
+                                      <p>Your emotion: <b>{{$dream->emotion->name}}</b> &#{{$dream->emotion->emoticon}}
+                                    </div>
+                                  @endif
+                                  @if ($dream->type_id > 0)
+                                    <div class="col-md-4 text-center">
+                                      <p>The kind of Dream: <b>{{$dream->type->name}}</b>
+                                    </div>
+                                  @endif
+                                  <div class="col-12">
+                                    &nbsp;
+                                  </div>
+                                  {{-- <div class="col-md-4 text-center">
+                                    &nbsp;
+                                  </div> --}}
+                                  @if ($dream->technique_id > 0)
+                                    <div class="col-md-4 text-center">
+                                      <p>The technique of the Dream: <b>{{$dream->technique->name}}</b>
+                                    </div>
+                                  @endif
+                                  @if ($dream->mood_id > 0)
+                                    <div class="col-md-4 text-center">
+                                      <p>The mood of the Dream: <b>{{$dream->mood->name}}</b>
+                                    </div>
+                                  @endif
+
+                                </div>
+
+                                <div class="col-12 text-center">
+                                  <label> Edit content </label>
+                                  <hr>
+                                </div>
+
+
+
+
+                                {{-- <div class="form-group row">
                                   <div class="col-3">
 
                                           <p> It @if($dream->is_in_first_person == 0)
@@ -193,15 +262,16 @@
                                                 </div>
                                                 @endif
                                             </div>
-                                          </div>
+                                          </div> --}}
 
 
 
 
 
-                              </div>
-                              <div class="form-group row">
+
+                              <div class="form-group row text-center">
                                 <div class="col-3">
+                                  <label>Emotion</label>
                                       <select class="form-control" id="emotion" name="emotion_id">
 
                                         @if ($dream->emotion_id > 0)
@@ -220,6 +290,7 @@
                                       </select>
                                   </div>
                                   <div class="col-3">
+                                    <label>Type</label>
                                         <select class="form-control" id="type" name="type_id">
 
                                           @if ($dream->type_id > 0)
@@ -239,6 +310,7 @@
                                     </div>
 
                                     <div class="col-3">
+                                      <label>Technique</label>
                                           <select class="form-control" id="technique" name="technique_id">
 
 
@@ -259,6 +331,7 @@
                                       </div>
 
                                       <div class="col-3">
+                                        <label>Mood</label>
                                             <select class="form-control" id="mood" name="mood_id">
 
                                               @if ($dream->mood_id > 0)
@@ -278,12 +351,62 @@
                                         {{-- <div class="col-3">
                                           <input type="file" class="form-control-file" style="margin-top: 10px" name="file">
                                         </div> --}}
+                                      </div>
 
-                                        <div class="col-3" style="margin-top: 10px">
-                                          <input type="file" class="form-control-file" style="margin-top: 10px" name="add_file[]" multiple="">
+                                      <div class="row">
+                                        <div class="col-7">
+                                          &nbsp;
+                                          @if($dream->is_in_first_person == 0)
+
+                                            <input type="hidden" class="custom-control-input" id="is_in_first_person_not" name="is_in_first_person" value="{{$dream->is_in_first_person}}">
+
+                                            <div class="custom-control custom-checkbox mb-5">
+                                                <input class="custom-control-input" type="checkbox" name="is_in_first_person" id="yes_it_was" value="1">
+                                                <label class="custom-control-label" for="yes_it_was">Yes, it was in first person</label>
+                                            </div>
+
+
+
+                                          @elseif ($dream->is_in_first_person == 1)
+
+                                            <input type="hidden" class="custom-control-input" id="is_in_first_person_yes" name="is_in_first_person" value="{{$dream->is_in_first_person}}">
+
+                                            <div class="custom-control custom-checkbox mb-5">
+                                                <input class="custom-control-input" type="checkbox" name="is_in_first_person" id="no_it_wasnt" value="0">
+                                                <label class="custom-control-label" for="no_it_wasnt">No, it wasn't in first person</label>
+                                            </div>
+
+
+
+                                          @endif
                                         </div>
 
 
+                                        <div class="col-md-5 mx-auto" style="margin-top: 10px">
+                                          {{-- <input type="file" class="form-control-file" style="margin-top: 10px" name="add_file[]" multiple=""> --}}
+                                          <label class="col-12">Add your files</label>
+                                          <div class="custom-file">
+                                              <!-- Populating custom file input label with the selected filename (data-toggle="custom-file-input" is initialized in Helpers.coreBootstrapCustomFileInput()) -->
+                                              <!-- When multiple files are selected, we use the word 'Files'. You can easily change it to your own language by adding the following to the input, eg for DE: data-lang-files="Dateien" -->
+                                              <input type="file" class="custom-file-input" id="example-file-multiple-input-custom" name="example-file-multiple-input-custom" data-toggle="custom-file-input" multiple>
+                                              <label class="custom-file-label" for="example-file-multiple-input-custom">Choose files</label>
+                                          </div>
+                                        </div>
+
+
+
+
+                                      {{-- <div class="form-group row">
+                                          <label class="col-12">Bootstrap's Custom File Input (Multiple)</label>
+                                          <div class="col-8">
+                                              <div class="custom-file">
+                                                  <!-- Populating custom file input label with the selected filename (data-toggle="custom-file-input" is initialized in Helpers.coreBootstrapCustomFileInput()) -->
+                                                  <!-- When multiple files are selected, we use the word 'Files'. You can easily change it to your own language by adding the following to the input, eg for DE: data-lang-files="Dateien" -->
+                                                  <input type="file" class="custom-file-input" id="example-file-multiple-input-custom" name="example-file-multiple-input-custom" data-toggle="custom-file-input" multiple>
+                                                  <label class="custom-file-label" for="example-file-multiple-input-custom">Choose files</label>
+                                              </div>
+                                          </div>
+                                      </div> --}}
 
                                 </div>
 
@@ -353,17 +476,68 @@
                         <h3>Your file</h3>
                         <hr>
                       </div>
+                    </div>
+
+                    <div class="form-group row text-center">
+
                       @if(!empty($dream->attatchment[0]))
                         <div class="row">
+
+                          @foreach ($dream->attatchment as $file)
+                            <div class="col-md-4 text-center">
+                              <a href="{{asset("/dream_images/".$file->location."")}}">
+                                <img style="width: 70%; margin-bottom: 10px" src="{{asset("/dream_images/".$file->location."")}}">
+                              </a>
+
+                              <div class="col-12 mx:auto">
+                                <form method="post" action="{{url("/dream/file/$file->id")}}" enctype="multipart/form-data">
+
+                                  @csrf
+                                  @method('PUT')
+                                  <input type="file" class="form-control-file" style="margin-top: 10px" name="update_file">
+                                  <input type="submit" class="btn btn-info min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" name="update" value="update">
+
+                                </form>
+                              </div>
+                              &nbsp;
+                              <div class="col-12 mx:auto">
+
+                                <form method="post" action="{{url("dream/file/$file->id")}}">
+                                  @csrf
+                                  @method('DELETE')
+
+                                  <input type="submit" class="btn btn-danger min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" value="Delete">
+
+                                </form>
+                            </div>
+
+                            </div>
+                          @endforeach
+
+
+
+
+                        </div>
+
+
+                      @else
+                        <h4>There aren't files</h4>
+                      @endif
+
+                    </div>
+
+
+                      {{-- @if(!empty($dream->attatchment[0]))
+                        <div class="row">
                         @foreach ($dream->attatchment as $file)
-                        <div class="col-3">
+                        <div class="col-4">
                           <div class="box">
                             <a href="{{asset("/dream_images/".$file->location."")}}">
                               <img style="width: 100%; margin-bottom: 10px" src="{{asset("/dream_images/".$file->location."")}}">
-                            </a>
-                            <div class="row">
-                              <div class="col-12">
-                            <form method="post" action="{{url("/dream/file/$file->id")}}" enctype="multipart/form-data">
+                            </a> --}}
+                            {{-- <div class="row">
+                            <div class="col-6"> --}}
+                            {{-- <form method="post" action="{{url("/dream/file/$file->id")}}" enctype="multipart/form-data">
 
                               @csrf
                               @method('PUT')
@@ -372,34 +546,36 @@
 
                             </form>
                           </div>
+                        </div> --}}
 
 
                             &nbsp; &nbsp;
 
-                            <div class="col-12">
-                            <form method="post" action="{{url("dream/file/$file->id")}}">
+                            {{-- <div class="col-6"> --}}
+                            {{-- <form method="post" action="{{url("dream/file/$file->id")}}">
                               @csrf
                               @method('DELETE')
 
                               <input type="submit" class="btn btn-danger min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" value="Delete">
 
                             </form>
-                          </div>
-                          </div>
+                            </div> --}}
+                          {{-- </div> --}}
+                          {{-- </div>
 
-                          </div>
+                          </div> --}}
 
-                        </div>
+                        {{-- </div>
                         &nbsp; &nbsp; &nbsp; &nbsp;
                         @endforeach
                       @else
                       <div class="text-center">
                         <label> You haven't file inside the Dream</label>
                       </div>
-                      @endif
+                      @endif --}}
 
 
-                    </div>
+                    {{-- </div> --}}
                   </div>
 
 
@@ -412,6 +588,8 @@
 
         <!-- Page JS Helpers (Summernote + CKEditor + SimpleMDE plugins) -->
         <script>jQuery(function(){ Codebase.helpers(['simplemde']); });</script>
+
+        <script src="{{asset('js/plugins/flatpickr/flatpickr.min.js')}}"></script>
 
         <script>
 
@@ -432,4 +610,5 @@
           }
 
           </script>
+          <script>jQuery(function(){ Codebase.helpers(['flatpickr']); });</script>
 @endsection

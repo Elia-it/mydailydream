@@ -12,8 +12,18 @@
         </ul>
         <div class="block-content tab-content">
             <div class="tab-pane active" id="btabs-static-home" role="tabpanel">
-                <h4 class="font-w400">{{$dream->title}}</h4>
+                <h4 class="font-w400">
+                  @if(!empty($dream->title))
+                      {{$dream->title}}
+                  @else
+                    <p>No title</p>
+                  @endif
+                </h4>
+              @if(!empty($dream->content))
                 <p>{{$dream->content}}</p>
+              @else
+                <p>No Content</p>
+              @endif
             </div>
 
         </div>
@@ -64,12 +74,14 @@
                                         <label>The type of dream: <b>{{$dream->type->name}}</b></label>
                                 </div>
                               @endif
-
                               @if(!empty($dream->tags[0]))
                                 <div class="col-4">
                                   <label>Tag of dream:
+
                                   @foreach ($dream->tags as $tag)
-                                    <b>{{$dream->tags[0]->name}}</b>
+                                    {{-- Check if last --}}
+                                      <b>{{$tag->name}}, </b>
+
                                   @endforeach
                                 </label>
                                 </div>
@@ -81,7 +93,7 @@
                       @if(!empty($dream->attatchment))
                       <div class="row">
                         <div class="col-12 text-center">
-                          <label>File</label>
+                          <label>Files</label>
                           <hr style="width:40%">
                         </div>
                       </div>
@@ -101,9 +113,9 @@
                       </div>
                     @endif
 
-                      
+
         <a type="button" class="btn btn-outline-info" href="/dream/{{$dream->id}}/edit" style="margin-top: 10px; margin-bottom: 10px">Any changes?</a>
-    </div>
+
 
   </div>
 
