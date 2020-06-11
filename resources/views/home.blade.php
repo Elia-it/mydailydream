@@ -56,11 +56,11 @@
 
                                     @endif
                                       <div class="list-timeline-content">
-                                          <p class="font-w600">{{$dream->title}}</p>
+                                          <p class="font-w600">@if(!empty($dream->title)){{$dream->title}} @else <i>No Title</i> @endif</p>
                                           <p>Inizia a scrivere per poi continuare dopo...</p>
                                           @if(!empty($dream->attatchment))
                                           <div class="row items-push js-gallery img-fluid-100 js-gallery-enabled">
-                                            
+
                                             @foreach ($dream->attatchment as $file)
                                               <div class="col-sm-6 col-xl-3">
 

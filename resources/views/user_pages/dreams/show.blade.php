@@ -1,5 +1,9 @@
 @extends('layouts.user.layout')
 
+@section('css_before')
+  <link rel="stylesheet" href="{{asset('js/plugins/simplemde/simplemde.min.css')}}">
+@endsection
+
 @section('content')
   <div class="container" style="text-align: center">
     {{-- style="border-style: solid; border-color: {{$dream->color->hex}} --}}
@@ -18,12 +22,18 @@
                   @else
                     <p>No title</p>
                   @endif
+                  <div class="col-6 mx-auto">
+                    <hr>
+                  </div>
                 </h4>
-              @if(!empty($dream->content))
-                <p>{{$dream->content}}</p>
-              @else
-                <p>No Content</p>
-              @endif
+
+                <div class="col-md-12">
+
+                    <!-- SimpleMDE Container -->
+                    <textarea class="js-simplemde" id="textarea" name="content">@if(!empty($dream->content)) {{$dream->content}} @else <p>No content</p> @endif</textarea>
+                </div>
+
+
             </div>
 
         </div>
@@ -43,7 +53,16 @@
                       </div>
                       <div class="form-group row">
 
+                                <div class="col-md-4">
+                                  <p> It @if($dream->isFirstPerson())
+                                    <b>was</b> in first person</p>
+                                      @else
+                                    <b>wasn't</b>  in first person</p>
 
+
+                                  @endif
+
+                                </div>
                                 @if(!empty($dream->color_id))
                                   <div class="col-4">
                                         <label>The color you have assigned to the Dream is <b style="color: {{$dream->color->hex}};"> {{$dream->color->name}}</b></label>
@@ -119,5 +138,13 @@
 
   </div>
 
+
+@endsection
+
+@section('js_after')
+  <script src="{{asset('js/plugins/simplemde/simplemde.min.js')}}"></script>
+
+  <!-- Page JS Helpers (Summernote + CKEditor + SimpleMDE plugins) -->
+  <script>jQuery(function(){ Codebase.helpers(['simplemde']); });</script>
 
 @endsection

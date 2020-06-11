@@ -24,9 +24,10 @@ class DreamController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    // public function __construct(){
-    //   $this->middleware('auth');
-    // }
+    public function __construct(){
+      $this->middleware('auth');
+      $this->middleware('checkDream')->except('create');
+    }
 
     public function index()
     {
@@ -197,6 +198,8 @@ class DreamController extends Controller
           $dream->tags()->sync($tags);
 
 
+        }else{
+          $dream->tags()->detach();
         }
 
         // if(!empty($request->file('file'))){

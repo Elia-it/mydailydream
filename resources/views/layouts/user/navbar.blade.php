@@ -185,7 +185,7 @@ DESKTOP
                                     @endif
                                 </li>
                                   <li>
-                                      <a href="/profile">Profile</a>
+                                      <a href="/profile/{{Auth::user()->id}}">Profile</a>
                                   </li>
 
                                   <li>

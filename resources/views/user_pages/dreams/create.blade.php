@@ -114,7 +114,7 @@
                                             <br>
 
                                             <label>Tags</label>
-                                            <div class="col-md-12 text-left mx:auto" style="height:220px;width:120px;border-top:1px grey solid; border-bottom:1px grey solid; overflow:auto;">
+                                            <div class="col-md-12 text-left" style="height:220px;width:120px;border-top:1px grey solid; border-bottom:1px grey solid; overflow:auto;">
                                             @foreach ($tags as $tag)
 
 

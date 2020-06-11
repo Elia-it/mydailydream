@@ -12,20 +12,26 @@ class Dream extends Model
     ];
 
 
-    public function isFirstPerson($firstPerson){
-        if($firstPerson == '0'){
-
-        $first =  "No, It wasn't in first person";
-
-      }elseif($firstPerson == '0'){
-
-        $first = "Yes, it was in first person";
-
+    public function isFirstPerson(){
+      if($this->is_in_first_person == 1){
+        return true;
       }
 
-      return $first;
+      return false;
     }
 
+
+    public function isPublish(){
+      if($this->status == "publish"){
+        return true;
+      }
+      return false;
+    }
+
+    public function getDreamsByUserId($id){
+      $dreams = Dream::where('user_id', $id)->get();
+      return $dreams;
+    }
 
     public function type(){
       return $this->hasOne('App\Type', 'id', 'type_id');

@@ -2,30 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
-use App\Dream;
-use Illuminate\Support\Facades\Auth;
-use App\User;
 
-class ProfileController extends Controller
+class User_attatchmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function __construct(){
-      $this->middleware('checkProfile');
-    }
-
-
     public function index()
     {
         //
-
-        return view('user_pages/profile/profile');
     }
 
     /**
@@ -58,9 +46,6 @@ class ProfileController extends Controller
     public function show($id)
     {
         //
-        $user = User::findOrFail($id);
-        $dreams = Dream::where('user_id', $id)->get();
-        return view('user_pages/profile/profile', compact('dreams', 'user'));
     }
 
     /**
@@ -72,8 +57,6 @@ class ProfileController extends Controller
     public function edit($id)
     {
         //
-        $user = User::findOrFail($id);
-        return view('user_pages/profile/edit', compact('user'));
     }
 
     /**
@@ -86,12 +69,6 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         //
-
-        $user = User::findOrFail($id);
-
-        $user->update($request->all());
-
-        return redirect("profile/$id");
     }
 
     /**

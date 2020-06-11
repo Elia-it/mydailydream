@@ -51,12 +51,20 @@ Route::middleware(['auth'])->group(function(){
 
   Route::resource('/dream', 'DreamController');
 
-  Route::get('/profile', 'ProfileController@userUpdate');
 
-  Route::resource('/dream/file', 'AttatchmentController')->only(['update', 'destroy']);
+  Route::resource('/dream/file', 'AttatchmentController')->only([
+    'update', 'destroy'
+  ]);
+
+  Route::resource('/profile', 'ProfileController')->except([
+      'create', 'store', 'index',
+  ]);
 
 
 });
+
+
+
 
 // Route::view('/prova', 'prova');
 

@@ -163,17 +163,10 @@
 
                                 <div class="form-group row">
                                   <div class="col-md-4 text-center">
-                                    <p> It @if($dream->is_in_first_person == 0)
-                                      <b>wasn't</b> in first person</p>
-
-
-
-                                          @elseif ($dream->is_in_first_person == 1)
-                                      <b>was</b>  in first person</p>
-
-
-
-
+                                    <p> It @if($dream->isFirstPerson())
+                                      <b>was</b> in first person</p>
+                                        @else
+                                      <b>wasn't</b>  in first person</p>
                                     @endif
 
                                   </div>

@@ -45,6 +45,7 @@ class User extends Authenticatable
       return false;
     }
 
+
     public function role(){
       return $this->belongsTo('App\Role');
     }
@@ -53,5 +54,15 @@ class User extends Authenticatable
       return $this->belongsToMany('App\Tag');
     }
 
+    public function user_attatchment(){
+      $this->hasOne('App\User_attatchment', 'user_id', 'id');
+    }
+
+    public function isSubToNewsletter(){
+      if($this->newsletter == 1){
+        return true;
+      }
+      return false;
+    }
 
 }
