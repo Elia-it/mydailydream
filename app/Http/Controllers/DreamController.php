@@ -26,7 +26,7 @@ class DreamController extends Controller
 
     public function __construct(){
       $this->middleware('auth');
-      $this->middleware('checkDream')->except('create');
+      $this->middleware('checkDream')->only('edit', 'update', 'delete');
     }
 
     public function index()

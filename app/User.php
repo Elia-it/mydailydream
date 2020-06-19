@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'newsletter',
+        'first_name', 'last_name', 'gender', 'email', 'password', 'newsletter',
     ];
 
     /**
@@ -63,6 +63,18 @@ class User extends Authenticatable
         return true;
       }
       return false;
+    }
+
+    public function pathForGender(){
+      if($this->gender === 'male'){
+        $img = 'male.png';
+      }elseif($this->gender === 'female'){
+        $img = 'female.png';
+      }elseif($this->gender === 'prefer_not_to_say'){
+        $img = 'no_gender.jpg';
+      }
+
+      return $img;
     }
 
 }

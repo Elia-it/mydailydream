@@ -57,9 +57,12 @@ Route::middleware(['auth'])->group(function(){
   ]);
 
   Route::resource('/profile', 'ProfileController')->except([
-      'create', 'store', 'index',
+      'create', 'store', 'index'
   ]);
 
+  Route::resource('/profile/img', 'User_attatchmentController')->only([
+    'update', 'destroy'
+  ]);
 
 });
 

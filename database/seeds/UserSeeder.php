@@ -20,6 +20,7 @@ class UserSeeder extends Seeder
               'password' => 'admin0000',
               'first_name' => 'admin',
               'last_name' => 'admin',
+              'gender' => 'male',
               'newsletter' => '0',
               'created_at' => date('Y-m-d H:i:s')
           ],[
@@ -28,6 +29,7 @@ class UserSeeder extends Seeder
             'password' => 'guest0000',
             'first_name' => 'guest',
             'last_name' => 'guest',
+            'gender' => 'prefer_not_to_say',
             'newsletter' => '1',
             'created_at' => date('Y-m-d H:i:s')
           ]

@@ -5,7 +5,7 @@
     <div class="col-xl-10 mx-auto">
       <!-- Material Register -->
       <div class="block block-themed">
-          <div class="block-header bg-success">
+          <div class="block-header bg-info">
               <h3 class="block-title text-center">Informations</h3>
               <div class="block-options">
                   <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
@@ -15,14 +15,15 @@
               </div>
           </div>
           <div class="block-content">
-              <form action="{{url("profile/$user->id")}}" method="post">
+
+              <form action="{{url("profile/img/$asset->id")}}" method="post" enctype="multipart/form-data">
 
                 @method('PUT')
                 @csrf
                 <div class="form-group row text-center">
                   <div class="mb-15 mx-auto">
-                      <a class="img-link" href="{{asset('media/avatars/prova_img.jpg')}}" >
-                          <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{asset('media/avatars/prova_img.jpg')}}" alt="">
+                      <a class="img-link" href="{{asset("profiles/avatars/$asset->path_avatar")}}" >
+                          <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{asset("profiles/avatars/$asset->path_avatar")}}" alt="">
                       </a>
                       <div class="row">
                         <div class="col-12">
@@ -31,10 +32,47 @@
                       </div>
                       <i>Change your avatar icon</i>
                       <br>
-                      <input type="file">
+                      <input type="file" name="path_avatar">
+
+                      <input type="submit" class="btn btn-sm btn-info">
+                    </form>
+
+
+                    @if($asset->checkImg())
+                      <form action="{{url("profile/img/$asset->id")}}" method="POST">
+                        @method('DELETE')
+                        @csrf
+
+                        <input type="submit" class="btn btn-sm-danger" value="Remove img">
+
+                      </form>
+
+                    @endif
+
+
                   </div>
               </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <form action="{{url("profile/$user->id")}}" method="post">
+
+                @method('PUT')
+                @csrf
 
                   <div class="form-group row">
                       <div class="col-6">

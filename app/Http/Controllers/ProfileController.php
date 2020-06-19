@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Dream;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use App\User_attatchment;
 
 class ProfileController extends Controller
 {
@@ -60,7 +61,8 @@ class ProfileController extends Controller
         //
         $user = User::findOrFail($id);
         $dreams = Dream::where('user_id', $id)->get();
-        return view('user_pages/profile/profile', compact('dreams', 'user'));
+        $asset = User_attatchment::where('user_id', $id)->first();
+        return view('user_pages/profile/profile', compact('dreams', 'user', 'asset'));
     }
 
     /**
@@ -73,7 +75,8 @@ class ProfileController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        return view('user_pages/profile/edit', compact('user'));
+        $asset = User_attatchment::where('user_id', $id)->first();
+        return view('user_pages/profile/edit', compact('user', 'asset'));
     }
 
     /**

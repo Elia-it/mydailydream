@@ -30,7 +30,7 @@
                 <div class="col-md-12">
 
                     <!-- SimpleMDE Container -->
-                    <textarea class="js-simplemde" id="textarea" name="content">@if(!empty($dream->content)) {{$dream->content}} @else <p>No content</p> @endif</textarea>
+                    <textarea class="js-simplemde" id="textarea" name="content">@if(!empty($dream->content)) {{$dream->content}} @else No content @endif</textarea>
                 </div>
 
 

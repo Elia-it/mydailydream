@@ -107,6 +107,18 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
+                                      <div class="col-6">
+                                        <div class="form-material">
+                                            <select class="form-control" id="gender" name="gender">
+                                                <option value="prefer_not_to_say">Prefer not to say</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                            <label for="gender">{{__('Gender')}}</label>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
                                         <div class="col-12">
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input @error('terms') is-invalid @enderror" id="terms" name="terms">
@@ -120,6 +132,7 @@
                                                 @enderror
                                             </div>
                                         </div>
+
                                       </div>
                                     <div class="form-group row">
                                         <div class="col-12">

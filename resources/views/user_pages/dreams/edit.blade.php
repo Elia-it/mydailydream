@@ -3,6 +3,8 @@
 @section('css_before')
   <link rel="stylesheet" href="{{asset('js/plugins/simplemde/simplemde.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">
+  <link rel="stylesheet" href="{{asset('js/plugins/select2/css/select2.min.css')}}">
+
 @endsection
 
 @section('content')
@@ -137,7 +139,17 @@
                                           <br>
 
                                           <label>Tags</label>
-                                          <div class="col-md-12 text-left mx:auto" style="height:220px;width:120px;border-top:1px grey solid; border-bottom:1px grey solid; overflow:auto;">
+                                          <div class="col-md-sm-12 text-left mx:auto">
+                                          <select class="js-select2 form-control" id="tag" name="tag[]" style="width:100%;border-top:1px grey solid; border-bottom:1px grey solid; overflow:auto;" data-placeholder="Choose yours tag..." multiple>
+                                              <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+
+                                              @foreach ($tags as $tag)
+                                                <option value="{{$tag->id}}" @foreach ($dream->tags as $tag_check) @if($tag_check->pivot->tag_id == $tag->id) selected="selected" @endif @endforeach >{{$tag->name}}</option>
+                                              @endforeach
+
+                                          </select>
+                                        </div>
+                                          {{-- <div class="col-md-12 text-left mx:auto" style="height:220px;width:120px;border-top:1px grey solid; border-bottom:1px grey solid; overflow:auto;">
                                           @foreach ($tags as $tag)
 
 
@@ -148,7 +160,7 @@
 
 
                                           @endforeach
-                                          </div>
+                                          </div> --}}
                                     </div>
 
 
@@ -571,6 +583,28 @@
                     {{-- </div> --}}
                   </div>
 
+{{-- <div class="form-group row">
+
+                          <div class="col-lg-8">
+                              <select class="js-select2 form-control" id="example-select2-multiple" name="example-select2-multiple" style="width: 100%;" data-placeholder="Choose many.." multiple>
+                                  <option></option><!-- Required for data-placeholder attribute to work with Select2 plugin -->
+
+                                  @foreach ($tags as $tag)
+                                    <option value="{{$tag->id}}" @foreach ($dream->tags as $tag_check) @if($tag_check->pivot->tag_id == $tag->id) selected="selected" @endif @endforeach >{{$tag->name}}</option>
+                                  @endforeach
+                                  {{-- <option value="1">HTML</option>
+                                  <option value="2">CSS</option>
+                                  <option value="3">JavaScript</option>
+                                  <option value="4">PHP</option>
+                                  <option value="5">MySQL</option>
+                                  <option value="6">Ruby</option>
+                                  <option value="7">Angular</option>
+                                  <option value="8">React</option>
+                                  <option value="9">Vue.js</option> --}}
+                              {{-- </select>
+
+                          </div>
+                      </div> --}}
 
 
 @endsection
@@ -603,5 +637,6 @@
           }
 
           </script>
-          <script>jQuery(function(){ Codebase.helpers(['flatpickr']); });</script>
+          <script>jQuery(function(){ Codebase.helpers(['simplemde', 'select2', 'flatpickr']); });</script>
+          <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
 @endsection

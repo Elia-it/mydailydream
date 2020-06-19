@@ -57,7 +57,8 @@
                                     @endif
                                       <div class="list-timeline-content">
                                           <p class="font-w600">@if(!empty($dream->title)){{$dream->title}} @else <i>No Title</i> @endif</p>
-                                          <p>Inizia a scrivere per poi continuare dopo...</p>
+                                            <p>@if(!empty($dream->content)){{Str::limit($dream->content, 90)}} @else <i>No Content</i> @endif</p>
+                                          {{-- <p>Inizia a scrivere per poi continuare dopo...</p> --}}
                                           @if(!empty($dream->attatchment))
                                           <div class="row items-push js-gallery img-fluid-100 js-gallery-enabled">
 
@@ -98,5 +99,9 @@
                     </div>
                   </div>
 
+
+@endsection
+
+@section('js_after')
 
 @endsection
