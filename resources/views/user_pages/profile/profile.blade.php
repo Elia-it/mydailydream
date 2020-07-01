@@ -9,8 +9,10 @@
 
   <!-- Page Content -->
   <!-- User Info -->
-  <div class="bg-image bg-image-bottom" style= @if($asset->isImg()) 'background-image: url("/profiles/backgrounds/{{$asset->background}}");' @else "background-color: {{$asset->background}};" @endif >
-      <div class="bg-primary-dark-op py-30">
+
+  {{-- "background-image: url('{{asset($asset->background)}}');"  --}}
+  <div class="bg-image bg-image-bottom" style= @if($asset->isImg()) "background-image: url('{{asset($asset->background)}}');" @else "background-color: {{$asset->background}};" @endif >
+      <div class="bg-primary-dark-op-mod py-30">
           <div class="content content-full">
 
                   <div class="row">
@@ -73,8 +75,8 @@
 
               <!-- Avatar -->
               <div class="mb-15 text-center">
-                  <a class="img-link" href="{{asset("profiles/avatars/$asset->path_avatar")}}" >
-                      <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{asset("profiles/avatars/$asset->path_avatar")}}" alt="">
+                  <a class="img-link" href="{{asset($asset->path_avatar)}}" >
+                      <img class="img-avatar img-avatar96 img-avatar-thumb" @if($asset->checkImg()) src="{{asset($asset->path_avatar)}}" @else src="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif alt="">
                   </a>
               </div>
               <!-- END Avatar -->
@@ -178,7 +180,7 @@
 
                     <div class="block">
                        <div class="block-header block-header-default">
-                           <h3 class="block-title">All your Dreams</h3>
+                           <h3 class="block-title text-center">All your Dreams</h3>
                        </div>
                        <div class="block-content block-content-full">
                            <!-- DataTables functionality is initialized with .js-dataTable-full class in js/pages/be_tables_datatables.min.js which was auto compiled from _es6/pages/be_tables_datatables.js -->

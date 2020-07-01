@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use App\User_attatchment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class User_attatchmentController extends Controller
 {
@@ -73,30 +74,48 @@ class User_attatchmentController extends Controller
     public function update(Request $request, $id)
     {
         //
+
         $attatch = User_attatchment::FindOrFail($id);
-        $background = $attatch->background;
+
+        // $path3 = $request->background->store('images', 'public');
+        // $newPath = Storage::putFile('images', $request->file('background'));
+
+
+        // $request->background->store('images', 'public');
+
+
         if($request->hasFile('background')){
-          $file = $request->file('background');
-          $backgroundId = Str::random(5);
-          $newBackground = 'id=' . $backgroundId . '_' .$file->getClientOriginalName();
+          
+          $background = $attatch->background;
+          $newPath = $request->file('background')->store('users_backgrounds');
+          // $request->background->store('images', 'public');
+          // $request->file('background')->store('images');
+          // $file = $request->file('background');
+          // $backgroundId = Str::random(5);
+          // $newBackground = 'id=' . $backgroundId . '_' .$file->getClientOriginalName();
+          // $newPath = Storage::putFile('images', $request->file('background'));
+          // Storage::delete("$background");
 
           if($background[0] != '#'){
 
-            File::delete("profiles/backgrounds/$background");
+            Storage::delete("$background");
 
           }
 
+          // $path = $file->store('');
+
+
           $attatch->update([
             'background_type' => 'img',
-            'background' => $newBackground
+            'background' => $newPath
           ]);
 
-          $file->move('profiles/backgrounds', $newBackground);
+          // $file->move('profiles/backgrounds', $newBackground);
 
         }elseif(!empty($request->background)){
           if($background[0] != '#'){
 
-            File::delete("profiles/backgrounds/$background");
+            Storage::delete("$background");
 
           }
 
@@ -111,20 +130,23 @@ class User_attatchmentController extends Controller
 
 
         if($request->hasFile('path_avatar')){
-          $file = $request->file('path_avatar');
-          $uniqueId = Str::random(5);
-          $name = "id=".$uniqueId."_".$file->getClientOriginalName();
-          $file->move('profiles/avatars', $name);
+
+          $pathAvatar = $request->file('path_avatar')->store('avatars');
+
+          // $file = $request->file('path_avatar');
+          // $uniqueId = Str::random(5);
+          // $name = "id=".$uniqueId."_".$file->getClientOriginalName();
+          // $file->move('profiles/avatars', $name);
 
           // $attatch = User_attatchment::findOrFail($id);
           if(!is_null($attatch->path_avatar)){
             if($attatch->checkImg()){
-              File::delete("profiles/avatars/$attatch->path_avatar");
+              Storage::delete("$attatch->path_avatar");
             }
           }
 
           $attatch->update([
-            'path_avatar' => $name,
+            'path_avatar' => $pathAvatar,
           ]);
         }
 

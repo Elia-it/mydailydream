@@ -28,6 +28,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -51,9 +53,10 @@ Route::middleware(['auth'])->group(function(){
 
   Route::resource('/dream', 'DreamController');
 
+  Route::post('/upload/store', 'AttatchmentController@store')->name('check.and.upload');
 
   Route::resource('/dream/file', 'AttatchmentController')->only([
-    'update', 'destroy'
+    'update', 'destroy', 'create'
   ]);
 
   Route::resource('/profile', 'ProfileController')->except([
@@ -65,6 +68,7 @@ Route::middleware(['auth'])->group(function(){
   ]);
 
 });
+
 
 
 

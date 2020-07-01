@@ -79,6 +79,7 @@ class DreamController extends Controller
 
 
         if(!empty($request->input('tag'))){
+
           foreach($tags as $tag){
             $dream->tags()->attach($tag);
           }
@@ -88,16 +89,60 @@ class DreamController extends Controller
 
         // if(!empty($request->file('file'))){
 
-          $files = $request->file('file');
 
-          if($request->hasFile('file')){
-            foreach($files as $file){
-              $uniqueId = Str::random(9);
-              $name = "id=".$uniqueId."_".$file->getClientOriginalName();
-              $file->move('dream_images', $name);
-              Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+
+        if(!empty($request->fileUp)){
+          $files_path = json_decode($request->fileUp);
+
+          foreach ($files_path as $file_path) {
+            $file_ext = pathinfo($file_path, PATHINFO_EXTENSION);
+            if($file_ext === 'pdf'){
+              Attatchment::create(['type' => 'pdf', 'location' => $file_path, 'dream_id' => $dream->id]);
+            }elseif($file_ext === 'png' OR $file_ext === 'jpg' OR $file_ext === 'jpeg'){
+              Attatchment::create(['type' => 'img', 'location' => $file_path, 'dream_id' => $dream->id]);
             }
           }
+        }
+
+
+
+
+// dd($files_path);
+//           $files = $request->file('fileUp');
+//
+//
+//
+//
+//
+// dd($files);
+//           if($request->hasFile('fileUp')){
+//
+//             foreach($files as $file){
+//               $file_name = $file->getClientOriginalName();
+//               $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
+//               if($file_extension === 'pdf'){
+//
+//                 Attatchment::create(['type' => 'pdf', 'location' => $pathFile, 'dream_id' => $dream->id]);
+//
+//               }elseif($file_extension === 'png' OR $file_extension === 'jpg' OR $file_extension === 'jpeg'){
+//
+//                 Attatchment::create(['type' => 'img', 'location' => $pathFile, 'dream_id' => $dream->id]);
+//
+//               }
+//
+//
+//
+//
+//               // $uniqueId = Str::random(9);
+//               // $name = "id=".$uniqueId."_".$file->getClientOriginalName();
+//               // $file->move('dream_images', $name);
+//
+//               // $pathFile = $file->store('dreams_images');
+//               // Attatchment::create(['location' => $pathFile, 'dream_id' => $dream->id]);
+//
+//
+//             }
+//           }
           // foreach ($request->file('file') as $file){
           //   $name = $file->getClientOriginalName();
           //   $file->move('dream_images', $name);
@@ -177,19 +222,19 @@ class DreamController extends Controller
         //   }
         // }
 
+        if(!empty($request->fileUp)){
+          $files_path = json_decode($request->fileUp);
 
-
-
-        $files = $request->file('add_file');
-
-        if($request->hasFile('add_file')){
-          foreach($files as $file){
-            $uniqueId = Str::random(9);
-            $name = "id=".$uniqueId."_".$file->getClientOriginalName();
-            $file->move('dream_images', $name);
-            Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+          foreach ($files_path as $file_path) {
+            $file_ext = pathinfo($file_path, PATHINFO_EXTENSION);
+            if($file_ext === 'pdf'){
+              Attatchment::create(['type' => 'pdf', 'location' => $file_path, 'dream_id' => $dream->id]);
+            }elseif($file_ext === 'png' OR $file_ext === 'jpg' OR $file_ext === 'jpeg'){
+              Attatchment::create(['type' => 'img', 'location' => $file_path, 'dream_id' => $dream->id]);
+            }
           }
         }
+
 
         $tags = $request->input('tag');
 

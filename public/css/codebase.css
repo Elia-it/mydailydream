@@ -12719,7 +12719,13 @@ button.bg-primary-dark:focus {
 }
 
 .bg-primary-dark-op {
+  /* background-color: rgba(52, 58, 64, 0.8) !important; */
   background-color: rgba(52, 58, 64, 0.8) !important;
+}
+
+.bg-primary-dark-op-mod {
+  /* background-color: rgba(52, 58, 64, 0.8) !important; */
+  background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
 a.bg-primary-dark-op:hover, a.bg-primary-dark-op:focus,

@@ -1,4 +1,4 @@
-      {{-- <nav id="sidebar">
+       <nav id="sidebar">
                 <!-- Sidebar Content -->
                 <div class="sidebar-content">
                     <!-- Side Header -->
@@ -14,8 +14,7 @@
                             <!-- Logo -->
                             <div class="content-header-item">
                                 <a class="link-effect font-w700" href="">
-                                    <i class="si si-fire text-primary"></i>
-                                    <span class="font-size-xl text-dual-primary-dark">code</span><span class="font-size-xl text-primary">base</span>
+                                    <span class="font-size-xl text-dual-primary-dark">MyDaily</span><span class="font-size-xl text-primary">Dream</span>
                                 </a>
                             </div>
                             <!-- END Logo -->
@@ -25,12 +24,12 @@
 
                     <!-- Side Main Navigation -->
                     <div class="content-side content-side-full">
-                        <!-- --}}
-                        {{-- Mobile navigation, desktop navigation can be found in #page-header
+                        <!--
+                        Mobile navigation, desktop navigation can be found in #page-header
 
                         If you would like to use the same navigation in both mobiles and desktops, you can use exactly the same markup inside sidebar and header navigation ul lists
-                        --> --}}
-                        {{-- <ul class="nav-main">
+                        -->
+                        <ul class="nav-main">
 
 
                               @guest
@@ -65,7 +64,7 @@
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
-                                    </li> --}}
+                                    </li>
                                     {{-- <li>
                                         <a class="nav-submenu" data-toggle="nav-submenu" href="#">Dropdown</a>
                                         <ul>
@@ -77,10 +76,14 @@
                                             </li>
                                         </ul>
                                     </li> --}}
-                                {{-- </ul>
+                                 </ul>
                             </li>
-                            <li class="nav-main-heading">Vital</li>
+                            <li class="nav-main-heading">Other pages</li>
                             <li>
+                                <a href="/dream/create">MyDream
+                                </a>
+                            </li>
+                            {{-- <li>
                                 <a href="javascript:void(0)">
                                     <i class="si si-wrench"></i>Page
                                 </a>
@@ -89,12 +92,7 @@
                                 <a href="javascript:void(0)">
                                     <i class="si si-wrench"></i>Page
                                 </a>
-                            </li>
-                            <li>
-                                <a href="javascript:void(0)">
-                                    <i class="si si-wrench"></i>Page
-                                </a>
-                            </li>
+                            </li> --}}
                           @endguest
                         </ul>
                     </div>
@@ -103,7 +101,7 @@
                 <!-- Sidebar Content -->
             </nav>
             <!-- END Sidebar -->
- --}}
+
 
 
 

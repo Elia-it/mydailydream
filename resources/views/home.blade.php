@@ -65,8 +65,8 @@
                                             @foreach ($dream->attatchment as $file)
                                               <div class="col-sm-6 col-xl-3">
 
-                                                  <a class="img-link img-link-zoom-in img-lightbox" href="{{asset("dream_images/". $file->location ."")}}">
-                                                      <img class="img-fluid" src="{{asset("dream_images/". $file->location ."")}}" alt="">
+                                                  <a class="img-link img-link-zoom-in img-lightbox" href="{{asset($file->location)}}">
+                                                      <img class="img-fluid" src="{{asset($file->location)}}" alt="">
                                                   </a>
                                               </div>
                                             @endforeach

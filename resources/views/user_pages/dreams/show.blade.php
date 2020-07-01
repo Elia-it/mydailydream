@@ -119,8 +119,8 @@
                         <div class="row">
                           @foreach ($dream->attatchment as $attatchment)
                           <div class="col-4">
-                            <a href="{{asset("dream_images/".$attatchment->location."")}}">
-                              <img src="{{asset("dream_images/".$attatchment->location."")}}" style="width: 100%; margin-bottom: 25px">
+                            <a href="{{asset($attatchment->location)}}">
+                              <img src="{{asset($attatchment->location)}}" style="width: 60%; margin-bottom: 25px">
                             </a>
                             </div>
 

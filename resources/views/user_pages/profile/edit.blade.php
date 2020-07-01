@@ -22,8 +22,8 @@
                 @csrf
                 <div class="form-group row text-center">
                   <div class="mb-15 mx-auto">
-                      <a class="img-link" href="{{asset("profiles/avatars/$asset->path_avatar")}}" >
-                          <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{asset("profiles/avatars/$asset->path_avatar")}}" alt="">
+                      <a class="img-link" href="{{asset($asset->path_avatar)}}" >
+                          <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{asset($asset->path_avatar)}}" alt="">
                       </a>
                       <div class="row">
                         <div class="col-12">

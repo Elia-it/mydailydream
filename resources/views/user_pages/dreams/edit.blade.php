@@ -16,13 +16,24 @@
 
               <div class="container">
 
-                @if(Session::has('success'))
+                @if(Session::has('no_file'))
                   <div class="alert alert-danger">
 
-                      <i class="fa fa-check-square"></i>&nbsp; &nbsp;{{Session::get('success')}}
+                      <i class="fa fa-check-square"></i>&nbsp; &nbsp;{{Session::get('no_file')}}
 
                   </div>
                 @endif
+
+                @if(Session::has('delete_success'))
+                  <div class="alert alert-success">
+
+                      <i class="fa fa-check-square"></i>&nbsp; &nbsp;{{Session::get('delete_success')}}
+
+                  </div>
+                @endif
+
+
+
 
                 <h2 class="content-heading" style="text-align: center;">Edit page</h2>
                 <form method="POST" action="{{url("/dream/$dream->id")}}" enctype="multipart/form-data">
@@ -393,8 +404,9 @@
                                           <div class="custom-file">
                                               <!-- Populating custom file input label with the selected filename (data-toggle="custom-file-input" is initialized in Helpers.coreBootstrapCustomFileInput()) -->
                                               <!-- When multiple files are selected, we use the word 'Files'. You can easily change it to your own language by adding the following to the input, eg for DE: data-lang-files="Dateien" -->
-                                              <input type="file" class="custom-file-input" id="example-file-multiple-input-custom" name="example-file-multiple-input-custom" data-toggle="custom-file-input" multiple>
-                                              <label class="custom-file-label" for="example-file-multiple-input-custom">Choose files</label>
+                                              <input type="file" class="custom-file-input" id="file" name="file[]" data-toggle="custom-file-input" multiple onchange="uploadFiles()">
+                                              <label class="custom-file-label" for="file">Choose files</label>
+                                              <input type="hidden" id="fileUp" name="fileUp">
                                           </div>
                                         </div>
 
@@ -490,8 +502,10 @@
 
                           @foreach ($dream->attatchment as $file)
                             <div class="col-md-4 text-center">
-                              <a href="{{asset("/dream_images/".$file->location."")}}">
-                                <img style="width: 70%; margin-bottom: 10px" src="{{asset("/dream_images/".$file->location."")}}">
+                              <a href="{{asset($file->location)}}">
+                                <img style="width: 70%; margin-bottom: 10px" src="{{asset($file->location)}}">
+
+                                {{-- <embed type="image/jpg" src="{{asset($file->location)}}" width="800px" height="2100px" /> --}}
                               </a>
 
                               <div class="col-12 mx:auto">
@@ -638,5 +652,57 @@
 
           </script>
           <script>jQuery(function(){ Codebase.helpers(['simplemde', 'select2', 'flatpickr']); });</script>
+
           <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
+
+          <script>
+
+          function uploadFiles(){
+            var leng = document.getElementById('file').files.length;
+            var token = $('input[name=_token]');
+
+            var data = new FormData();
+
+            for(var i = 0; i < leng; i++){
+              data.append('file[]', document.getElementById('file').files[i]);
+            }
+            data.append('fileUp', document.getElementById('fileUp').value);
+
+
+            var result = [];
+            var res = [];
+            $.ajax({
+                 url: "{{ route('check.and.upload') }}",
+                 type: "POST",
+                 data: data,
+                 contentType: false,
+                 processData:false,
+                 headers: {
+                     'X-CSRF-TOKEN': token.val()
+                 },
+                 success: function(data)
+                 {
+                     result = data.path;
+
+
+                     $('[name=fileUp').val(JSON.stringify(result));
+                     // $('#fileUp').val(result);
+                     console.log(document.getElementById('fileUp').value);
+                     alert(data.message);
+
+
+                 }
+
+            });
+          }
+          </script>
+
+
+
+
+
+
+
+
+
 @endsection

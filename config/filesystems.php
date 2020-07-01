@@ -46,6 +46,17 @@ return [
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'permissions' => [
+              'file' => [
+                  'public' => 0664,
+                  'private' => 0600,
+              ],
+              'dir' => [
+                  'public' => 0775,
+                  'private' => 0700,
+              ],
+          ],
+
         ],
 
         'public' => [
@@ -69,6 +80,17 @@ return [
             'driver' => 'local',
             'root'   => public_path() . '/uploads',
         ],
+
+        'prova' => [
+          'driver' => 'local',
+          'root'   => storage_path() . '/public/app',
+          'url' => env('APP_URL').'/storage',
+          'visibility' => 'public',
+        ],
+
+
+
+
     ],
 
     /*
@@ -84,6 +106,16 @@ return [
 
     'links' => [
         public_path('storage') => storage_path('app/public'),
+        public_path('images') => storage_path('app/images'),
+        public_path('users_backgrounds') => storage_path('app/users_backgrounds'),
+        public_path('avatars') => storage_path('app/avatars'),
+        public_path('dreams_images') => storage_path('app/dreams_images'),
+        public_path('dreams_pdf') => storage_path('app/dreams_pdf'),
+        // public_path('users_backgrounds') => storage_path('app/users_backgrounds'),
+        // public_path('images') => storage_path('app/public/images'),
+        // public_path('users_backgrounds') => storage_path('app/public/images')
+        // public_path('avatars') => storage_path('app/avatars'),
+        // public_path('users_backgrounds') => storage_path('app/users_backgrounds'),
     ],
 
 ];
