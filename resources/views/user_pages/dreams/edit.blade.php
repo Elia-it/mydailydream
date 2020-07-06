@@ -7,12 +7,10 @@
 
 @endsection
 
+
 @section('content')
 
 
-@php
-
-@endphp
 
               <div class="container">
 
@@ -36,7 +34,7 @@
 
 
                 <h2 class="content-heading" style="text-align: center;">Edit page</h2>
-                <form method="POST" action="{{url("/dream/$dream->id")}}" enctype="multipart/form-data">
+                <form method="POST" action="{{url("/dream/$dream->id")}}" enctype="multipart/form-data" id='editForm'>
                   @method('PUT')
                   @csrf
                     <div class="block" @if(!empty($dream->color_id)) style="border-left: solid; border-left-color: {{$dream->color->hex}}" @endif id="box">
@@ -136,7 +134,7 @@
                                 <div class="form-group row text-center">
                                     <div class="col-10">
                                         <!-- SimpleMDE Container -->
-                                        <textarea class="js-simplemde" id="textarea" name="content" placeholder="Do you haven't enough time for write it? Just write 3 words and we will remember you later!">{{$dream->content}}</textarea>
+                                        <textarea class="js-simplemde" id="simplemde" name="content" placeholder="Do you haven't enough time for write it? Just write 3 words and we will remember you later!">{{$dream->content}}</textarea>
                                     </div>
 
 
@@ -695,6 +693,68 @@
 
             });
           }
+          window.onbeforeunload=goodbye;
+          $("#editForm").on("submit", function(event){
+                  window.onbeforeunload = null;
+          });
+
+          // var inputs = document.getElementsByTagName('input');
+          //
+          // var textAreaDefault = document.getElementById('simplemde').defaultValue;
+          // if(inputs['title'].value != inputs['title'].defaultValue){
+          //   console.log(inputs['title']);
+          // }
+
+          function goodbye(e) {
+
+            if(!e) e = window.event;
+            //e.cancelBubble is supported by IE - this will kill the bubbling process.
+            e.cancelBubble = true;
+            e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+
+            let myForm = document.getElementById('editForm');
+            let formData = new FormData(myForm);
+            // var token = $('input[name=_token]');
+            console.log(formData);
+
+
+            document.forms["editForm"].submit();
+
+            var inputs = document.getElementsByTagName('input');
+            var textArea = document.getElementById('simplemde');
+            var select = document.getElementsByTagName('select');
+
+            // console.log(inputs);
+            // console.log(textArea);
+            // console.log(select);
+            // console.log(inputs['file'])
+
+            if(inputs['title'].value == inputs['title'].defaultValue && inputs['flatpickr'].value == inputs['flatpickr'].defaultValue && inputs['is_in_first_person'].value == inputs['is_in_first_person'].defaultValue && inputs['fileUp'].value == inputs['fileUp'].defaultValue
+                && textArea.value == textArea.defaultValue
+                && select['tag'].value == select['tag'].defaultValue && select['emotion'].value == select['emotion'].defaultValue && select['type'].value == select['type'].defaultValue && select['technique'].value == select['technique'].defaultValue && select['mood'].value == select['mood'].defaultValue)
+                {
+                  return;
+            }
+
+            $.ajax({
+              url: "{{url("/dream/$dream->id")}}",
+              type: "POST",
+              data: formData,
+              contentType: false,
+              processData:false,
+              // headers: {
+              //     'X-CSRF-TOKEN': token.val()
+              // },
+            });
+
+            //e.stopPropagation works in Firefox.
+            if (e.stopPropagation) {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+
+          }
+
           </script>
 
 

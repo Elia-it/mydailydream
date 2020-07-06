@@ -20,7 +20,7 @@
 
 
                 <h2 class="content-heading" style="text-align: center;">Write your daily dream!</h2>
-                <form method="POST" action="{{route('dream.store')}}" enctype="multipart/form-data" id="createForm">
+                <form method="POST" action="{{route('dream.store')}}" enctype="multipart/form-data" id="createForm" name="createForm">
                   @csrf
                   <div class="row">
                     <div class="col-12">
@@ -69,7 +69,7 @@
                                     <div class="col-md-10">
 
                                         <!-- SimpleMDE Container -->
-                                        <textarea class="js-simplemde" id="textarea" name="content" placeholder="Do you haven't enough time for write it? Just write 3 words and we will remember you later!"></textarea>
+                                        <textarea class="js-simplemde" id="simplemde" name="content" placeholder="Do you haven't enough time for write it? Just write 3 words and we will remember you later!"></textarea>
 
 
 
@@ -280,7 +280,7 @@
                             <div class="row text-center">
                               <div class="col-12">
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                <input type="submit" class="btn btn-rounded btn-outline-info min-width-150 mx:auto" name="submit" style="margin-bottom: 10px" value="Save">
+                                <input type="submit" class="btn btn-rounded btn-outline-info min-width-150 mx:auto" name="submit_btn" style="margin-bottom: 10px" value="Save">
                               </div>
                             </div>
 
@@ -336,6 +336,12 @@
 @endsection
 
 @section('js_after')
+  <script>
+  // $( document ).ready(function() {
+  // var prv =  $('textarea').val();
+  //   console.log( prv );
+  // });
+  </script>
 
         <script src="{{asset('js/plugins/simplemde/simplemde.min.js')}}"></script>
 
@@ -589,5 +595,232 @@
               //       $('#createForm').
               //   });
               // });
+
+
+              // $(document).ready(function () {
+              //
+              //
+              //   $('#save').click(function() {
+              //       unsaved = false;
+              //   });
+              //
+              //
+              //
+              // });
+
+//               window.onunload = function() {
+//                   alert('Bye.');
+//               }
+//
+//               $(window).unload(function(){
+//   alert('Bye.');
+// });
+//             }
+window.onbeforeunload = goodbye;
+$("#createForm").on("submit", function(event){
+        window.onbeforeunload = null;
+});
+
+
+
+// $(document).ready(function(e){
+//   $("#createForm").on("input", function() {
+//     window.onbeforeunload = goodbye;
+//   });
+// });
+
+var inputsDefault = document.getElementsByTagName('input');
+var selectDefault = document.getElementsByTagName('select');
+var formDefault = false;
+
+
+if(inputsDefault['title'].value == "" && inputsDefault['emotion_id'].value == "1" && inputsDefault['is_in_first_person'].value == "1" && inputsDefault['file'] == ""
+    && selectDefault['type'].value == "" && selectDefault['mood'].value == "" && selectDefault['tag'].value == "" && selectDefault['technique'].value == ""){
+   formDefault = true;
+};
+
+
+// console.log(default);
+
+// $(document).ready(function(e){
+//   var inputsDefault = document.getElementsByTagName('input');
+//   // console.log(inputsDefault);
+//   // e.preventDefault;
+// //   if(e.preventDefault){
+// //     window.onbeforeunload = null;
+// //   }else{
+// //     window.onbeforeunload=goodbye;
+// //   };
+// //   var inp = document.getElementsByTagName('input');
+// //   var val = setOnbeforeload(inp);
+// // });
+// //
+// //
+// // function setOnbeforeunload(inp){
+// //   for(index = 0; index < inp.legth; index++){
+// //     if(input)
+// //   }
+// //
+// //   console.log(inp);
+// });
+
+// $('#createForm').on('change', function(e){
+//     window.onbeforeunload = goodbye;
+// });
+//
+// var oldVal = "";
+// $("#simplemde").on("change keyup paste", function() {
+//     var currentVal = $(this).val();
+//     if(currentVal == oldVal) {
+//         return; //check to prevent multiple simultaneous triggers
+//     }
+//
+//     oldVal = currentVal;
+//     //action to be performed on textarea changed
+//     alert("changed!");
+// });
+
+function goodbye(e) {
+
+  let myForm = document.getElementById('createForm');
+  let formData = new FormData(myForm);
+  document.forms["createForm"].submit();
+
+  var content = document.getElementById('simplemde').value;
+  if(formDefault == true && content == ""){
+    return;
+  };
+
+  if(!e) e = window.event;
+
+  //e.cancelBubble is supported by IE - this will kill the bubbling process.
+  e.cancelBubble = true;
+  e.returnValue = 'You sure you want to leave?'; //This is displayed on the dialog
+  // var text = document.getElementById('textarea').value;
+  // var message = $('#textarea').val();
+
+  // let myForm = document.getElementById('createForm');
+  // let formData = new FormData(myForm);
+  // var token = $('input[name=_token]');
+
+
+//   var simplemde = new SimpleMDE({ element: $("#simplemde")[0] });
+//   var editor = simplemde.fromTextArea(), {
+//   mode: "javascript",
+//   autoRefresh:true,
+//   lineNumbers: false,
+//   lineWrapping: true,
+//
+// });
+
+ //  var simplemde = new SimpleMDE({
+ //    element: document.getElementById("simplemde"),
+ //    autosave: {
+ //    		enabled: true,
+ //    		uniqueId: "simplemde",
+ //    		delay: 1,
+	//    },
+ //     forceSync: true,
+ // });
+ // var text = simplemde.value();
+ //
+ //  setTimeout(function() {
+ //      text.refresh();
+ //  },1);
+ // var simplemde = new SimpleMDE({element: document.getElementById('simplemde', forceSync: true,)});
+
+// console.log(simplemde.value());
+ //
+ // var prova = simplemde.codemirror.getValue();
+ // console.log(prova);
+  // var text = simplemde.value();
+
+  // var dati = $("#createForm").serialize()+"&text="+JSON.stringify(simplemde.value());
+  // var simplemde = new SimpleMDE({ element: $("")[0] });
+  // // var text = simplemde.value();
+  // console.log(simplemde);
+  // var prova = text.value;
+  //
+  // var text = document.getElementById('textarea');
+  //
+  // console.log(prova);
+
+  // formData.append('content',);
+
+
+  // document.forms["createForm"].submit();
+  //
+  // var content = document.getElementById('simplemde').value;
+  //
+
+    formData.append('content', content);
+
+    $.ajax({
+      url: "{{ route('dream.store') }}",
+      type: "POST",
+      data: formData,
+      contentType: false,
+      processData:false,
+      // headers: {
+      //     'X-CSRF-TOKEN': token.val()
+      // },
+    });
+
+
+  // formData.append('content', content);
+  //
+  // $.ajax({
+  //   url: "",
+  //   type: "POST",
+  //   data: formData,
+  //   contentType: false,
+  //   processData:false,
+  //   // headers: {
+  //   //     'X-CSRF-TOKEN': token.val()
+  //   // },
+  // });
+
+
+  //e.stopPropagation works in Firefox.
+  if (e.stopPropagation) {
+      e.stopPropagation();
+      e.preventDefault();
+  }
+
+
+
+}
+
+
+
+              // window.onbeforeunload = confirmExit;
+              //
+              //
+              // $("#createForm").on("submit", function(event){
+              //         window.onbeforeunload = null;
+              // });
+              //
+              //
+              //
+              //
+              //
+              // function submitData(){
+              //   if(window.onbeforeunload == confirmExit){
+              //
+              //   }
+              // }
+              //
+              //
+              // function confirmExit()
+              // {
+              //   // document.getElementById('createForm').submit();
+              //
+              //
+              //   return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
+              // }
+
+
+
+
             </script>
 @endsection
