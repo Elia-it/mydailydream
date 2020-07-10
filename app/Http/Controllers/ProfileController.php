@@ -18,7 +18,7 @@ class ProfileController extends Controller
      */
 
     public function __construct(){
-      $this->middleware('checkProfile');
+      $this->middleware('checkProfile')->except('setNewsletter');
     }
 
 
@@ -106,5 +106,39 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+
+    public function setNewsletter(Request $req, $id){
+
+
+      $user = User::findOrFail($id);
+
+      if($req->email_sub == $user->email){
+        $user->update(['newsletter' => '1']);
+
+        return response()->json([
+          'status' => 'success',
+          'message'   => 'You\'re now subscribed to our newsletter',
+
+         ]);
+
+        // return view('user_pages/newsletter/subscribe_success')->with('success', 'Now you\'re subscribed to our newsletter');
+        // return redirect()->back()->with('email_success', 'You are now subscribed to our newsletter!');
+
+      }
+        return response()->json([
+          'status' => 'failure',
+          'message'   => 'Incorrect email',
+         ]);
+        // return redirect()->back()->with('email_error', 'The email is not valid');
+
     }
 }

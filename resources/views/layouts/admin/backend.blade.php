@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ config('app.locale') }}" class="no-focus">
     <head>
         <meta charset="utf-8">

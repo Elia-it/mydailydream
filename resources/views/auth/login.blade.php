@@ -140,7 +140,7 @@
                                             <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="{{{route('register')}}}">
                                                 <i class="fa fa-plus mr-5"></i> Create Account
                                             </a>
-                                            <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="op_auth_reminder2.html">
+                                            <a class="link-effect text-muted mr-10 mb-5 d-inline-block" href="{{route('password.request')}}">
                                                 <i class="fa fa-warning mr-5"></i> Forgot Password
                                             </a>
                                         </div>

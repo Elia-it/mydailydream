@@ -30,7 +30,7 @@ Auth::routes();
 
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 
 
 // Example Routes
@@ -50,6 +50,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::resource('/dream', 'DreamsController');
 
 Route::middleware(['auth'])->group(function(){
+  Route::get('/home', 'HomeController@index')->name('home');
 
   Route::resource('/dream', 'DreamController');
 
@@ -66,6 +67,10 @@ Route::middleware(['auth'])->group(function(){
   Route::resource('/profile/img', 'User_attatchmentController')->only([
     'update', 'destroy'
   ]);
+
+
+
+  Route::any('/profile/newsletter/{change_sub}', 'ProfileController@setNewsletter')->name('sub_newsletter');
 
 });
 

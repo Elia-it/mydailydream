@@ -22,8 +22,8 @@
                 @csrf
                 <div class="form-group row text-center">
                   <div class="mb-15 mx-auto">
-                      <a class="img-link" href="{{asset($asset->path_avatar)}}" >
-                          <img class="img-avatar img-avatar96 img-avatar-thumb" src="{{asset($asset->path_avatar)}}" alt="">
+                      <a class="img-link" @if($asset->checkImg()) href="{{asset($asset->path_avatar)}}" @else href="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif >
+                          <img class="img-avatar img-avatar96 img-avatar-thumb" @if($asset->checkImg()) src="{{asset($asset->path_avatar)}}" @else src="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif alt="">
                       </a>
                       <div class="row">
                         <div class="col-12">
@@ -52,18 +52,6 @@
 
                   </div>
               </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

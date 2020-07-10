@@ -52,7 +52,7 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="/profile">Profile</a>
+                                        <a href="/profile/{{Auth::user()->id}}">Profile</a>
                                     </li>
                                     <li>
                                       <a class="dropdown-item" href="{{ route('logout') }}"
@@ -252,9 +252,9 @@ DESKTOP
 
                       <!-- Open Search Section -->
                       <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
-                      <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="header_search_on">
+                      {{-- <button type="button" class="btn btn-circle btn-dual-secondary" data-toggle="layout" data-action="header_search_on">
                           <i class="fa fa-search"></i>
-                      </button>
+                      </button> --}}
                       <!-- END Open Search Section -->
 
                       <!-- Toggle Sidebar -->

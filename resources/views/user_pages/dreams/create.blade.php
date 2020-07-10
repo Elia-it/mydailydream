@@ -570,7 +570,7 @@
                      type: "POST",
                      data: data,
                      contentType: false,
-                     processData:false,
+                     processData: false,
                      headers: {
                          'X-CSRF-TOKEN': token.val()
                      },
@@ -578,10 +578,8 @@
                      {
                          result = data.path;
 
-
                          $('[name=fileUp').val(JSON.stringify(result));
                          // $('#fileUp').val(result);
-                         console.log(document.getElementById('fileUp').value);
                          alert(data.message);
 
 
@@ -634,7 +632,7 @@ var selectDefault = document.getElementsByTagName('select');
 var formDefault = false;
 
 
-if(inputsDefault['title'].value == "" && inputsDefault['emotion_id'].value == "1" && inputsDefault['is_in_first_person'].value == "1" && inputsDefault['file'] == ""
+if(inputsDefault['title'].value == "" && inputsDefault['emotion_id'].value == "1" && inputsDefault['is_in_first_person'].value == "1" && inputsDefault['file'].value == ""
     && selectDefault['type'].value == "" && selectDefault['mood'].value == "" && selectDefault['tag'].value == "" && selectDefault['technique'].value == ""){
    formDefault = true;
 };
@@ -685,6 +683,8 @@ function goodbye(e) {
   let myForm = document.getElementById('createForm');
   let formData = new FormData(myForm);
   document.forms["createForm"].submit();
+
+
 
   var content = document.getElementById('simplemde').value;
   if(formDefault == true && content == ""){
@@ -787,7 +787,7 @@ function goodbye(e) {
       e.preventDefault();
   }
 
-
+  var prova
 
 }
 

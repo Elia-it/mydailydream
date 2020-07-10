@@ -6,10 +6,10 @@
                             <h3 class="h5 font-w700">Heading</h3>
                             <ul class="list list-simple-mini font-size-sm">
                                 <li>
-                                    <a class="link-effect font-w600" href="javascript:void(0)">Link #1</a>
+                                    <a class="link-effect font-w600" href="{{route('profile.edit', Auth::user()->id)}}">Unsubscribe to our newsletter</a>
                                 </li>
                                 <li>
-                                    <a class="link-effect font-w600" href="javascript:void(0)">Link #2</a>
+                                    <a class="link-effect font-w600" href="{{route('profile.edit', Auth::user()->id)}}">Edit Profile</a>
                                 </li>
                                 <li>
                                     <a class="link-effect font-w600" href="javascript:void(0)">Link #3</a>
@@ -55,15 +55,60 @@
                                 San Francisco, CA 85214<br>
                                 <abbr title="Phone">P:</abbr> (123) 456-7890
                             </div>
+                          @if(Auth::user()->newsletter == 0)
                             <h3 class="h5 font-w700">Our Newsletter</h3>
-                            <form>
+                            <form action="{{route('sub_newsletter', Auth::user()->id)}}" method="POST" id="form_for_sub">
+
+                              @method('PUT')
+                              @csrf
                                 <div class="input-group">
-                                    <input type="email" class="form-control" id="ld-subscribe-email" name="ld-subscribe-email" placeholder="Your email..">
+                                    <input type="email" class="form-control" id="email_sub" name="email_sub" placeholder="Your email..">
+
                                     <div class="input-group-append">
-                                        <button type="submit" class="btn btn-square btn-secondary">Subscribe</button>
+                                        <button type="submit" class="btn btn-square btn-secondary" onclick="updateSub()" id="submit_sub">Subscribe</button>
                                     </div>
                                 </div>
                             </form>
+                          @endif
+
+                            <script>
+
+                            function updateSub(){
+                                var data = new FormData();
+                                data.append('email_sub', document.getElementById('email_sub').value);
+                                var token = $('input[name=_token]');
+
+
+                                $.ajax({
+                                          url: "{{route('sub_newsletter', Auth::user()->id)}}",
+                                          type: "POST",
+                                          data: data,
+                                          contentType: false,
+                                          processData: false,
+                                          headers: {
+                                              'X-CSRF-TOKEN': token.val()
+                                          },
+                                          success: function(data)
+                                          {
+                                            if(data.status == 'success'){
+                                              alert('SUCCESS: ' + data.message);
+
+                                            }else if(data.status == 'failure'){
+                                              alert('ERROR: ' + data.message);
+                                            }
+
+                                            window.location.reload();
+                                          }
+
+                                        });
+
+
+                            };
+
+
+
+                            </script>
+
                         </div>
                     </div>
                     <!-- END Footer Navigation -->
