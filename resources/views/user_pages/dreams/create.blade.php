@@ -4,6 +4,7 @@
   <link rel="stylesheet" href="{{asset('js/plugins/simplemde/simplemde.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/select2/css/select2.min.css')}}">
+
 @endsection
 
 @section('content')
@@ -52,11 +53,16 @@
 
 
                                           <label class="css-control css-switch">
-                                                <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('{{$color->hex}}')" value="{{$color->id}}" >
+                                                <input type="radio" class="css-control-input" name="color_id" id="color_{{$color->id}}" onClick="borderStyle('{{$color->hex}}')" value="{{$color->id}}" >
                                                 <span class="css-control-indicator"></span> {{$color->name}}
                                             </label>
                                             </div>
-                                            @endforeach
+
+                                            {{-- <script>
+                                            document.getElementById("color_{{$color->id}}").onclick = function() { ChangeColor("color_{{$color->id}}, {{$color->hex}}"); }
+                                            </script> --}}
+
+                                    @endforeach
                                 </div>
 
                             </div>
@@ -341,6 +347,21 @@
   // var prv =  $('textarea').val();
   //   console.log( prv );
   // });
+
+
+
+//NON FUNZIONANTE!!!!!
+
+
+  // function ChangeColor(id, color) {
+  //   // var clrDiv = document.getElementById(id);
+  //   // clrDiv.style.backgroundColor = color;ù
+  //   var elem = document.getElementById(id); // this is your domObj
+  //   var theCSSprop = window.getComputedStyle(elem);
+  //   // alert(window.getComputedStyle(document.getElementById(id).style.backgroundColor));
+  //   console.log(theCSSprop);
+  //   // console.log(clrDiv);
+  // }
   </script>
 
         <script src="{{asset('js/plugins/simplemde/simplemde.min.js')}}"></script>
@@ -361,6 +382,19 @@
           //     document.getElementById('box').style.borderLeft = solid value;
           //
           // }
+          // function css_switch(id, value){
+          //   // if (document.getElementById('id').checked == true) {
+          //   // document.documentElement.setAttribute("style", "background-color:" . value ."");
+          //   var e = document.getElementById(id).style.backgroundColor;
+          //   console.log(e);
+          //   document.getElementById(id).style.backgroundColor = value;
+          //   var c = document.getElementById(id).style.backgroundColor;
+          //   console.log(c);
+          //   // } else {
+          //   // document.documentElement.setAttribute("style", "background-color: white;");
+          //   // document.getElementById('id').style.backgroundColor = white;
+          //   // }
+          // }
 
           function borderStyle(value) {
             if(value != 'none'){
@@ -371,6 +405,7 @@
               document.getElementById("box").style.borderLeftColor = value;
             }else{
               document.getElementById("box").style.borderLeft = "none";
+
             }
           }
 
@@ -819,7 +854,7 @@ function goodbye(e) {
               //   return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
               // }
 
-
+              $('')
 
 
             </script>

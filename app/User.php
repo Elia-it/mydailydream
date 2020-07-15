@@ -55,7 +55,7 @@ class User extends Authenticatable
     }
 
     public function user_attatchment(){
-      $this->hasOne('App\User_attatchment', 'user_id', 'id');
+      return $this->hasOne('App\User_attatchment', 'user_id', 'id');
     }
 
     public function isSubToNewsletter(){

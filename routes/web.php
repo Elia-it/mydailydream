@@ -27,6 +27,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout');
 
 
 
@@ -82,12 +83,56 @@ Route::middleware(['auth'])->group(function(){
 
 Route::middleware(['auth', 'isAdmin'])->group(function(){
 
+
+
   Route::view('/adminpanel', 'admin_pages.panel');
 
-  Route::resource('/adminpanel/emotions', 'EmotionController');
+  Route::resource('/adminpanel/profile', 'AdminProfileController', [
+    'names' => 'admin.profile'
+  ]);
+
+  // Route::post('/adminpanel/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
+  Route::get('/adminpanel/dashboard' , 'AdminController@dashboard')->name('admin.dashboard');
+
+  Route::any('/adminpanel/users', 'UserController@index')->name('users.table');
+
+
+  // Route::resource('/adminpanel/emotions', 'EmotionController');
 
   Route::resource('/adminpanel/techniques', 'TechniqueController');
 
-  Route::resource('/adminpanel/colors', 'ColorController');
+  // Route::resource('/adminpanel/colors', 'ColorController');
+
+  Route::resource('/adminpanel/user', 'UserController', [
+    'names' => 'admin.user'
+  ]);
+
+
+
+// Data Route ----------------
+
+  Route::resource('/adminpanel/colors', 'AdminColorController', [
+    'names' => 'admin.color'
+  ]);
+  Route::resource('/adminpanel/emotions', 'AdminEmotionController', [
+    'names' => 'admin.emotion'
+  ]);
+  Route::resource('/adminpanel/moods', 'AdminMoodController', [
+    'names' => 'admin.mood'
+  ]);
+  Route::resource('/adminpanel/tags', 'AdminTagController', [
+    'names' => 'admin.tag'
+  ]);
+  Route::resource('/adminpanel/techniques', 'AdminTechniqueController', [
+    'names' => 'admin.technique'
+  ]);
+  Route::resource('/adminpanel/types', 'AdminTypeController', [
+    'names' => 'admin.type'
+  ]);
+
+  Route::resource('/adminpanel/roles', 'AdminRoleController', [
+    'names' => 'admin.role'
+  ]);
+
 
 });

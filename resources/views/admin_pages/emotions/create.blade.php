@@ -1,27 +1,57 @@
 @extends('layouts.admin.backend')
 @section('content')
   <div class="container">
-                            <div class="block">
+    @if (Session::has('error'))
+      <div class="alert alert-danger">
+
+          <i class="fa fa-window-close"></i>&nbsp; &nbsp;{{Session::get('error')}}
+
+      </div>
+    @endif
+                            <div class="block mx-auto" style="width: 80%">
                                 <div class="block-header block-header-default">
-                                    <h3 class="block-title">Add Emotion Form</h3>
+                                    <h3 class="block-title">Create Emotion</h3>
                                     <div class="block-options">
-                                        <button type="button" class="btn-block-option">
-                                            <i class="si si-wrench"></i>
-                                        </button>
+
                                     </div>
                                 </div>
                                 <div class="block-content">
-                                    <form action="{{route('emotions.store')}}" method="post">
+                                    <form action="{{route('admin.emotion.store')}}" method="post">
                                       @csrf
-                                        <div class="form-group row">
+                                        {{-- <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="emotion">{{__('Emotion Name')}}</label>
                                             <div class="col-lg-7">
                                                 <input type="text" class="form-control" id="emotion" name="emotion">
                                             </div>
-                                        </div>
+                                        </div> --}}
+                                        <div class="form-group row">
+                                             <div class="col-8">
+                                                 <div class="form-material floating">
+                                                     <input type="text" class="form-control" id="emotion" name="emotion">
+                                                     <label for="emotion">{{__('Emotion Name')}}</label>
+                                                 </div>
+                                             </div>
+                                             <div class="col-4">
+                                               <div class="form-material">
+                                                    <select class="form-control" id="emoticon" name="emoticon">
+                                                        <option>...</option>
+                                                        @php
+                                                          $emo = new App\Emotion;
+                                                          $arr = $emo->getArrayOfEmoticons();
+                                                        @endphp
+
+                                                        @foreach ($arr as $emote)
+                                                          <option value="{{$emote}}">&#{{$emote}}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                    <label for="emoticon">Emoticon</label>
+                                                </div>
+                                             </div>
+                                         </div>
 
                                         <div class="form-group row">
-                                            <div class="col-lg-9 ml-auto">
+                                            <div class="col-lg-9">
                                                 <button type="submit" class="btn btn-alt-success">Add Emotion</button>
                                             </div>
                                         </div>

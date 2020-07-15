@@ -16,4 +16,8 @@ class Role extends Model
       return $this->hasMany('App\User');
     }
 
+    public function getRoles(){
+      $roles = Role::all();
+      return $roles;
+    }
 }

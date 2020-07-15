@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Color;
 
-class ColorController extends Controller
+class AdminMoodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,6 @@ class ColorController extends Controller
     public function index()
     {
         //
-        $colors = Color::all();
-        return view('admin_pages/colors/index', compact('colors'));
     }
 
     /**
@@ -27,7 +24,6 @@ class ColorController extends Controller
     public function create()
     {
         //
-        return view('admin_pages/colors/create');
     }
 
     /**
@@ -39,8 +35,6 @@ class ColorController extends Controller
     public function store(Request $request)
     {
         //
-        Color::create(["color" => $request->color_name , "hex" => $request->hex]);
-        return redirect('adminpanel/colors/index');
     }
 
     /**
@@ -63,8 +57,6 @@ class ColorController extends Controller
     public function edit($id)
     {
         //
-        Color::findOrFail($id)->first();
-        return view('admin_pages/colors/edit');
     }
 
     /**
@@ -77,9 +69,6 @@ class ColorController extends Controller
     public function update(Request $request, $id)
     {
         //
-        Color::findOrFail($id)->update(["name" => $request->color , "hex" => $request->hex]);
-        return redirect('adminpanel/colors/index');
-
     }
 
     /**
@@ -91,7 +80,5 @@ class ColorController extends Controller
     public function destroy($id)
     {
         //
-        Color::findOrFail($id)->delete();
-        return redirect('adminpanel/color/index');
     }
 }

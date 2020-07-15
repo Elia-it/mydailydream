@@ -14,7 +14,7 @@ class User_attatchment extends Model
     ];
 
     public function user_attatchment(){
-      $this->hasOne('App\User', 'id', 'user_id');
+      return $this->belongsTo('App\User', 'id', 'user_id');
     }
 
     public function checkImg(){

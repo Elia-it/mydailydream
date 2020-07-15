@@ -9,7 +9,7 @@
 
                             </div>
                             <label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_1"></label> --}}
-                            <a href="/adminpanel/emotions/create"><button type="button" class="btn btn-alt-success min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;">Add Emotion</button>
+                            <a href="{{route('admin.emotion.create')}}"><button type="button" class="btn btn-alt-success min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;">Add Emotion</button>
                             </a>
                         </div>
                         <div class="block-content">
@@ -19,8 +19,7 @@
                                     <tr>
                                         <th class="text-center" style="width: 50px;">#</th>
                                         <th>Name of emotion</th>
-
-
+                                        <th class="d-none d-sm-table-cell" style="width: 15%;">Emoticon</th>
                                         <th class="text-center" style="width: 100px;">Actions</th>
                                     </tr>
                                 </thead>
@@ -31,16 +30,17 @@
                                     <tr>
                                         <th class="text-center" scope="row">{{$loop->iteration}}</th>
                                         <td>{{$emotion->name}}</td>
+                                        <td>&#{{$emotion->emoticon}}</td>
 
                                         <td class="text-center">
-                                            <div class="btn-group">
-                                                <a href="/adminpanel/emotions/{{$emotion->id}}/edit">
-                                                  <button type="button" class="btn btn-sm btn-secondary js-tooltip-enabled" data-toggle="tooltip" title="" data-original-title="Edit">
-                                                    Edit <i class="fa fa-pencil"></i>
-                                                </button>
+                                          <div class="btn-group">
+                                              <a type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit" href="{{route('admin.emotion.edit', $emotion->id)}}">
+                                                  <i class="fa fa-pencil"></i>
                                               </a>
-
-                                            </div>
+                                              <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Delete" onclick="deleteColor({{$emotion->id}})">
+                                                  <i class="fa fa-times"></i>
+                                              </button>
+                                          </div>
                                         </td>
                                     </tr>
                                     @endforeach
@@ -50,4 +50,44 @@
                         </div>
                     </div>
                   </div>
+@endsection
+
+
+@section('js_after')
+
+  <script>
+
+
+    function deleteColor(id){
+
+      $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+      $.ajax(
+          {
+          url: '/adminpanel/emotions/'+id,
+          type: 'delete', // replaced from put
+          dataType: "JSON",
+          data: {
+              "id": id // method and token not needed in data
+          },
+
+         //  success: function (response)
+         //  {
+         //      console.log(response); // see the reponse sent
+         //  },
+         //  error: function(xhr) {
+         //   console.log(xhr.responseText); // this line will save you tons of hours while debugging
+         //  // do something here because of error
+         // }
+       });
+       window.location.reload();
+
+      }
+
+  </script>
+
 @endsection

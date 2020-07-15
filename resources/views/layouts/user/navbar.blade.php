@@ -51,6 +51,11 @@
                                     <i class="si si-puzzle"></i>{{Auth::user()->first_name}}
                                 </a>
                                 <ul>
+                                  @if(Auth::user()->role->role == "admin")
+                                    <li>
+                                    <a href="/adminpanel">Admin Panel</a>
+                                  </li>
+                                  @endif
                                     <li>
                                         <a href="/profile/{{Auth::user()->id}}">Profile</a>
                                     </li>
@@ -177,11 +182,13 @@ DESKTOP
                                   <i class="si si-puzzle"></i>{{Auth::user()->first_name}}
                               </a>
                               <ul>
-                                <li>
+
                                     @if(Auth::user()->role->role == "admin")
+                                      <li>
                                       <a href="/adminpanel">Admin Panel</a>
+                                    </li>
                                     @endif
-                                </li>
+
                                   <li>
                                       <a href="/profile/{{Auth::user()->id}}">Profile</a>
                                   </li>

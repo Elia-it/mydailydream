@@ -2,18 +2,9 @@
 
 @section('content')
     <!-- Hero -->
-    <div class="bg-white bg-pattern hero-bubbles" style="background-image: url('{{ asset('/media/various/bg-pattern-inverse.png') }}');">
-        <span class="hero-bubble wh-40 pos-t-5 pos-l-20 bg-danger-light"></span>
-        <span class="hero-bubble wh-30 pos-t-5 pos-l-90 bg-danger"></span>
-        <span class="hero-bubble wh-20 pos-t-10 pos-l-40 bg-danger"></span>
-        <span class="hero-bubble wh-40 pos-t-20 pos-l-75 bg-danger-light"></span>
-        <span class="hero-bubble wh-30 pos-t-30 pos-l-10 bg-danger"></span>
-        <span class="hero-bubble wh-30 pos-t-60 pos-l-25 bg-danger"></span>
-        <span class="hero-bubble wh-30 pos-t-60 pos-l-75 bg-danger"></span>
-        <span class="hero-bubble wh-40 pos-t-80 pos-l-50 bg-danger-light"></span>
-        <span class="hero-bubble wh-40 pos-t-75 pos-l-10 bg-danger-light"></span>
-        <span class="hero-bubble wh-30 pos-t-90 pos-l-90 bg-danger-light"></span>
-        <div class="hero overflow-hidden">
+  <div class="bg-image" style="background-image: url('media/photos/photo2@2x.jpg')">
+        <div class="hero bg-primary-dark-op">
+
             <div class="hero-inner">
                 <div class="content content-full text-center">
                     <div class="pt-100 pb-150">
@@ -24,9 +15,9 @@
                             Here you can write your dreams!
                         </h2>
                         <div class="invisible" data-toggle="appear" data-class="animated fadeInUp" data-timeout="300">
-                            <a class="btn btn-hero btn-alt-primary min-width-175 mb-10 mx-5" href="/login"> Login
+                            <a class="btn btn-rounded btn-outline-info min-width-125 mb-10" href="/login"> Login
                             </a>
-                            <a class="btn btn-hero btn-alt-success min-width-175 mb-10 mx-5" href="/register"> Register
+                            <a class="btn btn-rounded btn-outline-success min-width-125 mb-10" href="/register"> Register
                             </a>
                         </div>
                     </div>
