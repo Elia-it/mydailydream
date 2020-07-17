@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Mail\Welcome;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,8 +78,14 @@ Route::middleware(['auth'])->group(function(){
 
 });
 
+//
+Route::get('/send-mail', function () {
 
+    Mail::to('newuser@example.com')->send(new Welcome(auth()->user()));
 
+    return 'A message has been sent to Mailtrap!';
+
+});
 
 
 // Route::view('/prova', 'prova');
@@ -85,7 +94,9 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
 
 
 
-  Route::view('/adminpanel', 'admin_pages.panel');
+  Route::get('/adminpanel', function(){
+    return redirect()->route('admin.dashboard');
+  });
 
   Route::resource('/adminpanel/profile', 'AdminProfileController', [
     'names' => 'admin.profile'
@@ -114,18 +125,23 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
   Route::resource('/adminpanel/colors', 'AdminColorController', [
     'names' => 'admin.color'
   ]);
+
   Route::resource('/adminpanel/emotions', 'AdminEmotionController', [
     'names' => 'admin.emotion'
   ]);
+
   Route::resource('/adminpanel/moods', 'AdminMoodController', [
     'names' => 'admin.mood'
   ]);
+
   Route::resource('/adminpanel/tags', 'AdminTagController', [
     'names' => 'admin.tag'
   ]);
+
   Route::resource('/adminpanel/techniques', 'AdminTechniqueController', [
     'names' => 'admin.technique'
   ]);
+
   Route::resource('/adminpanel/types', 'AdminTypeController', [
     'names' => 'admin.type'
   ]);

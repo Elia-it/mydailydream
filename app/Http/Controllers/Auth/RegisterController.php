@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\User_attatchment;
+use App\Mail\Welcome;
 
 class RegisterController extends Controller
 {
@@ -85,6 +86,9 @@ class RegisterController extends Controller
             'user_id' => $user->id,
             'path_avatar' => $user->pathForGender(),
         ]);
+
+
+        \Mail::to($user)->send(new Welcome($user));
 
         return $user;
     }

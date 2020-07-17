@@ -19,7 +19,7 @@
                                         <i class="si si-bag fa-3x text-primary"></i>
                                     </div>
                                     <div class="font-size-h3 font-w600 text-primary-darker" data-toggle="countTo" data-speed="1000" data-to="1500">0</div>
-                                    <div class="font-size-sm font-w600 text-uppercase text-primary-dark">Sales</div>
+                                    <div class="font-size-sm font-w600 text-uppercase text-primary-dark">How many dream in a day</div>
                                 </div>
                             </a>
                         </div>
