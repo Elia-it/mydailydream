@@ -29,7 +29,8 @@ Route::get('/', function () {
     }
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
 Route::get('logout', 'Auth\LoginController@logout');
 
 
@@ -72,20 +73,19 @@ Route::middleware(['auth'])->group(function(){
     'update', 'destroy'
   ]);
 
-
-
   Route::any('/profile/newsletter/{change_sub}', 'ProfileController@setNewsletter')->name('sub_newsletter');
 
 });
 
 //
-Route::get('/send-mail', function () {
+  Route::get('/send-mail', function () {
 
-    Mail::to('newuser@example.com')->send(new Welcome(auth()->user()));
+      Mail::to('newuser@example.com')->send(new Welcome(auth()->user()));
 
-    return 'A message has been sent to Mailtrap!';
+      return 'A message has been sent to Mailtrap!';
 
-});
+  });
+
 
 
 // Route::view('/prova', 'prova');
@@ -117,7 +117,6 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
   Route::resource('/adminpanel/user', 'UserController', [
     'names' => 'admin.user'
   ]);
-
 
 
 // Data Route ----------------

@@ -12,6 +12,11 @@
 
 
 <div class="container">
+{{-- @php
+  $prova = new App\Dream;
+  // $p =('user_id', '=', Auth::id())->get();
+@endphp --}}
+{{$count}}
   <h2 class="content-heading text-center">Welcome to your Home!</h2>
 
 

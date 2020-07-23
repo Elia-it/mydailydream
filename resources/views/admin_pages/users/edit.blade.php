@@ -82,10 +82,35 @@
                                                   <label for="last_name">Last name</label>
                                                   <input type="text" class="form-control form-control-lg" id="last_name" name="last_name" placeholder="Enter your name.." value="{{$user->last_name}}" disabled>
                                               </div>
+
+
                                               <div class="col-3">
+                                                <div class="form-material floating">
+                                                    <select class="form-control" id="gender" name="gender" disabled>
+                                                        <option value="{{$user->gender}}">{{$user->gender}}</option><!-- Empty value for demostrating material select box -->
+                                                        @php
+                                                          $class_gender = New App\User;
+                                                          $genders = $class_gender->getGenders();
+                                                        @endphp
+
+                                                       @foreach ($genders as $gender)
+                                                          @php
+                                                            if($gender == $user->gender){
+                                                              continue;
+                                                            }
+                                                          @endphp
+                                                          <option value="{{$gender}}">{{$gender}}</option>
+                                                        @endforeach
+
+                                                    </select>
+                                                    <label for="gender">Gender</label>
+                                                </div>
+                                            </div>
+
+                                              {{-- <div class="col-3">
                                                   <label for="gender">Gender</label>
                                                   <input type="text" class="form-control form-control-lg" id="gender" name="gender" placeholder="Enter your name.." value="{{$user->gender}}" disabled>
-                                              </div>
+                                              </div> --}}
                                           </div>
                                           <div class="form-group row">
                                               <div class="col-12">

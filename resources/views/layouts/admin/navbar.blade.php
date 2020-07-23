@@ -15,7 +15,7 @@
 
                                 <img class="img-avatar img-avatar32" @if(Auth::user()->user_attatchment->checkImg()) src="{{asset(Auth::user()->user_attatchment->path_avatar)}}" @else src="{{url("profiles/avatars/" . Auth::user()->user_attatchment->path_avatar . "") }}"  @endif alt="">
                             </a>
-                            <a class="align-middle link-effect text-primary-dark font-w600" href="{{route('admin.user.edit', "$user->id")}}">{{Auth::user()->first_name . " " . Auth::user()->last_name}}</a>
+                            <a class="align-middle link-effect text-primary-dark font-w600" href="{{route('admin.user.edit', auth()->id())}}">{{Auth::user()->first_name . " " . Auth::user()->last_name}}</a>
                         </div>
                         <!-- END User Info -->
                     </div>

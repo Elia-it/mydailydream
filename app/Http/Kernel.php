@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'isAdmin' => \App\Http\Middleware\isAdmin::class,
         'checkProfile' => \App\Http\Middleware\ProfileMiddleware::class,
         'checkDream' => \App\Http\Middleware\DreamMIddleware::class,
+        'countDream' => \App\Http\Middleware\countDream::class,
     ];
 }

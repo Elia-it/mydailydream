@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Dream extends Model
 {
@@ -59,6 +60,18 @@ class Dream extends Model
 
     public function tags(){
       return $this->belongsToMany('App\Tag', 'dreams_tags');
+    }
+
+    public function countDream(){
+      $user = Auth::id();
+      $num_dreams = Dream::where('user_id', $user)->count();
+
+      if($num_dreams > 10){
+        return true;
+      }else {
+        return false;
+      }
+
     }
 
 }

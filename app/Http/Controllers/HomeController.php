@@ -13,9 +13,30 @@ class HomeController extends Controller
      *
      * @return void
      */
+     private $user;
+     private $dreams;
     public function __construct()
     {
+        // $p = Dream::all()->where('user_id', '=', Auth::id());
+        // $num = $p->count();
         $this->middleware('auth');
+
+        // $this->middleware(function ($request, $next) {
+        //   $this->user = Auth::user();
+        //   $this->dreams = Dream::all()->where('user_id', '=', Auth::id());
+        //   $num = $this->dreams->count();
+        //   if($num > 10){
+        //     $this->middleware('verified');
+        //   }
+        //   return $next($request);
+        // });
+
+        // if($num > 10){
+        //   // $this->middleware('verified');
+        // }else{
+        //      $this->middleware('verified');
+        // };
+
 
     }
 
@@ -28,6 +49,7 @@ class HomeController extends Controller
     {
         $id = Auth::user()->id;
         $dreams = Dream::all()->where('user_id', '=', $id);
-        return view('home', compact('dreams'));
+        $count = $dreams->count();
+        return view('home', compact('dreams', 'count'));
     }
 }

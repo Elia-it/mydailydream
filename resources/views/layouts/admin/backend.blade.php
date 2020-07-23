@@ -150,7 +150,7 @@
                             </a>
                             <ul class="list-inline mt-10">
                                 <li class="list-inline-item">
-                                    <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="{{route('admin.profile.edit', Auth::user()->id)}}">{{Auth::user()->first_name . " " . Auth::user()->last_name}} </a>
+                                    <a class="link-effect text-dual-primary-dark font-size-sm font-w600 text-uppercase" href="{{route('admin.user.edit', Auth::user()->id)}}">{{Auth::user()->first_name . " " . Auth::user()->last_name}} </a>
                                 </li>
                                 {{-- <li class="list-inline-item">
                                     <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
@@ -184,27 +184,26 @@
                                 <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-bulb"></i><span class="sidebar-mini-hide">Data</span></a>
                                 <ul>
                                   <li>
-                                    <a class="{{ request()->is('admin_pages/users/index') ? ' active' : ''}}" href="{{route( 'users.table' )}}">Users</a>
+                                    <a class="{{ request()->is('admin_pages/users/index') ? ' active' : ''}}" href="{{route('users.table')}}">Users</a>
                                   </li>
                                     <li>
                                         <a class="{{ request()->is('admin_pages/emotions/index') ? ' active' : '' }}" href="{{route('admin.emotion.index')}}">Emotions</a>
                                     </li>
                                     <li>
-                                        <a class="{{ request()->is('admin_pages/techniques/index') ? ' active' : '' }}" href="/adminpanel/techniques">Techniques</a>
+                                        <a class="{{ request()->is('admin_pages/techniques/index') ? ' active' : '' }}" href="{{route('admin.technique.index')}}">Techniques</a>
                                     </li>
                                     <li>
-                                        <a class="{{ request()->is('admin_pages/moods') ? ' active' : '' }}" href="/pages/blank">Moods</a>
+                                        <a class="{{ request()->is('admin_pages/moods/index') ? ' active' : '' }}" href="{{route('admin.mood.index')}}">Moods</a>
                                     </li>
                                     <li>
-                                        <a class="{{ request()->is('admin_pages/colors') ? ' active' : '' }}" href="{{route('admin.color.index')}}">Colors</a>
+                                        <a class="{{ request()->is('admin_pages/colors/index') ? ' active' : '' }}" href="{{route('admin.color.index')}}">Colors</a>
                                     </li>
                                     <li>
-                                        <a class="{{ request()->is('admin_pages/tags') ? ' active' : '' }}" href="/pages/blank">Tags</a>
+                                        <a class="{{ request()->is('admin_pages/tags/index') ? ' active' : '' }}" href="{{route('admin.tag.index')}}">Tags</a>
                                     </li>
                                     <li>
-                                        <a class="{{ request()->is('admin_pages/types') ? ' active' : '' }}" href="/pages/blank">Types</a>
+                                        <a class="{{ request()->is('admin_pages/types/index') ? ' active' : '' }}" href="{{route('admin.type.index')}}">Types</a>
                                     </li>
-
                                 </ul>
                             </li>
 

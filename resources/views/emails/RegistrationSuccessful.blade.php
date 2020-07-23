@@ -1,6 +1,3 @@
-
-
-
 @component('mail::message')
 # Introduction
 

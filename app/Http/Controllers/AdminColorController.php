@@ -73,7 +73,7 @@ class AdminColorController extends Controller
     public function edit($id)
     {
         //
-        $color = Color::findOrFail($id)->first();
+        $color = Color::findOrFail($id);
         return view('admin_pages/colors/edit', compact('color'));
     }
 

@@ -6,15 +6,15 @@
                   <!-- Striped Table -->
                     <div class="block">
                         <div class="block-header block-header-default">
-                            <h3 class="block-title">Techniques Table</h3>
+                            <h3 class="block-title">Moods Table</h3>
                             {{-- <div class="block-options">
                                 <div class="block-options-item">
                                     <code>.table-striped</code>
                                 </div>
                             </div> --}}
-                            <a href="{{route('admin.technique.create')}}">
+                            <a href="{{route('admin.mood.create')}}">
                               <button type="button" class="btn btn-alt-success min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;">
-                                Add Technique
+                                Add Mood
                               </button>
                             </a>
                         </div>
@@ -23,25 +23,25 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center" style="width: 50px;">#</th>
-                                        <th>Technique</th>
-                                        {{-- <th class="d-none d-sm-table-cell" style="width: 15%;">technique</th> --}}
+                                        <th>Mood</th>
+                                        {{-- <th class="d-none d-sm-table-cell" style="width: 15%;">Mood</th> --}}
                                         <th class="text-center" style="width: 100px;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach ($techniques as $technique)
+                                  @foreach ($moods as $mood)
                                     <tr>
                                         <th class="text-center" scope="row">{{$loop->iteration}}</th>
-                                        <td>{{$technique->name}}</td>
+                                        <td>{{$mood->name}}</td>
                                         {{-- <td class="d-none d-sm-table-cell">
                                             <span><i class="fa fa-square fa-2x" style="color: {{$color->hex}}"></i></span>
                                         </td> --}}
                                         <td class="text-center">
                                             <div class="btn-group">
-                                                <a type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit" href="{{route('admin.technique.edit', $technique->id)}}">
+                                                <a type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Edit" href="{{route('admin.mood.edit', $mood->id)}}">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Delete" onclick="deleteTechnique({{$technique->id}})">
+                                                <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" title="Delete" onclick="deleteMood({{$mood->id}})">
                                                     <i class="fa fa-times"></i>
                                                 </button>
                                             </div>
@@ -65,7 +65,7 @@
   <script>
 
 
-    function deleteTechnique(id){
+    function deleteMood(id){
 
       $.ajaxSetup({
         headers: {
@@ -75,7 +75,7 @@
 
       $.ajax(
           {
-          url: '/adminpanel/techniques/'+id,
+          url: '/adminpanel/moods/'+id,
           type: 'delete', // replaced from put
           dataType: "JSON",
           data: {

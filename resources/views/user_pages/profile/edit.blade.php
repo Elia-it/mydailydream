@@ -127,6 +127,21 @@
                       </div>
                   </div> --}}
                   <div class="form-group row">
+                    <div class="col-6 col-md-4">
+
+                        <ul class="list list-simple-mini font-size-sm">
+                            <li>
+                                <a class="link-effect font-w600" href="{{route('password.request')}}">Reset password</a>
+                            </li>
+                            @if($user->email_verified_at == NULL)
+                              <li>
+                                  <a class="link-effect font-w600" href="{{route('verification.notice')}}">Confirm your email</a>
+                              </li>
+                            @endif
+                        </ul>
+                    </div>
+                  </div>
+                  <div class="form-group row">
                     <div class="col-5 mr-auto">
                       <div class="custom-control custom-checkbox mb-5">
                           @if($user->isSubToNewsletter())

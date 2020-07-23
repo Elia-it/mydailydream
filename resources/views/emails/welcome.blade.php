@@ -12,7 +12,7 @@
 
 @component('mail::message')
 Hello **{{$user->last_name .", " . $user->first_name }}**,  {{-- use double space for line break --}}
-Thank you for choosing Mailtrap!
+Thanks for you registration!
 
 {{-- Click below to write your first dream!
 @component('mail::button', ['url' => $link])
