@@ -15,16 +15,16 @@ class TypeSeeder extends Seeder
         //
         DB::table('types')->insert([
           [
-            'name' => 'Luminoso',
+            'name' => 'Bright',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Lucido',
+            'name' => 'Lucid',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Ricorrente',
+            'name' => 'Appellant',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Premonitore',
+            'name' => 'Premonitory',
             'created_at' => date('Y-m-d H:i:s')
           ]
         ]);

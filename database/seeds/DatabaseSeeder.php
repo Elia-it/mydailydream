@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
           TagSeeder::class,
           TechniqueSeeder::class,
           TypeSeeder::class,
-          UserSeeder::class
+          UserSeeder::class,
+          UserAttachmentSeeder::class,
         ]);
 
     }

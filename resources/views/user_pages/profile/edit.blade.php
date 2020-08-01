@@ -1,5 +1,10 @@
 @extends('layouts.user.layout')
 
+@section('css_before')
+  <link rel="stylesheet" href="{{asset('js/plugins/magnific-popup/magnific-popup.css')}}">
+
+@endsection
+
 @section('content')
   <div class="container">
     <div class="col-xl-10 mx-auto">
@@ -7,12 +12,12 @@
       <div class="block block-themed">
           <div class="block-header bg-info">
               <h3 class="block-title text-center">Informations</h3>
-              <div class="block-options">
+              {{-- <div class="block-options">
                   <button type="button" class="btn-block-option" data-toggle="block-option" data-action="state_toggle" data-action-mode="demo">
                       <i class="si si-refresh"></i>
                   </button>
                   <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle"></button>
-              </div>
+              </div> --}}
           </div>
           <div class="block-content">
 
@@ -22,9 +27,15 @@
                 @csrf
                 <div class="form-group row text-center">
                   <div class="mb-15 mx-auto">
-                      <a class="img-link" @if($asset->checkImg()) href="{{asset($asset->path_avatar)}}" @else href="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif >
+                      {{-- <a class="img-link" @if($asset->checkImg()) href="{{asset($asset->path_avatar)}}" @else href="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif >
                           <img class="img-avatar img-avatar96 img-avatar-thumb" @if($asset->checkImg()) src="{{asset($asset->path_avatar)}}" @else src="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif alt="">
-                      </a>
+                      </a> --}}
+                        <div class="items-push js-gallery img-fluid-100">
+                              <a class="img-link img-link-zoom-in img-thumb img-lightbox" @if($asset->checkImg()) href="{{asset($asset->path_avatar)}}" @else href="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif>
+                                  <img class="img-avatar img-avatar96 img-avatar-thumb" @if($asset->checkImg()) src="{{asset($asset->path_avatar)}}" @else src="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif alt="">
+                              </a>
+                        </div>
+
                       <div class="row">
                         <div class="col-12">
                           <hr>
@@ -167,4 +178,9 @@
       <!-- END Material Register -->
   </div>
 </div>
+@endsection
+
+@section('js_after')
+  <script>jQuery(function(){ Codebase.helpers('magnific-popup'); });</script>
+  <script src="{{asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
 @endsection

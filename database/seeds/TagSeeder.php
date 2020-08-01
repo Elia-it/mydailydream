@@ -15,130 +15,130 @@ class TagSeeder extends Seeder
         //
         DB::table('tags')->insert([
           [
-            'name' => 'casa',
+            'name' => 'Home',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'castello',
+            'name' => 'Castle',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'acqua',
+            'name' => 'Water',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'fuoco',
+            'name' => 'Fire',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'php',
+            'name' => 'Php',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'html',
+            'name' => 'Html',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'festa',
+            'name' => 'Party',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'macchina',
+            'name' => 'Car',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'vacanza',
+            'name' => 'Holiday',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'ospedale',
+            'name' => 'Hospital',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'rubare',
+            'name' => 'To Stole',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'cane',
+            'name' => 'Dog',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'gatto',
+            'name' => 'Cat',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'padre',
+            'name' => 'Father',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'madre',
+            'name' => 'Mother',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'fratello',
+            'name' => 'Brother',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'sorella',
+            'name' => 'Sister',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'nonno',
+            'name' => 'Grandfather',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'nonna',
+            'name' => 'Grandmother',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'cugino',
+            'name' => 'Cousin',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'fidanzata',
+            'name' => 'Girlfriend',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'fidanzato',
+            'name' => 'Boyfriend',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'moglie',
+            'name' => 'Wife',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'marito',
+            'name' => 'Husband',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'vincere',
+            'name' => 'To win',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'perdere',
+            'name' => 'To lose',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'montagna',
+            'name' => 'Mountain',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'freddo',
+            'name' => 'Cold',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'caldo',
+            'name' => 'Hot',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'inverno',
+            'name' => 'Winter',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'estate',
+            'name' => 'Summer',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'autunno',
+            'name' => 'Autumn',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'primavera',
+            'name' => 'Spring',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'figlio',
+            'name' => 'Son',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'figlia',
+            'name' => 'Daughter',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'scuola',
+            'name' => 'School',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'lavoro',
+            'name' => 'Work',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'università',
+            'name' => 'University',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'sole',
+            'name' => 'Sun',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'pioggia',
+            'name' => 'Rain',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'tempesta',
+            'name' => 'Storm',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'neve',
+            'name' => 'Snow',
             'created_at' => date('Y-m-d H:i:s')
           ]
         ]);

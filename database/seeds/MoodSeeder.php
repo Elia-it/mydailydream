@@ -15,16 +15,16 @@ class MoodSeeder extends Seeder
         //
         DB::table('moods')->insert([
           [
-            'name' => 'Piacevole',
+            'name' => 'Enjoyable',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Spiacevole',
+            'name' => 'Unpleasant',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Affascinante',
+            'name' => 'Charming',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Significativo',
+            'name' => 'Significant',
             'created_at' => date('Y-m-d H:i:s')
           ]
         ]);

@@ -21,6 +21,12 @@
 
         <!-- Fonts and Styles -->
         @yield('css_before')
+        <style>
+          body{
+            margin-top: 100px;
+          }
+        </style>
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700">
         <link rel="stylesheet" id="css-main" href="{{ asset ('/css/codebase.css') }}">
 
@@ -121,10 +127,14 @@
                                 <i class="fa fa-times text-danger"></i>
                             </button>
                             <!-- END Close Sidebar -->
-
+                            <div class="content-header-item">
+                              {{-- <a href="" style="font-size:90%"><i class="fa fa-chevron-left fa-2x"></i></a> --}}
+                              <a class="link-effect font-w700 mr-5" href="{{ url()->previous() }}"><i class="fa fa-chevron-left fa-2x" style="font-size:150%; position: absolute; right:18px; top:1%" title="Go Back"></i></a>
+                              {{-- <a href="" style="font-size:90%"><i class="fa fa-chevron-right fa-2x"></i></a> --}}
+                            </div>
                             <!-- Logo -->
                             <div class="content-header-item">
-                                <a class="link-effect font-w700" href="/">
+                                <a class="link-effect font-w700" href="/home">
 
                                     <span class="font-size-xl text-dual-primary-dark">MyDaily</span><span class="font-size-xl text-primary">Dream</span>
                                 </a>
@@ -139,14 +149,14 @@
                     <div class="content-side content-side-full content-side-user px-10 align-parent">
                         <!-- Visible only in mini mode -->
                         <div class="sidebar-mini-visible-b align-v animated fadeIn">
-                            <img class="img-avatar" @if(Auth::user()->user_attatchment->checkImg()) src="{{asset(Auth::user()->user_attatchment->path_avatar)}}" @else src="{{url("profiles/avatars/" . Auth::user()->user_attatchment->path_avatar . "") }}"  @endif alt="">
+                            <img class="img-avatar" @if(Auth::user()->userattachment->checkImg())  src="{{asset(Auth::user()->userattachment->path_avatar)}}" @else src="{{url("profiles/avatars/" . Auth::user()->userattachment->path_avatar . "") }}"  @endif alt="">
                         </div>
                         <!-- END Visible only in mini mode -->
 
                         <!-- Visible only in normal mode -->
                         <div class="sidebar-mini-hidden-b text-center">
                             <a class="img-link" href="javascript:void(0)">
-                                <img class="img-avatar" @if(Auth::user()->user_attatchment->checkImg()) src="{{asset(Auth::user()->user_attatchment->path_avatar)}}" @else src="{{url("profiles/avatars/" . Auth::user()->user_attatchment->path_avatar . "") }}"  @endif alt="">
+                                <img class="img-avatar" @if(Auth::user()->userattachment->checkImg()) src="{{asset(Auth::user()->userattachment->path_avatar)}}" @else src="{{url("profiles/avatars/" . Auth::user()->userattachment->path_avatar . "") }}"  @endif alt="">
                             </a>
                             <ul class="list-inline mt-10">
                                 <li class="list-inline-item">
@@ -248,6 +258,8 @@
             <!-- Main Container -->
             <main id="main-container">
                 @yield('content')
+
+                <button class="btn btn-lg btn-circle btn-outline-info mr-5 mb-5" onclick="gotopFunction()" id="btnGoToTop" title="Go to top"><i class="fa fa-arrow-up"></i></button>
             </main>
             <!-- END Main Container -->
 
@@ -271,6 +283,26 @@
 
         <!-- Laravel Scaffolding JS -->
         <!-- <script src="{{ mix('js/laravel.app.js') }}"></script> -->
+
+        <script>
+
+
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            $('#btnGoToTop').fadeIn("slow");
+          } else {
+            $('#btnGoToTop').fadeOut("slow");
+          }
+        }
+
+        function gotopFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+        </script>
 
         @yield('js_after')
     </body>

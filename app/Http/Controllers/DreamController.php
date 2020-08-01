@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Dream;
-use App\Attatchment;
+use App\Attachment;
 use App\Color;
 use App\Emotion;
 use App\Mood;
 use App\Tag;
 use App\Technique;
 use App\Type;
-use App\Dream_tag;
+use App\DreamTag;
 
 class DreamController extends Controller
 {
@@ -98,9 +98,11 @@ class DreamController extends Controller
           foreach ($files_path as $file_path) {
             $file_ext = pathinfo($file_path, PATHINFO_EXTENSION);
             if($file_ext === 'pdf'){
-              Attatchment::create(['type' => 'pdf', 'location' => $file_path, 'dream_id' => $dream->id]);
+              Attachment::create(['type' => 'pdf', 'location' => $file_path, 'dream_id' => $dream->id]);
             }elseif($file_ext === 'png' OR $file_ext === 'jpg' OR $file_ext === 'jpeg'){
-              Attatchment::create(['type' => 'img', 'location' => $file_path, 'dream_id' => $dream->id]);
+              Attachment::create(['type' => 'img', 'location' => $file_path, 'dream_id' => $dream->id]);
+            }else{
+              return redirect()->back()->with('error', 'Extension not supported');
             }
           }
         }
@@ -123,11 +125,11 @@ class DreamController extends Controller
 //               $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
 //               if($file_extension === 'pdf'){
 //
-//                 Attatchment::create(['type' => 'pdf', 'location' => $pathFile, 'dream_id' => $dream->id]);
+//                 Attachment::create(['type' => 'pdf', 'location' => $pathFile, 'dream_id' => $dream->id]);
 //
 //               }elseif($file_extension === 'png' OR $file_extension === 'jpg' OR $file_extension === 'jpeg'){
 //
-//                 Attatchment::create(['type' => 'img', 'location' => $pathFile, 'dream_id' => $dream->id]);
+//                 Attachment::create(['type' => 'img', 'location' => $pathFile, 'dream_id' => $dream->id]);
 //
 //               }
 //
@@ -139,7 +141,7 @@ class DreamController extends Controller
 //               // $file->move('dream_images', $name);
 //
 //               // $pathFile = $file->store('dreams_images');
-//               // Attatchment::create(['location' => $pathFile, 'dream_id' => $dream->id]);
+//               // Attachment::create(['location' => $pathFile, 'dream_id' => $dream->id]);
 //
 //
 //             }
@@ -147,12 +149,12 @@ class DreamController extends Controller
           // foreach ($request->file('file') as $file){
           //   $name = $file->getClientOriginalName();
           //   $file->move('dream_images', $name);
-          //   Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+          //   Attachment::create(['location' => $name, 'dream_id' => $dream->id]);
           //   echo 1;
           // }
           // $name = $request->file('file')->getClientOriginalName();
           // $request->file('file')->move('dream_images', $name);
-          // Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+          // Attachment::create(['location' => $name, 'dream_id' => $dream->id]);
 
          // }
 
@@ -229,9 +231,11 @@ class DreamController extends Controller
           foreach ($files_path as $file_path) {
             $file_ext = pathinfo($file_path, PATHINFO_EXTENSION);
             if($file_ext === 'pdf'){
-              Attatchment::create(['type' => 'pdf', 'location' => $file_path, 'dream_id' => $dream->id]);
+              Attachment::create(['type' => 'pdf', 'location' => $file_path, 'dream_id' => $dream->id]);
             }elseif($file_ext === 'png' OR $file_ext === 'jpg' OR $file_ext === 'jpeg'){
-              Attatchment::create(['type' => 'img', 'location' => $file_path, 'dream_id' => $dream->id]);
+              Attachment::create(['type' => 'img', 'location' => $file_path, 'dream_id' => $dream->id]);
+            }else{
+              return redirect()->back()->with('error', 'Extension not supported');
             }
           }
         }
@@ -251,7 +255,7 @@ class DreamController extends Controller
         // if(!empty($request->file('file'))){
         //   $name = $request->file('file')->getClientOriginalName();
         //   $request->file('file')->move('dream_images', $name);
-        //   Attatchment::create(['location' => $name, 'dream_id' => $dream->id]);
+        //   Attachment::create(['location' => $name, 'dream_id' => $dream->id]);
         //
         // }
 

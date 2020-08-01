@@ -54,8 +54,8 @@ class User extends Authenticatable implements MustVerifyEmail
       return $this->belongsToMany('App\Tag');
     }
 
-    public function user_attatchment(){
-      return $this->hasOne('App\User_attatchment', 'user_id', 'id');
+    public function userAttachment(){
+      return $this->hasOne('App\UserAttachment', 'user_id', 'id');
     }
 
     public function isSubToNewsletter(){

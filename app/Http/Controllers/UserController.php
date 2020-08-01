@@ -61,6 +61,10 @@ class UserController extends Controller
           $user = User::findOrFail($id);
           return view('admin_pages.personal_profile.show', compact('user'));
         }
+        else
+        {
+          return view('admin_pages.users.edit', compact('user'));
+        }
 
         //$user = User::findOrFail($id)->first();
         //return view("admin_pages.profiles.profile", compact('user'));
@@ -78,7 +82,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         if($id != auth()->user()->id){
 
-          return view('admin_pages/users/edit', compact('user'));
+          return view('admin_pages.users.edit', compact('user'));
         }else{
           return view('admin_pages.personal_profile.edit', compact('user'));
         }

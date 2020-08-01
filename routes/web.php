@@ -59,9 +59,9 @@ Route::middleware(['auth'])->group(function(){
 
   Route::resource('/dream', 'DreamController');
 
-  Route::post('/upload/store', 'AttatchmentController@store')->name('check.and.upload');
+  Route::post('/upload/store', 'AttachmentController@store')->name('check.and.upload');
 
-  Route::resource('/dream/file', 'AttatchmentController')->only([
+  Route::resource('/dream/file', 'AttachmentController')->only([
     'update', 'destroy', 'create'
   ]);
 
@@ -69,11 +69,11 @@ Route::middleware(['auth'])->group(function(){
       'create', 'store', 'index'
   ]);
 
-  Route::resource('/profile/img', 'User_attatchmentController')->only([
+  Route::resource('/profile/img', 'UserAttatchmentController')->only([
     'update', 'destroy'
   ]);
 
-  Route::any('/profile/newsletter/{change_sub}', 'ProfileController@setNewsletter')->name('sub_newsletter');
+  Route::post('/profile/newsletter/{change_sub}', 'ProfileController@setNewsletter')->name('sub_newsletter');
 
 });
 
@@ -102,17 +102,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
     'names' => 'admin.profile'
   ]);
 
-  // Route::post('/adminpanel/dashboard', 'AdminController@dashboard')->name('admin.dashboard');
   Route::get('/adminpanel/dashboard' , 'AdminController@dashboard')->name('admin.dashboard');
 
-  Route::any('/adminpanel/users', 'UserController@index')->name('users.table');
+  Route::get('/adminpanel/users', 'UserController@index')->name('users.table');
 
 
-  // Route::resource('/adminpanel/emotions', 'EmotionController');
-
-  Route::resource('/adminpanel/techniques', 'TechniqueController');
-
-  // Route::resource('/adminpanel/colors', 'ColorController');
 
   Route::resource('/adminpanel/user', 'UserController', [
     'names' => 'admin.user'

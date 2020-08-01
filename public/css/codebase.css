@@ -10166,6 +10166,7 @@ label {
 }
 .css-switch .css-control-input:checked ~ .css-control-indicator {
   background-color: #ddd;
+  background-color: var(--my-color-var);
 }
 .css-switch .css-control-input:checked ~ .css-control-indicator::after {
   box-shadow: -2px 0 3px rgba(0, 0, 0, 0.3);
@@ -22209,4 +22210,10 @@ NAVBAR -
          right: auto;
          left: 100%;
      }
+     #btnGoToTop {
+       display: none;
+       position: fixed;
+       bottom: 20px;
+       right: 30px;
+    }
  }

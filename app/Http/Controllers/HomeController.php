@@ -48,8 +48,7 @@ class HomeController extends Controller
     public function index()
     {
         $id = Auth::user()->id;
-        $dreams = Dream::all()->where('user_id', '=', $id);
-        $count = $dreams->count();
-        return view('home', compact('dreams', 'count'));
+        $dreams = Dream::all()->where('user_id', '=', $id)->take(15)->sortByDesc('created_at');
+        return view('home', compact('dreams'));
     }
 }

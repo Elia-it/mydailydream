@@ -15,15 +15,15 @@ class EmotionSeeder extends Seeder
         //
         DB::table('emotions')->insert([
           [
-              'name' => 'Felicità',
+              'name' => 'Happiness',
               'emoticon' => '128513',
               'created_at' => date('Y-m-d H:i:s')
           ],[
-              'name' => 'Gioia',
+              'name' => 'Joy',
               'emoticon' => '129321',
               'created_at' => date('Y-m-d H:i:s')
           ],[
-              'name' => 'Paura',
+              'name' => 'Fear',
               'emoticon' => '128561',
               'created_at' => date('Y-m-d H:i:s')
           ]

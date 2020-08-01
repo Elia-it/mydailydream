@@ -1,32 +1,39 @@
-
+<div style="background-color: rgba(175, 190, 207, 0.47)">
                 <div class="content content-full">
                     <!-- Footer Navigation -->
                     <div class="row items-push-2x mt-30">
                         <div class="col-6 col-md-4">
-                            <h3 class="h5 font-w700">Heading</h3>
+                            <h3 class="h5 font-w700">Account</h3>
                             <ul class="list list-simple-mini font-size-sm">
+                              <li>
+                                  <a class="link-effect font-w600" href="{{route('profile.edit', Auth::user()->id)}}">Edit Profile</a>
+                              </li>
+
+                              @if (Auth::user()->newsletter == 1)
                                 <li>
                                     <a class="link-effect font-w600" href="{{route('profile.edit', Auth::user()->id)}}">Unsubscribe to our newsletter</a>
                                 </li>
+                              @endif
+
                                 <li>
-                                    <a class="link-effect font-w600" href="{{route('profile.edit', Auth::user()->id)}}">Edit Profile</a>
+                                    <a class="link-effect font-w600" href="{{route('password.request')}}">Change your password</a>
                                 </li>
-                                <li>
-                                    <a class="link-effect font-w600" href="javascript:void(0)">Link #3</a>
-                                </li>
-                                <li>
-                                    <a class="link-effect font-w600" href="javascript:void(0)">Link #4</a>
-                                </li>
-                                <li>
+                                @if (Auth::user()->email_verified_at == NULL)
+                                  <li>
+                                      <a class="link-effect font-w600" href="{{route('verification.notice')}}">Confirm your email</a>
+                                  </li>
+                                @endif
+
+                                {{-- <li>
                                     <a class="link-effect font-w600" href="javascript:void(0)">Link #5</a>
                                 </li>
                                 <li>
                                     <a class="link-effect font-w600" href="javascript:void(0)">Link #6</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
-                        <div class="col-6 col-md-4">
-                            <h3 class="h5 font-w700">Heading</h3>
+                         <div class="col-6 col-md-4">
+                            {{-- <h3 class="h5 font-w700">Second List</h3>
                             <ul class="list list-simple-mini font-size-sm">
                                 <li>
                                     <a class="link-effect font-w600" href="javascript:void(0)">Link #1</a>
@@ -46,13 +53,12 @@
                                 <li>
                                     <a class="link-effect font-w600" href="javascript:void(0)">Link #6</a>
                                 </li>
-                            </ul>
+                            </ul> --}}
                         </div>
                         <div class="col-md-4">
-                            <h3 class="h5 font-w700">Company LTD</h3>
+                            <h3 class="h5 font-w700">Company X</h3>
                             <div class="font-size-sm mb-30">
-                                1080 Sunshine Valley, Suite 2563<br>
-                                San Francisco, CA 85214<br>
+                                Frosinone, Lazio, IT<br>
                                 <abbr title="Phone">P:</abbr> (123) 456-7890
                             </div>
                           @if(Auth::user()->newsletter == 0)
@@ -115,12 +121,14 @@
 
                     <!-- Copyright Info -->
                     <div class="font-size-sm clearfix border-t pt-20 pb-10">
-                        <div class="float-right">
-                            <a class="font-w600" href="https://1.envato.market/95j" target="_blank">mydailydream</a> &copy; <span class="js-year-copy"></span>
-                        </div>
-                        <div class="float-left">
+                        {{-- <div class="float-right">
                             Crafted with <i class="fa fa-heart text-pulse"></i> by <a class="font-w600" href="https://1.envato.market/ydb" target="_blank">pixelcave</a>
+
+                        </div> --}}
+                        <div class="float-left">
+                          <a class="font-w600" href="https://1.envato.market/95j" target="_blank">mydailydream</a> &copy; <span class="js-year-copy"></span>
                         </div>
                     </div>
                     <!-- END Copyright Info -->
                 </div>
+              </div>

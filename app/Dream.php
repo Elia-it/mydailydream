@@ -54,8 +54,8 @@ class Dream extends Model
       return $this->hasOne('App\Color', 'id', 'color_id');
     }
 
-    public function attatchment(){
-      return $this->hasMany('App\Attatchment', 'dream_id', 'id');
+    public function attachment(){
+      return $this->hasMany('App\Attachment', 'dream_id', 'id');
     }
 
     public function tags(){

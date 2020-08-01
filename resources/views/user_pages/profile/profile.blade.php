@@ -3,6 +3,8 @@
 @section('css_before')
   <link rel="stylesheet" href="{{asset('js/plugins/simplemde/simplemde.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
+  <link rel="stylesheet" href="{{asset('js/plugins/magnific-popup/magnific-popup.css')}}">
+
 @endsection
 
 @section('content')
@@ -74,11 +76,24 @@
                                 </div>
 
               <!-- Avatar -->
-              <div class="mb-15 text-center">
+              {{-- <div class="mb-15 text-center">
                   <a class="img-link" @if($asset->checkImg()) href="{{asset($asset->path_avatar)}}" @else href="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif >
                       <img class="img-avatar img-avatar96 img-avatar-thumb" @if($asset->checkImg()) src="{{asset($asset->path_avatar)}}" @else src="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif alt="">
                   </a>
-              </div>
+              </div> --}}
+              <div class="form-group row text-center">
+                <div class="mb-15 mx-auto">
+                    {{-- <a class="img-link" @if($asset->checkImg()) href="{{asset($asset->path_avatar)}}" @else href="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif >
+                        <img class="img-avatar img-avatar96 img-avatar-thumb" @if($asset->checkImg()) src="{{asset($asset->path_avatar)}}" @else src="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif alt="">
+                    </a> --}}
+                      <div class="items-push js-gallery img-fluid-100">
+                            <a class="img-link img-link-zoom-in  img-lightbox" @if($asset->checkImg()) href="{{asset($asset->path_avatar)}}" @else href="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif>
+                                <img class="img-avatar img-avatar96 img-avatar-thumb" @if($asset->checkImg()) src="{{asset($asset->path_avatar)}}" @else src="{{url("profiles/avatars/$asset->path_avatar")}}"  @endif alt="">
+                            </a>
+                      </div>
+                    </div>
+                  </div>
+          
               <!-- END Avatar -->
 
               <!-- Personal -->
@@ -238,7 +253,8 @@
 @endsection
 
 @section('js_after')
-
+  <script>jQuery(function(){ Codebase.helpers('magnific-popup'); });</script>
+  <script src="{{asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
 
         <script>
             $(document).ready(function(){

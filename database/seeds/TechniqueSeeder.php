@@ -21,10 +21,10 @@ class TechniqueSeeder extends Seeder
             'name' => 'WILD',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Intento',
+            'name' => 'Intent',
             'created_at' => date('Y-m-d H:i:s')
           ],[
-            'name' => 'Induzione Mnemonica',
+            'name' => 'Mnemonic induction',
             'created_at' => date('Y-m-d H:i:s')
           ]
         ]);

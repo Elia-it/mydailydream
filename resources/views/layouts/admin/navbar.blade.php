@@ -11,9 +11,9 @@
 
                         <!-- User Info -->
                         <div class="content-header-item">
-                            <a class="img-link mr-5" @if(Auth::user()->user_attatchment->checkImg()) href="{{asset(Auth::user()->user_attatchment->path_avatar)}}" @else href="{{url("profiles/avatars/" . Auth::user()->user_attatchment->path_avatar . "") }}"  @endif>
+                            <a class="img-link mr-5" @if(Auth::user()->userattachment->checkImg()) href="{{asset(Auth::user()->userattachment->path_avatar)}}" @else href="{{url("profiles/avatars/" . Auth::user()->userattachment->path_avatar . "") }}"  @endif>
 
-                                <img class="img-avatar img-avatar32" @if(Auth::user()->user_attatchment->checkImg()) src="{{asset(Auth::user()->user_attatchment->path_avatar)}}" @else src="{{url("profiles/avatars/" . Auth::user()->user_attatchment->path_avatar . "") }}"  @endif alt="">
+                                <img class="img-avatar img-avatar32" @if(Auth::user()->userattachment->checkImg()) src="{{asset(Auth::user()->userattachment->path_avatar)}}" @else src="{{url("profiles/avatars/" . Auth::user()->userattachment->path_avatar . "") }}"  @endif alt="">
                             </a>
                             <a class="align-middle link-effect text-primary-dark font-w600" href="{{route('admin.user.edit', auth()->id())}}">{{Auth::user()->first_name . " " . Auth::user()->last_name}}</a>
                         </div>
@@ -266,7 +266,7 @@
                                <h6 class="dropdown-header">Color Themes</h6>
                                <div class="row no-gutters text-center mb-5">
                                    <div class="col-2 mb-5">
-                                       <a class="text-default" data-toggle="theme" data-theme="default" href="javascript:void(0)">
+                                       <a class="text-default" data-toggle="theme" data-theme="{{asset('css/themes/default.css')}}" href="javascript:void(0)">
                                            <i class="fa fa-2x fa-circle"></i>
                                        </a>
                                    </div>

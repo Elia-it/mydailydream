@@ -85,7 +85,7 @@
                             </li>
                             <li class="nav-main-heading">Other pages</li>
                             <li>
-                                <a href="/dream/create">MyDream
+                                <a href="/dream/create">Write your Dream
                                 </a>
                             </li>
                             {{-- <li>
@@ -119,13 +119,27 @@ DESKTOP
 
 
                   <!-- Header -->
+
                   <header id="page-header">
+
                     <!-- Header Content -->
                     <div class="content-header">
+                      {{-- <a href="" style="font-size:90%"><i class="fa fa-chevron-left fa-2x"></i></a> --}}
+                      <div class="content-header-section">
+                        <div class="content-header-item">
+                          {{-- <a href="" style="font-size:90%"><i class="fa fa-chevron-left fa-2x"></i></a> --}}
+                          <a class="link-effect font-w700 mr-5" href="{{ url()->previous() }}"><i class="fa fa-chevron-left fa-2x" style="font-size:150%;"></i>
+                          <label style="position: relative; top: -10%">Back</label> </a>
+                          {{-- <a href="" style="font-size:90%"><i class="fa fa-chevron-right fa-2x"></i></a> --}}
+                        </div>
+                      </div>
                         <!-- Right Section -->
                         <div class="content-header-section">
+
+
                             <!-- Logo -->
                             <div class="content-header-item">
+
                                 <a class="link-effect font-w700 mr-5" href="/home">
                                     {{-- <i class="si si-fire text-primary"></i> --}}
                                     <span class="font-size-xl text-dual-primary-dark">MyDaily</span><span class="font-size-xl text-primary">Dream</span>
@@ -169,7 +183,7 @@ DESKTOP
                               </a>
                           </li>
                           <li>
-                              <a href="/dream/create">MyDream
+                              <a href="/dream/create">Write your dream
                               </a>
                           </li>
                           {{-- <li>
@@ -310,5 +324,11 @@ DESKTOP
                   </div>
               </div>
               <!-- END Header Loader -->
+              {{-- <a href="" style="font-size:90%; margin-right:30px"><i class="fa fa-chevron-left fa-2x"></i></a> --}}
+
           </header>
+          {{-- <div class="container">
+            <a href="" style="font-size:90%; margin-right:30px"><i class="fa fa-chevron-left fa-2x"></i></a>
+            <p for="back">Back</p>
+          </div> --}}
           <!-- END Header -->

@@ -20,7 +20,16 @@
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('media/favicons/apple-touch-icon-180x180.png') }}">
 
         <!-- Fonts and Styles -->
+        <link rel="stylesheet" href="{{asset('js/plugins/magnific-popup/magnific-popup.css')}}">
+
         @yield('css_before')
+
+        <style>
+          body{
+            margin-top: 80px !important;
+          }
+        </style>
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700">
         <link rel="stylesheet" id="css-main" href="{{ asset ('/css/codebase.css') }}">
 
@@ -30,14 +39,8 @@
 
         <!-- Scripts -->
         <script>window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),]) !!};</script>
-        @yield('js_before')
 
 
-        <style>
-            body{
-              margin-top: 100px;
-          }
-        </style>
     </head>
     <body>
 
@@ -104,6 +107,8 @@
             <!-- Main Container -->
             <main id="main-container">
                 @yield('content')
+
+                <button class="btn btn-lg btn-circle btn-outline-info mr-5 mb-5" onclick="gotopFunction()" id="btnGoToTop" title="Go to top"><i class="fa fa-arrow-up"></i></button>
             </main>
             <!-- END Main Container -->
 
@@ -120,6 +125,30 @@
 
         <!-- Laravel Scaffolding JS -->
         <!-- <script src="{{ asset ('js/laravel.app.js') }}"></script> -->
+        <script>
+
+
+
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+          if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            $('#btnGoToTop').fadeIn("slow");
+          } else {
+            $('#btnGoToTop').fadeOut("slow");
+          }
+        }
+
+        function gotopFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+        </script>
+
+
+        <script src="{{asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+        <script>jQuery(function(){ Codebase.helpers(['magnific-popup']); });</script>
+
 
         @yield('js_after')
     </body>

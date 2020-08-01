@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container">
-  <div class="bg-image bg-image-bottom" style= @if($user->user_attatchment->isImg()) "background-image: url('{{asset($user->user_attatchment->background)}}');" @else "background-color: {{$user->user_attatchment->background}};" @endif>
+  <div class="bg-image bg-image-bottom" style= @if($user->userattachment->isImg()) "background-image: url('{{asset($user->userattachment->background)}}');" @else "background-color: {{$user->userattachment->background}};" @endif>
                       <div class="bg-black-op-75 py-30">
                           <div class="content content-full text-center">
                               <!-- Avatar -->
                               <div class="mb-15">
-                                <a class="img-link" @if($user->user_attatchment->checkImg()) href="{{asset($user->user_attatchment->path_avatar)}}"  @else href="{{url("profiles/avatars/".$user->user_attatchment->path_avatar."")}}"  @endif >
-                                    <img class="img-avatar img-avatar96 img-avatar-thumb" @if($user->user_attatchment->checkImg()) src="{{asset($user->user_attatchment->path_avatar)}}"  @else src="{{url("profiles/avatars/".$user->user_attatchment->path_avatar."")}}" @endif alt="">
+                                <a class="img-link" @if($user->userattachment->checkImg()) href="{{asset($user->userattachment->path_avatar)}}"  @else href="{{url("profiles/avatars/".$user->userattachment->path_avatar."")}}"  @endif >
+                                    <img class="img-avatar img-avatar96 img-avatar-thumb" @if($user->userattachment->checkImg()) src="{{asset($user->userattachment->path_avatar)}}"  @else src="{{url("profiles/avatars/".$user->userattachment->path_avatar."")}}" @endif alt="">
                                 </a>
                               </div>
                               <!-- END Avatar -->

@@ -4,7 +4,16 @@
   <link rel="stylesheet" href="{{asset('js/plugins/simplemde/simplemde.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('js/plugins/magnific-popup/magnific-popup.css')}}">
 
+<style media="screen">
+  .crop {
+  height: 160px;
+  width: 250px;
+  overflow: hidden;
+  }
+
+</style>
 @endsection
 
 
@@ -29,6 +38,13 @@
 
                   </div>
                 @endif
+                @if(Session::has('error'))
+                  <div class="alert alert-danger">
+
+                      <i class="fa fa-check-square"></i>&nbsp; &nbsp;{{Session::get('error')}}
+
+                  </div>
+                @endif
 
 
 
@@ -47,30 +63,72 @@
 
                             <div class="btn-group" role="group">
                               @if (!empty($dream->color_id))
-                              <label>Do you want change your color's dream? </label>
+                              <label id="color_selected">Selected color: </label> &nbsp; <label id="color_selected_hex" style="color: {{$dream->color->hex}}">{{$dream->color->name}}</label>
+
+                              {{-- <label>Selected color: </label> &nbsp; <label style="color: {{$dream->color->hex}}">{{$dream->color->name}}</label> --}}
                             @else
-                              <label>Choose a color for you dream! </label>
+                              <label id="color_selected">Select a color for your Dream!</label> &nbsp; <label id="color_selected_hex"></label>
+
                             @endif
-                            <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            <div class="btn-group" id="myDropdown">
+                              <a class="btn btn-circle btn-dual-secondary" data-toggle="dropdown" href="#">
+                                <i class="fa fa-paint-brush"></i>
+                                <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu">
+                                @foreach ($colors as $color)
+                                  <li><a href="#">
+                                    <label class="css-control css-switch" style="color: {{$color->hex}}">
+                                     <input type="radio" class="css-control-input" name="color_id" id="color_{{$color->id}}" onClick="borderStyle('{{$color->name}}','{{$color->hex}}')" value="{{$color->id}}">
+                                     <span class="css-control-indicator" id="prova" style="--my-color-var: {{$color->hex}};"></span> {{$color->name}}
+                                 </label>
+                               </a>
+                             </li>
+
+
+                                    {{-- <label class="css-control css-switch">
+                                          <input type="radio" class="css-control-input" name="color_id" id="color_{{$color->id}}" onClick="borderStyle('{{$color->hex}}')" value="{{$color->id}}" >
+                                          <span class="css-control-indicator"></span> {{$color->name}}
+                                      </label>
+                                      </div> --}}
+
+                                      {{-- <script>
+                                      document.getElementById("color_{{$color->id}}").onclick = function() { ChangeColor("color_{{$color->id}}, {{$color->hex}}"); }
+                                      </script> --}}
+                                    </a>
+                                    </li>
+                              @endforeach
+                                <li class="divider"><label>Remove color</label></li>
+                                <li><a href="#">
+                                  <label class="css-control css-switch">
+                                        <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('none', 'none')" value="" >
+                                        <span class="css-control-indicator"></span> None
+                                    </label>
+
+                              </a></li>
+                              </ul>
+                            </div>
+                            {{-- <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-paint-brush"></i>
                             </button>
                             <div class="dropdown-menu min-width-300" aria-labelledby="page-header-options-dropdown" style="">
                                 <h5 class="h6 text-center py-10 mb-10 border-b text-uppercase">Settings</h5>
                                 <h6 class="dropdown-header">Dream Themes</h6>
                                 <div class="row no-gutters ">
-                                    <div class="col-12">
+                                    <div class="col-12"> --}}
                                       {{-- <label class="css-control css-control-primary css-radio">
 
                                           <input type="radio" class="css-control-input" name="radio-group2" checked="" onClick="changeColour('none')"  >
                                           <span class="css-control-indicator"></span> default
                                       </label> --}}
-                                      <label class="css-control css-switch">
+                                      {{-- <label class="css-control css-switch">
                                             <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('none')" value="" >
                                             <span class="css-control-indicator"></span> none
                                         </label>
-                                      </div>
+                                      </div> --}}
 
-                                      @foreach ($colors as $color)
+                                      {{-- @foreach ($colors as $color)
                                         <div class="col-12">
 
 
@@ -79,7 +137,7 @@
                                                 <span class="css-control-indicator"></span> {{$color->name}}
                                             </label>
                                             </div>
-                                            @endforeach
+                                            @endforeach --}}
 
 
 
@@ -115,9 +173,9 @@
                                             <i class="fa fa-2x fa-circle"></i>
                                         </a>
                                     </div> --}}
-                                </div>
+                                {{-- </div>
 
-                            </div>
+                            </div> --}}
 
 
 
@@ -131,7 +189,7 @@
                             </div>
                         </div>
                         <div class="block-content">
-                                <div class="form-group row text-center">
+                                <div class="form-group row">
                                     <div class="col-10">
                                         <!-- SimpleMDE Container -->
                                         <textarea class="js-simplemde" id="simplemde" name="content" placeholder="Do you haven't enough time for write it? Just write 3 words and we will remember you later!">{{$dream->content}}</textarea>
@@ -139,7 +197,7 @@
 
 
 
-                                    <div class="col-md-2">
+                                    <div class="col-md-2 text-center">
 
                                           <label for="flatpickr">When did you dream it?</label>
                                           <div class="col-md-12 mx:auto text-center">
@@ -286,6 +344,31 @@
                               <div class="form-group row text-center">
                                 <div class="col-3">
                                   <label>Emotion</label>
+                                <div class="box">
+                                  <div class="col-12">
+                                  @foreach ($emotions as $emotion)
+                                    {{-- <input type="radio" class="css-control-input" name="emotion_id" value="{{$emotion->id}}" >{{$emotion->emoticon}} --}}
+                                      <div class="custom-control custom-radio custom-control-inline mb-5">
+                                          <input class="custom-control-input" type="radio" name="emotion_id" id="emotion_{{$emotion->id}}" value="{{$emotion->id}}"
+                                          @if ($emotion->id == $dream->emotion_id)
+                                            checked=""
+                                          @endif
+                                          >
+                                          <label class="custom-control-label" data-toggle="tooltip" data-placement="bottom" title="{{$emotion->name}}" for="emotion_{{$emotion->id}}">
+                                            &#{{$emotion->emoticon}};
+                                          </label>
+                                      </div>
+
+                                  @endforeach
+
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+                                {{-- <div class="col-3">
+                                  <label>Emotion</label>
                                       <select class="form-control" id="emotion" name="emotion_id">
 
                                         @if ($dream->emotion_id > 0)
@@ -302,7 +385,7 @@
                                           @endforeach
 
                                       </select>
-                                  </div>
+                                  </div> --}}
                                   <div class="col-3">
                                     <label>Type</label>
                                         <select class="form-control" id="type" name="type_id">
@@ -398,14 +481,15 @@
 
                                         <div class="col-md-5 mx-auto" style="margin-top: 10px">
                                           {{-- <input type="file" class="form-control-file" style="margin-top: 10px" name="add_file[]" multiple=""> --}}
-                                          <label class="col-12">Add your files</label>
+                                          <label class="col-12">attachments</label>
                                           <div class="custom-file">
                                               <!-- Populating custom file input label with the selected filename (data-toggle="custom-file-input" is initialized in Helpers.coreBootstrapCustomFileInput()) -->
                                               <!-- When multiple files are selected, we use the word 'Files'. You can easily change it to your own language by adding the following to the input, eg for DE: data-lang-files="Dateien" -->
                                               <input type="file" class="custom-file-input" id="file" name="file[]" data-toggle="custom-file-input" multiple onchange="uploadFiles()">
-                                              <label class="custom-file-label" for="file">Choose files</label>
+                                              <label class="custom-file-label" for="file">Choose...</label>
                                               <input type="hidden" id="fileUp" name="fileUp">
                                           </div>
+                                          <label><p id="update_alert"></p></label>
                                         </div>
 
 
@@ -426,13 +510,13 @@
                                 </div>
 
                                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                <input type="submit" class="btn btn-rounded btn-outline-info min-width-125 mx:right" name="status" style="margin-bottom: 10px" value="draft">
-                                <input type="submit" class="btn btn-rounded btn-outline-success min-width-125 mx:right" name="status" style="margin-bottom: 10px" value="publish">
+                                {{-- <input type="submit" class="btn btn-rounded btn-outline-info min-width-125 mx:right" name="status" style="margin-bottom: 10px" value="draft">
+                                <input type="submit" class="btn btn-rounded btn-outline-success min-width-125 mx:right" name="status" style="margin-bottom: 10px" value="publish"> --}}
 
 
                             </form>
 
-                            {{-- @if(!empty($dream->attatchment[0]))
+                            {{-- @if(!empty($dream->attachment[0]))
                             <div class="row text-center">
                               <div class="col-lg-4 ml-auto">
                                 <label> Update your file </label>
@@ -446,7 +530,7 @@
                             <div class="row text-center">
                               <div class="col-lg-4 ml-auto">
 
-                                  <form method="POST" action="{{url("/dream/file/".$dream->attatchment[0]->id."")}}" enctype="multipart/form-data">
+                                  <form method="POST" action="{{url("/dream/file/".$dream->attachment[0]->id."")}}" enctype="multipart/form-data">
                                       @method('PUT')
                                       @csrf
 
@@ -458,10 +542,10 @@
                                   </form>
                                 </div>
                                 <div class="col-lg-4 mr-auto">
-                                  <form method="POST" action="{{url("/dream/file/".$dream->attatchment[0]->id."")}}">
+                                  <form method="POST" action="{{url("/dream/file/".$dream->attachment[0]->id."")}}">
                                       @method('DELETE')
                                       @csrf
-                                      <label>{{$dream->attatchment[0]->location}}</label>
+                                      <label>{{$dream->attachment[0]->location}}</label>
                                       <br>
                                       <input type="submit" class="btn btn-danger min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" value="Delete file">
 
@@ -473,7 +557,7 @@
 
                         </div>
 
-                        <div class="block" style="text-align: right" >
+                        {{-- <div class="block" style="text-align: right" >
                           <form method="POST" action="{{url("/dream/$dream->id")}}">
                             @method('DELETE')
                             @csrf
@@ -482,71 +566,102 @@
 
 
 
-                        </div>
-                    </div>
+                        </div> --}}
+
                     <!-- END SimpleMDE Editor -->
-                    <hr>
-                    <div class="box ">
-                      <div class="text-center">
-                        <h3>Your file</h3>
-                        <hr>
-                      </div>
-                    </div>
+                    <hr style="width: 80%">
+                    <div class="col-md-12">
+                            <div class="block block-mode-hidden fadeIn" id="block_attachments">
+                                <div class="block-header block-header-default">
+                                    <h3 class="block-title text-center">
+                                      @if(!empty($dream->attachment[0])) attachments
+                                      </h3>
+                                      <div class="block-options">
+                                          <!-- To toggle block's content, just add the following properties to your button: data-toggle="block-option" data-action="content_toggle" -->
+                                          <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle" title="Show attachments"></button>
+                                      </div>
 
-                    <div class="form-group row text-center">
 
-                      @if(!empty($dream->attatchment[0]))
-                        <div class="row">
 
-                          @foreach ($dream->attatchment as $file)
-                            <div class="col-md-4 text-center">
-                              <a href="{{asset($file->location)}}">
-                                <img style="width: 70%; margin-bottom: 10px" src="{{asset($file->location)}}">
+                                      @else There aren't any attachments @endif </h3>
+                                    {{-- <div class="block-options">
+                                        <!-- To toggle block's content, just add the following properties to your button: data-toggle="block-option" data-action="content_toggle" -->
+                                        <button type="button" class="btn-block-option" data-toggle="block-option" data-action="content_toggle" title="Show attachments"></button>
+                                    </div> --}}
+                                </div>
+                                <div class="block-content">
+                                  <div class="row items-push js-gallery"  style="background-color: #627180">
+                                    @if(!empty($dream->attachment[0]))
+                                      @foreach ($dream->attachment as $file)
+                                        <div class="col-md-6 col-lg-4 col-xl-3 animated fadeIn" style="margin-top:10px">
+                                            <div class="options-container fx-item-zoom-in fx-overlay-slide-down crop">
+                                              <img class="img-fluid options-item" src="{{asset($file->location)}}" alt="">
+                                              <div class="options-overlay bg-black-op-75">
+                                                  <div class="options-overlay-content">
+                                                    <h3 class="h4 text-white mb-5">Image</h3>
+                                                    <h4 class="h6 text-white-op mb-15">More Details</h4>
 
-                                {{-- <embed type="image/jpg" src="{{asset($file->location)}}" width="800px" height="2100px" /> --}}
-                              </a>
 
-                              <div class="col-12 mx:auto">
-                                <form method="post" action="{{url("/dream/file/$file->id")}}" enctype="multipart/form-data">
+                                                    <a class="btn btn-sm btn-rounded btn-noborder btn-alt-primary min-width-75 img-lightbox" href="{{asset($file->location)}}">
+                                                        <i class="fa fa-search-plus"></i> View
+                                                    </a>
+                                                    <hr style="width: 70%">
+                                                    {{-- <a class="btn btn-sm btn-rounded btn-noborder btn-alt-success min-width-75" href="javascript:void(0)"><i class="fa fa-pencil"></i> Edit</a> --}}
 
-                                  @csrf
-                                  @method('PUT')
-                                  <input type="file" class="form-control-file" style="margin-top: 10px" name="update_file">
-                                  <input type="submit" class="btn btn-info min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" name="update" value="update">
+                                                    {{-- <input form="deleteFormAtt" type="submit" class="btn btn-sm btn-rounded btn-noborder btn-alt-danger min-width-55" value="Delete"> --}}
 
-                                </form>
-                              </div>
-                              &nbsp;
-                              <div class="col-12 mx:auto">
 
-                                <form method="post" action="{{url("dream/file/$file->id")}}">
-                                  @csrf
-                                  @method('DELETE')
+                                                    <form method="post" action="{{url("dream/file/$file->id")}}" id="deleteFormAtt">
+                                                      @csrf
+                                                      @method('DELETE')
+                                                      <button type="submit" class="btn btn-sm btn-rounded btn-noborder btn-alt-danger min-width-55">
+                                                        <i class="fa fa-trash"></i> Delete
+                                                      </button>
 
-                                  <input type="submit" class="btn btn-danger min-width-125 js-click-ripple-enabled" data-toggle="click-ripple" style="overflow: hidden; position: relative; z-index: 1;" value="Delete">
+                                                    </form>
 
-                                </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                      @endforeach
+                                    @endif
+
+
+                                    </div>
+                                </div>
                             </div>
-
-                            </div>
-                          @endforeach
-
-
-
-
                         </div>
 
 
-                      @else
-                        <h4>There aren't files</h4>
-                      @endif
-
-                    </div>
 
 
-                      {{-- @if(!empty($dream->attatchment[0]))
+                                  <div class="block">
+
+                                      <div class="block-content">
+                                        <input form="editForm" type="submit" class="btn btn-rounded btn-outline-info min-width-125 mx:right" name="status" style="margin-bottom: 10px" value="draft">
+                                        <input form="editForm" type="submit" class="btn btn-rounded btn-outline-success min-width-125 mx:right" name="status" style="margin-bottom: 10px" value="publish">
+
+                                      </div>
+                                      <div class="block-content block-content-full block-content-sm bg-body-light font-size-sm" style="text-align: right">
+                                          <form method="POST" action="{{url("/dream/$dream->id")}}">
+                                            @method('DELETE')
+                                            @csrf
+                                            <input type="submit" class="btn btn-rounded btn-outline-danger min-width-125 mx:right" name="status" style="margin-bottom: 10px; margin-right: 10px" value="delete">
+                                          </form>
+
+                                  </div>
+                                </div>
+                              </div>
+
+
+
+
+
+                      {{-- @if(!empty($dream->attachment[0]))
                         <div class="row">
-                        @foreach ($dream->attatchment as $file)
+                        @foreach ($dream->attachment as $file)
                         <div class="col-4">
                           <div class="box">
                             <a href="{{asset("/dream_images/".$file->location."")}}">
@@ -624,14 +739,23 @@
 @section('js_after')
 
         <script src="{{asset('js/plugins/simplemde/simplemde.min.js')}}"></script>
+        <script src="{{asset('js/plugins/select2/js/select2.js')}}"></script>
+        <script src="{{asset('js/plugins/magnific-popup/jquery.magnific-popup.min.js')}}"></script>
+        <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
+        <script src="{{asset('js/plugins/flatpickr/flatpickr.min.js')}}"></script>
 
         <!-- Page JS Helpers (Summernote + CKEditor + SimpleMDE plugins) -->
-        <script>jQuery(function(){ Codebase.helpers(['simplemde']); });</script>
+        <script>jQuery(function(){ Codebase.helpers(['simplemde', 'magnific-popup', 'select2', 'flatpickr']); });</script>
 
-        <script src="{{asset('js/plugins/flatpickr/flatpickr.min.js')}}"></script>
 
         <script>
 
+
+          $('#myDropdown .dropdown-menu').on({
+          	"click":function(e){
+                e.stopPropagation();
+              }
+          });
 
           // window.changeColour = function(value)
           // {
@@ -639,19 +763,25 @@
           //
           // }
 
-          function borderStyle(value) {
+          function borderStyle(name, value) {
             if(value != 'none'){
               document.getElementById("box").style.borderLeft = "solid";
               document.getElementById("box").style.borderLeftColor = value;
+              document.getElementById("color_selected").innerHTML = "Selected color: ";
+              document.getElementById("color_selected_hex").style.color = value;
+              document.getElementById("color_selected_hex").innerHTML = name;
             }else{
-              document.getElementById("box").style.borderLeft = "none";
+              document.getElementById("box").style.borderLeft = value;
+              document.getElementById("color_selected").innerHTML = "No color selected!";
+              document.getElementById("color_selected_hex").style.color = value;
+              document.getElementById("color_selected_hex").innerHTML = "";
             }
           }
 
           </script>
-          <script>jQuery(function(){ Codebase.helpers(['simplemde', 'select2', 'flatpickr']); });</script>
+          {{-- <script>jQuery(function(){ Codebase.helpers(['simplemde', 'select2', 'flatpickr']); });</script> --}}
 
-          <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script>
+          {{-- <script src="{{asset('js/plugins/select2/js/select2.full.min.js')}}"></script> --}}
 
           <script>
 
@@ -686,14 +816,16 @@
                      $('[name=fileUp').val(JSON.stringify(result));
                      // $('#fileUp').val(result);
                      console.log(document.getElementById('fileUp').value);
-                     alert(data.message);
-
+                     $('#update_alert').text( data.message );
+                     $('#update_alert').css("color", data.color);
 
                  }
 
             });
           }
+
           window.onbeforeunload=goodbye;
+
           $("#editForm").on("submit", function(event){
                   window.onbeforeunload = null;
           });
@@ -704,8 +836,13 @@
           // if(inputs['title'].value != inputs['title'].defaultValue){
           //   console.log(inputs['title']);
           // }
+          // $('#block_attachments').animate({height: "20px"}, 500);
 
-          function goodbye(e) {
+          </script>
+
+          <script>
+
+          function goodbye(e){
 
             if(!e) e = window.event;
             //e.cancelBubble is supported by IE - this will kill the bubbling process.
@@ -715,7 +852,7 @@
             let myForm = document.getElementById('editForm');
             let formData = new FormData(myForm);
             // var token = $('input[name=_token]');
-            console.log(formData);
+            // console.log(formData);
 
 
             document.forms["editForm"].submit();
@@ -729,10 +866,7 @@
             // console.log(select);
             // console.log(inputs['file'])
 
-            if(inputs['title'].value == inputs['title'].defaultValue && inputs['flatpickr'].value == inputs['flatpickr'].defaultValue && inputs['is_in_first_person'].value == inputs['is_in_first_person'].defaultValue && inputs['fileUp'].value == inputs['fileUp'].defaultValue
-                && textArea.value == textArea.defaultValue
-                && select['tag'].value == select['tag'].defaultValue && select['emotion'].value == select['emotion'].defaultValue && select['type'].value == select['type'].defaultValue && select['technique'].value == select['technique'].defaultValue && select['mood'].value == select['mood'].defaultValue)
-                {
+            if(inputs['title'].value == inputs['title'].defaultValue && inputs['flatpickr'].value == inputs['flatpickr'].defaultValue && inputs['is_in_first_person'].value == inputs['is_in_first_person'].defaultValue && inputs['fileUp'].value == inputs['fileUp'].defaultValue && textArea.value == textArea.defaultValue && select['tag'].value == select['tag'].defaultValue && select['emotion'].value == select['emotion'].defaultValue && select['type'].value == select['type'].defaultValue && select['technique'].value == select['technique'].defaultValue && select['mood'].value == select['mood'].defaultValue){
                   return;
             }
 
@@ -754,6 +888,7 @@
             }
 
           }
+
 
           </script>
 

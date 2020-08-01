@@ -4,6 +4,7 @@
   <link rel="stylesheet" href="{{asset('js/plugins/simplemde/simplemde.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/flatpickr/flatpickr.min.css')}}">
   <link rel="stylesheet" href="{{asset('js/plugins/select2/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('js/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}">
 
 @endsection
 
@@ -32,46 +33,81 @@
 
                             </div>
                             <div class="btn-group" role="group">
-                              <label>Select a color for your Dream! </label>
-                            <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <label id="color_selected">Select a color for your Dream!</label> &nbsp; <label id="color_selected_hex"></label>
+                            {{-- <button type="button" class="btn btn-circle btn-dual-secondary" id="page-header-options-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <div class="dropdown-menu min-width-300" aria-labelledby="page-header-options-dropdown" style="">
-                                <h5 class="h6 text-center py-10 mb-10 border-b text-uppercase">Settings</h5>
-                                <h6 class="dropdown-header">Dream Themes</h6>
-                                <div class="row no-gutters">
-                                    <div class="col-12">
+                            </button> --}}
+                            <div class="btn-group" id="myDropdown">
+                              <a class="btn btn-circle btn-dual-secondary" data-toggle="dropdown" href="#">
+                                <i class="fa fa-paint-brush"></i>
+                                <span class="caret"></span>
+                              </a>
+                              <ul class="dropdown-menu">
+                                @foreach ($colors as $color)
+                                  <li><a href="#">
+                                    <label class="css-control css-switch" style="color: {{$color->hex}}">
+                                     <input type="radio" class="css-control-input" name="color_id" id="color_{{$color->id}}" onClick="borderStyle('{{$color->name}}','{{$color->hex}}')" value="{{$color->id}}">
+                                     <span class="css-control-indicator" id="prova" style="--my-color-var: {{$color->hex}};"></span> {{$color->name}}
+                                 </label>
+                               </a>
+                             </li>
+
+
+                                    {{-- <label class="css-control css-switch">
+                                          <input type="radio" class="css-control-input" name="color_id" id="color_{{$color->id}}" onClick="borderStyle('{{$color->hex}}')" value="{{$color->id}}" >
+                                          <span class="css-control-indicator"></span> {{$color->name}}
+                                      </label>
+                                      </div> --}}
+
+                                      {{-- <script>
+                                      document.getElementById("color_{{$color->id}}").onclick = function() { ChangeColor("color_{{$color->id}}, {{$color->hex}}"); }
+                                      </script> --}}
+                                    </a>
+                                    </li>
+                              @endforeach
+                                <li class="divider"><label>Remove color</label></li>
+                                <li><a href="#">
+                                  <label class="css-control css-switch">
+                                        <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('none', 'none')" value="" >
+                                        <span class="css-control-indicator"></span> None
+                                    </label>
+
+                              </a></li>
+                              </ul>
+                            </div>
+                            {{-- <div class="dropdown-menu min-width-300" id="dropdown_color" aria-labelledby="page-header-options-dropdown" style=""> --}}
+                                {{-- <h5 class="h6 text-center py-10 mb-10 border-b text-uppercase">Settings</h5>
+                                <h6 class="dropdown-header">Dream Themes</h6> --}}
+                                {{-- <div class="row no-gutters"> --}}
+                                    {{-- <div class="col-12">
 
                                       <label class="css-control css-switch">
                                             <input type="radio" class="css-control-input" name="color_id" onClick="borderStyle('none')" value="" >
                                             <span class="css-control-indicator"></span> none
                                         </label>
-                                      </div>
-
-                                      @foreach ($colors as $color)
-                                        <div class="col-12">
+                                      </div> --}}
 
 
-                                          <label class="css-control css-switch">
-                                                <input type="radio" class="css-control-input" name="color_id" id="color_{{$color->id}}" onClick="borderStyle('{{$color->hex}}')" value="{{$color->id}}" >
-                                                <span class="css-control-indicator"></span> {{$color->name}}
-                                            </label>
-                                            </div>
 
-                                            {{-- <script>
-                                            document.getElementById("color_{{$color->id}}").onclick = function() { ChangeColor("color_{{$color->id}}, {{$color->hex}}"); }
-                                            </script> --}}
+                                {{-- <label class="col-12" for="example-colorpicker2">As Component</label>
+                                            <div class="col-lg-8">
+                                                <div class="js-colorpicker input-group" data-format="hex">
+                                                    <input type="text" class="form-control" id="example-colorpicker2" name="example-colorpicker2" value="#42a5f5">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text colorpicker-input-addon">
+                                                            <i></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div> --}}
 
-                                    @endforeach
-                                </div>
-
-                            </div>
+                            {{-- </div> --}}
 
                         </div>
                         </div>
 
                         <div class="block-content">
-                                <div class="form-group row text-center">
+                                <div class="form-group row">
                                     <div class="col-md-10">
 
                                         <!-- SimpleMDE Container -->
@@ -82,7 +118,7 @@
 
                                     </div>
 
-                                      <div class="col-md-2">
+                                      <div class="col-md-2 text-center">
 
                                             <label for="flatpickr">When did you dream it?</label>
                                             <div class="col-md-12 mx:auto text-center">
@@ -109,7 +145,7 @@
                                 </div>
 
                                 <div class="row text-center">
-                                  <div class="col-md-5">
+                                  <div class="col-md-5 text-center">
                                     <div class="box">
                                       <label>How did you feel?</label>
                                       <div class="col-12">
@@ -151,11 +187,11 @@
 
 
 
-                                <div class="form-group row text-center">
-                                  <div class="col-md-4 mx-auto">
+                                <div class="form-group row">
+                                  <div class="col-md-4 mx-auto text-center">
                                     <div class="box">
                                       <label>What kind of Dream it was?</label>
-                                      <div class="col-8 mx-auto">
+                                      <div class="col-8 mx-auto text-center">
                                         <select class="form-control" id="type" name="type_id">
                                             <option value="">...</option>
 
@@ -168,7 +204,7 @@
                                     </div>
                                   </div>
 
-                                  <div class="col-md-4 mx-auto">
+                                  <div class="col-md-4 mx-auto text-center">
                                     <div class="box">
                                       <label>What mood did you feel?</label>
                                       <div class="col-8 mx-auto">
@@ -184,15 +220,16 @@
                                     </div>
                                   </div>
 
-                                  <div class="col-md-4 mx-auto">
-                                    <label>Files</label>
+                                  <div class="col-md-4 mx-auto ">
+                                    <label>Attachments <small>(jpeg, png, jpg, pdf)</small></label>
                                         <div class="custom-file">
                                             <!-- Populating custom file input label with the selected filename (data-toggle="custom-file-input" is initialized in Helpers.coreBootstrapCustomFileInput()) -->
                                             <!-- When multiple files are selected, we use the word 'Files'. You can easily change it to your own language by adding the following to the input, eg for DE: data-lang-files="Dateien" -->
                                             <input type="file" class="custom-file-input" id="file" name="file[]" data-toggle="custom-file-input" multiple onchange="uploadFiles()">
-                                            <label class="custom-file-label" for="file">Choose files</label>
+                                            <label class="custom-file-label" for="file">Choose attachments...</label>
                                             <input type="hidden" id="fileUp" name="fileUp">
                                         </div>
+                                        <label><p id="update_alert"></p></label>
                                       </div>
                                   </div>
 
@@ -259,7 +296,7 @@
                                         <div class="custom-control custom-checkbox">
                                             <input type="hidden" class="custom-control-input" id="status_hidden" name="status" value="draft">
                                             <input type="checkbox" class="custom-control-input" id="status" name="status" value="publish">
-                                            <label class="custom-control-label" for="status">Is it a publish? </label>
+                                            <label class="custom-control-label" for="status">Do you want to publish it? </label>
                                         </div>
                                     </div>
 
@@ -301,6 +338,7 @@
 
                     </form>
                   </div>
+                  <input type="hidden" name="provax[]" id="provax">
                   </div>
 
 
@@ -342,29 +380,9 @@
 @endsection
 
 @section('js_after')
-  <script>
-  // $( document ).ready(function() {
-  // var prv =  $('textarea').val();
-  //   console.log( prv );
-  // });
-
-
-
-//NON FUNZIONANTE!!!!!
-
-
-  // function ChangeColor(id, color) {
-  //   // var clrDiv = document.getElementById(id);
-  //   // clrDiv.style.backgroundColor = color;ù
-  //   var elem = document.getElementById(id); // this is your domObj
-  //   var theCSSprop = window.getComputedStyle(elem);
-  //   // alert(window.getComputedStyle(document.getElementById(id).style.backgroundColor));
-  //   console.log(theCSSprop);
-  //   // console.log(clrDiv);
-  // }
-  </script>
 
         <script src="{{asset('js/plugins/simplemde/simplemde.min.js')}}"></script>
+        <script src="{{asset('js/plugins/select2/js/select2.js')}}"></script>
 
         <!-- Page JS Helpers (Summernote + CKEditor + SimpleMDE plugins) -->
         <script>jQuery(function(){ Codebase.helpers(['simplemde']); });</script>
@@ -373,9 +391,27 @@
 
 
       <script src="{{asset('js/plugins/flatpickr/flatpickr.min.js')}}"></script>
+      <script src="{{asset('js/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')}}"></script>
+      <script>
+//       $('.dropdown.keep-open').on({
+//     "shown.bs.dropdown": function() { this.closable = false; },
+//     "click":             function() { this.closable = true; },
+//     "hide.bs.dropdown":  function() { return this.closable; }
+// });
+      </script>
+
 
         <script>
 
+        $('#myDropdown .dropdown-menu').on({
+        	"click":function(e){
+              e.stopPropagation();
+            }
+        });
+
+        // $("#tag").select2({
+        //     closeOnSelect: false;
+        //   });
 
           // window.changeColour = function(value)
           // {
@@ -396,13 +432,22 @@
           //   // }
           // }
 
-          function borderStyle(value) {
+          function borderStyle(name, value) {
             if(value != 'none'){
 
                 //document.getElementsByClassName("css-control-indicator").style.background = value;
+                var remember = document.getElementById("prova");
+                  if (remember.checked) {
+                    remember.style.backgroundColor = "black", "important";
+                  } else {
+                    remember.style.backgroundColor = "none", "important";
 
+                  }
               document.getElementById("box").style.borderLeft = "solid";
               document.getElementById("box").style.borderLeftColor = value;
+              document.getElementById("color_selected").innerHTML = "Selected color: ";
+              document.getElementById("color_selected_hex").style.color = value;
+              document.getElementById("color_selected_hex").innerHTML = name;
             }else{
               document.getElementById("box").style.borderLeft = "none";
 
@@ -612,10 +657,86 @@
                      success: function(data)
                      {
                          result = data.path;
+                         // var formElems = $("#createForm input[type='hidden']");
+                         // formElems.each(function(i,elem) {
+                         //     $(this).val(result[i]);
+                         //     // or even better use the following faster way
+                         //     // if they are always text boxes
+                         //     // this.value = data[i];
+                         // });
+
+                      //    var insert_data_in_form =  function(result) {
+                      //     var formElems = $("#provax");
+                      //     formElems.val(function(i) {
+                      //        return result[i];
+                      //     });
+                      // };
+                      // console.log($('#provax').val());
+                      //
+                      //     var formElems = $('#provax');
+                      //     formElems.val(function(i) {
+                      //        return result[i];
+                      //     });
+                      //     console.log($('#provax').val());
+                      //
+                      //    $('#provax').append(document.getElementById('provax').value = result);
+                         // for (var i = 0; i < result.length; i++) {
+                         //   $('#provax').append(result[i]);
+                         // }
+                        //  for( var i =  ; i <3 ; i++){
+                        //    $('#tempForm').append('<input type="text" name="'+a[i]+'" id="'+b[i]+'" />);
+                        // }
+                         // document.getElementsByName('provax[]').value = ["a", "b"];
+                         $('#provax').val(JSON.stringify(result));
+
+
+
+                         // $('#provax').val(JSON.stringify(result));
+                         // for (var i = 0; i < result.length; i++) {
+                         //   document.getElementsByName("provax["+ i + "]").value = result[i];
+                         // }
+                         // document.getElementById("myText").value = result;
+                         // bgb = $('#provax').val();
+                         // console.log(bgb);
+                         // var createForm = document.forms.createForm;
+                         // var paths = createForm.elements['fileUp[]'];
+                         //
+                         // for (var i = 0; i < result.length; i++) {
+                         //   paths[i] = result[i];
+                         // }
+
+
+                           // document.getElementById('prova'+ 0).value = result[0];
+                          // document.getElementsByName('prova[]').value = result[1];
+                          //
+                          // op = document.getElementById('prova').value;
+                          // console.log(op);
+
+                          // var names = document.getElementsByName('provax' + 0).value = 'yvyvtctctctctc';
+                          // var names = document.getElementsByName('provax' + 1).value = 'bhbybyybybbb';
+                          //
+                          // var value = document.getElementsByName('provax');
+
+                          // $("#provax").each(function(index) {
+                          //     result.push($(this).val());
+                          // });
+                          // for(key=0; key < result.length; key++)  {
+                          //     names[key].value = result[key];
+                          //
+                          //     //your code goes here
+                          // }
+
+                          // vall = document.getElementById('provax');
+                          //
+                          // console.log(vall.value);
 
                          $('[name=fileUp').val(JSON.stringify(result));
                          // $('#fileUp').val(result);
-                         alert(data.message);
+
+                         $('#update_alert').text( data.message );
+                         $('#update_alert').css("color", data.color);
+                        // document.getElementById("demo").innerHTML = "Paragraph changed!";
+
 
 
                      }
@@ -822,8 +943,6 @@ function goodbye(e) {
       e.preventDefault();
   }
 
-  var prova
-
 }
 
 
@@ -854,7 +973,7 @@ function goodbye(e) {
               //   return "You have attempted to leave this page.  If you have made any changes to the fields without clicking the Save button, your changes will be lost.  Are you sure you want to exit this page?";
               // }
 
-              $('')
+
 
 
             </script>
