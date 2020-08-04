@@ -69,7 +69,7 @@ Route::middleware(['auth'])->group(function(){
       'create', 'store', 'index'
   ]);
 
-  Route::resource('/profile/img', 'UserAttatchmentController')->only([
+  Route::resource('/profile/img', 'UserAttachmentController')->only([
     'update', 'destroy'
   ]);
 
@@ -88,7 +88,6 @@ Route::middleware(['auth'])->group(function(){
 
 
 
-// Route::view('/prova', 'prova');
 
 Route::middleware(['auth', 'isAdmin'])->group(function(){
 
@@ -105,6 +104,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function(){
   Route::get('/adminpanel/dashboard' , 'AdminController@dashboard')->name('admin.dashboard');
 
   Route::get('/adminpanel/users', 'UserController@index')->name('users.table');
+
 
 
 

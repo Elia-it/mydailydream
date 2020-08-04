@@ -656,7 +656,9 @@
                      },
                      success: function(data)
                      {
+
                          result = data.path;
+                         
                          // var formElems = $("#createForm input[type='hidden']");
                          // formElems.each(function(i,elem) {
                          //     $(this).val(result[i]);

@@ -90,7 +90,12 @@ class DreamController extends Controller
 
         // if(!empty($request->file('file'))){
 
+        $fd = $request->input('fileUp');
+        $rrr = (array) $fd;
 
+        foreach ($rrr as $key) {
+          dd($key);
+        }
 
         if(!empty($request->fileUp)){
           $files_path = json_decode($request->fileUp);
